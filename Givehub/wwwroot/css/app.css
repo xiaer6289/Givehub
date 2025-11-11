@@ -1,0 +1,27 @@
+﻿
+/*------ROOT VARIABLES---------*/
+:root {
+    --color-primary: #7380ec;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-info-light: #dce1eb;
+    --color-dark: #363949;
+    --color-light: rgba(132, 139, 200, 0.18);
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+    --color-black: #000000;
+    --color-border: #e8bcba;
+    --border-radius-1: 20px;
+    --border-radius-2: 15px;
+    --success-hover: #33ed3f;
+    -danger-hover: #ff2e2e;
+    --input-hover: #007bff;
+    --primary-btn-hover: #2525e8;
+    --box-shadow: 0 2rem 3rem var(--color-light);
+    --btn-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    --box-shadow-hover: none;
+    --icon-invert: 0;
+}
