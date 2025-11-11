@@ -10,11 +10,20 @@
 </head>
 <body data-role="@Context.Session.GetString("ROle")">
     <header>
+        <img src="~/images/logo.png" alt="logo" style="width: 100px; height: 40px;">
+        <a href="#" class="header-link">About Us</a>
+        <a href="#" class="header-link">Donation</a>
+        <a href="#" class="header-link">Contact</a>
+        <a href="#" class="login-btn">Login</a>
     </header>
     <main>
         @RenderBody()
     </main>
     <footer>
+        <a href="#" class="footer-link">About us</a>
+        <a href="#" class="footer-link">Donation</a>
+        <a href="#" class="footer-link">How to fundraise</a>
+        <a href="#" class="footer-link">Contact</a>
     </footer>
 
     <script src="/js/jquery.min.js"></script>
