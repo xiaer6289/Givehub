@@ -1,6 +1,14 @@
-﻿namespace Givehub.Models
+﻿using Microsoft.EntityFrameworkCore;
+namespace Givehub.Models
 {
-    public class DB
+    public class DB : DbContext
     {
+        public DB(DbContextOptions<DB> options) : base(options)
+        {
+
+        }
+
     }
+    
+    
 }
