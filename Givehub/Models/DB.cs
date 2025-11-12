@@ -9,7 +9,7 @@ namespace Givehub.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<Admin> Admins { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Received> Receives { get; set; }
         public DbSet<Donee> Donees { get; set; }
 
     }
@@ -59,7 +59,7 @@ namespace Givehub.Models
         public string password { get; set; }
     }
 
-    public class Payment
+    public class Received
     {
         [Key]
         [Required]
@@ -68,17 +68,19 @@ namespace Givehub.Models
 
         [MaxLength(20)]
         [Required]
-        public string method { get; set; }
+        public string? method { get; set; }
 
         [Precision(10, 2)]
         [Required]
-        public decimal amount { get; set; }
+        public decimal? amount { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
         [Required]
         public DateTime date { get; set; }
 
         public string? StripeTransactionId { get; set; }
+
+        public string? items { get; set; }
     }
 
     public class Donee

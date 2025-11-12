@@ -95,3 +95,40 @@ footer {
     color: var(--color-white);
     text-decoration: none;
 }
+
+p {
+    color: var(--color-dark-variant);
+}
+
+.index {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    margin: 40px 0;
+    padding: 0 20px;
+}
+
+.intro,
+.orphane-intro,
+.elderly-intro,
+.refugees-intro,
+.conclusion {
+    width: 35%;
+    box-sizing: border-box;
+}
+
+.intro,
+.elderly-intro,
+.conclusion {
+    text-align: left;
+    align-self: flex-start;
+    padding-right: 20px;
+}
+
+.orphane-intro,
+.refugees-intro {
+    text-align: right;
+    align-self: flex-end;
+    padding-left: 20px;
+}
