@@ -11,6 +11,7 @@ namespace Givehub.Models
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Received> Receives { get; set; }
         public DbSet<Donee> Donees { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
     }
     
@@ -21,24 +22,25 @@ namespace Givehub.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [EmailAddress]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [MaxLength(11)]
         [RegularExpression(@"^01[0-9]{8,13}$", ErrorMessage = "Phone number must start with '01' and be 10 to 15 digits long.")]
-        public string phoneNo { get; set; }
+        public string PhoneNo { get; set; }
 
         [MaxLength(200)]
         [Required]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$",
         ErrorMessage = "Password must be 8 to 20 characters long, with at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*).")]
-        public string password { get; set; }
+        public string Password { get; set; }
+
+        public int AdminId { get; set; }
+        public Admin Admins { get; set; }
     }
 
     public class Admin
@@ -50,13 +52,15 @@ namespace Givehub.Models
 
         [Required]
         [EmailAddress]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [MaxLength(200)]
         [Required]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$",
         ErrorMessage = "Password must be 8 to 20 characters long, with at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*).")]
-        public string password { get; set; }
+        public string Password { get; set; }
+
+        public ICollection<User> Users { get; set; } = new List<User>();
     }
 
     public class Received
@@ -68,19 +72,22 @@ namespace Givehub.Models
 
         [MaxLength(20)]
         [Required]
-        public string? method { get; set; }
+        public string? Method { get; set; }
 
         [Precision(10, 2)]
         [Required]
-        public decimal? amount { get; set; }
+        public decimal? Amount { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
         [Required]
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
 
         public string? StripeTransactionId { get; set; }
 
-        public string? items { get; set; }
+        public string? Items { get; set; }
+
+        public int DoneeId { get; set; }
+        public Donee Donees { get; set; }
     }
 
     public class Donee
@@ -88,16 +95,37 @@ namespace Givehub.Models
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string id { get; set; }
+        public int Id { get; set; }
+
+        public string Name { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
         [Required]
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
 
-        public string? description { get; set; }
+        public string? Description { get; set; }
 
-        public string? image { get; set; }
+        public int CategoryId { get; set; }
+        public Category Categories { get; set; }  //for identify refugees, nursing home, orphanage
 
-        public string? requirements { get; set; }
+        public string Address { get; set; }
+
+        public string? Image { get; set; }
+
+        public string? Requirements { get; set; }
+
+        public ICollection<Received> Receives { get; set; } = new List<Received>();
+    }
+
+    public class Category
+    {
+        [Key]
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id;
+
+        public string Name { get; set; }
+
+        public ICollection<Donee> Donees { get; set; }
     }
 }

@@ -132,3 +132,100 @@ p {
     align-self: flex-end;
     padding-left: 20px;
 }
+
+.contact-container {
+    border: 1.5px solid #fff;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    text-align: center;
+    max-width: 800px;
+    max-height: 600px;
+    margin: 60px auto 80px auto;
+    width: 90%;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    padding-right: -100px;
+    gap: 40px;
+    box-shadow: var(--box-shadow);
+}
+
+    .contact-container:hover {
+        box-shadow: none;
+    }
+
+.contact-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contact-heading,
+.contact-desc,
+.general-line {
+    margin-bottom: 10px;
+}
+
+.contact-desc {
+    max-width: 250px;
+    max-height: 40px;
+    text-align: left;
+}
+
+.general-line,
+.email-line,
+.contact-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .contact-form input {
+        transition: all 0.3s ease;
+        border-radius: 15px;
+        border: 2px solid #fff;
+        padding: 10px;
+        margin: 5px;
+        background: #fafafa;
+        flex-shrink: 0;
+        height: 40px;
+        box-sizing: border-box;
+    }
+
+        .contact-form input:hover {
+            cursor: pointer;
+            border-color: #007bff;
+        }
+
+        .contact-form::placeholder {
+            color: #999;
+        }
+
+.checkbox-grp {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.contact-needs {
+    margin-top: 10px;
+    margin-bottom: -15px;
+}
+
+.checkbox-grp label {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-grp input[type="checkbox"] {
+    margin-right: 10px;
+    margin-top: 5px;
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" , initial-scale="1.0">
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/css/app.css" asp-append-version="true">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     @RenderSection("head", false)
     <script src="~/js/app.js"></script>
 </head>
@@ -14,7 +15,10 @@
         <a href="#" class="header-link">About Us</a>
         <a href="#" class="header-link">Donation</a>
         <a href="#" class="header-link">Contact</a>
-        <a href="#" class="login-btn">Login</a>
+        <a href="#" class="login-btn">
+            Login
+            <span class="material-symbols-outlined">login</span>
+        </a>
     </header>
     <main>
         @RenderBody()
