@@ -7,15 +7,15 @@ namespace Givehub.Models
     {
         public DB(DbContextOptions<DB> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Donor> Donors { get; set; }
         public DbSet<Admin> Admins { get; set; }
-        public DbSet<Received> Receives { get; set; }
+        public DbSet<Donation> Donations { get; set; }
         public DbSet<Donee> Donees { get; set; }
         public DbSet<Category> Categories { get; set; }
 
     }
     
-    public class User
+    public class Donor
     {
         [Key]
         [Required]
@@ -60,10 +60,12 @@ namespace Givehub.Models
         ErrorMessage = "Password must be 8 to 20 characters long, with at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*).")]
         public string Password { get; set; }
 
-        public ICollection<User> Users { get; set; } = new List<User>();
+        public ICollection<Donor> Donors { get; set; } = new List<Donor>();
+
+        public ICollection<Donee> Donees { get; set; } = new List<Donee>();
     }
 
-    public class Received
+    public class Donation
     {
         [Key]
         [Required]
@@ -114,7 +116,10 @@ namespace Givehub.Models
 
         public string? Requirements { get; set; }
 
-        public ICollection<Received> Receives { get; set; } = new List<Received>();
+        public int AdminId { get; set; }
+        public Admin Admins { get; set; }
+
+        public ICollection<Donation> Donations { get; set; } = new List<Donation>();
     }
 
     public class Category
@@ -127,5 +132,14 @@ namespace Givehub.Models
         public string Name { get; set; }
 
         public ICollection<Donee> Donees { get; set; }
+    }
+
+    public class PasswordResetToken
+    {
+        [Key]
+        public int Id { get; set; }
+        public string DonorId { get; set; }
+        public string Token { get; set; }
+        public DateTime Expiration { get; set; }
     }
 }
