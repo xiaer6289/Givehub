@@ -11,6 +11,7 @@ public class HomeController : Controller
 
     public IActionResult Contact()
     {
+        Console.WriteLine("Page triggered");
         return View();
     }
 }

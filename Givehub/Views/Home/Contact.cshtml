@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Copntact Us";
-    Layout = "_layout";
 }
 
 <div class="contact-container">
@@ -18,25 +17,25 @@
             <p>johndoe@example.com</p>
         </div>
     </div>
-    <div class="contact-form">
+    <form method="post" class="contact-form">
         <input type="text" placeholder="Name">
         <input type="text" placeholder="Phone Number">
         <input type="email" placeholder="Email">
         <div class="checkbox-grp">
             <p class="contact-needs">Needs: </p>
             <label>
-                <input type="checkbox">monetary donation</input>
+                <input type="checkbox">monetary donation
             </label>
             <label>
-                <input type="checkbox">medical supplies</input>
+                <input type="checkbox">medical supplies
             </label>
             <label>
-                <input type="checkbox">clothing and shelter</input>
+                <input type="checkbox">clothing and shelter
             </label>
             <label>
-                <input type="checkbox">basic necessities</input>
+                <input type="checkbox">basic necessities
             </label>
         </div>
-
-    </div>
+        <button type="submit" class="contact-submit-btn">Submit</button>
+    </form>
 </div>

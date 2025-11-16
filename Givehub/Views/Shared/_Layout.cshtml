@@ -12,13 +12,10 @@
 <body>
     <header>
         <img src="~/images/logo.png" alt="logo" style="width: 100px; height: 40px;">
-        <a href="#" class="header-link">About Us</a>
+        <a asp-controller="Home" asp-action="Index" class="header-link">About Us</a>
         <a href="#" class="header-link">Donation</a>
-        <a href="#" class="header-link">Contact</a>
-        <a href="#" class="login-btn">
-            Login
-            <span class="material-symbols-outlined">login</span>
-        </a>
+        <a asp-controller="Home" asp-action="Contact" class="header-link">Contact</a>
+        <a href="#" class="login-btn">Login</a>
     </header>
     <main>
         @RenderBody()

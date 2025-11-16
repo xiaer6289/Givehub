@@ -41,6 +41,8 @@ namespace Givehub.Models
 
         public int AdminId { get; set; }
         public Admin Admins { get; set; }
+
+        public ICollection<Donation> Donations { get; set; } = new List<Donation>();
     }
 
     public class Admin
@@ -90,6 +92,8 @@ namespace Givehub.Models
 
         public int DoneeId { get; set; }
         public Donee Donees { get; set; }
+
+        public int DonorId { get; set; }
     }
 
     public class Donee
