@@ -94,6 +94,7 @@ namespace Givehub.Models
         public Donee Donees { get; set; }
 
         public int DonorId { get; set; }
+        public Donor Donors { get; set; }
     }
 
     public class Donee
