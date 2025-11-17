@@ -13,8 +13,30 @@ namespace Givehub.Models
         public DbSet<Donee> Donees { get; set; }
         public DbSet<Category> Categories { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Donor → Donation: NO CASCADE (donation history must remain)
+            modelBuilder.Entity<Donation>()
+                .HasOne(d => d.Donors)
+                .WithMany(p => p.Donations)
+                .HasForeignKey(d => d.DonorId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Donee → Donation: NO CASCADE (donation history must remain)
+            modelBuilder.Entity<Donation>()
+                .HasOne(d => d.Donees)
+                .WithMany(p => p.Donations)
+                .HasForeignKey(d => d.DoneeId)
+                .OnDelete(DeleteBehavior.NoAction);
+        }
+
+
     }
-    
+
+
+
     public class Donor
     {
         [Key]
@@ -132,7 +154,7 @@ namespace Givehub.Models
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id;
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
