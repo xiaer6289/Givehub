@@ -1,3 +1,18 @@
 ﻿@{
     ViewBag.Title = "Admin Page";
+    Layout = "_EmptyLayout";
 }
+
+<h1 class="selection-title">Select an Option</h1>
+<div class="admin-selection-box">
+    <a href="#" class="selection-border">
+        <span class="material-symbols-sharp" style="font-size: 60px; padding: 10px;">manage_accounts</span>
+        <p class="category">Manage Donor</p>
+        <h6 class="selection-description">Approve or reject items donated by users.</h6>
+    </a>
+    <a asp-controller="Donee" asp-action="createDonee" class="selection-border">
+        <span class="material-symbols-sharp" style="font-size: 60px; padding: 10px;">home_health</span>
+        <p class="manage-store">Manage Donee</p>
+        <h6 class="selection-description">Create and manage donee profiles</h6>
+    </a>
+</div>

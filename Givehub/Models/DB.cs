@@ -11,20 +11,19 @@ namespace Givehub.Models
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Donee> Donees { get; set; }
-        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Donor → Donation: NO CASCADE (donation history must remain)
+            // donor to donation: no cascade
             modelBuilder.Entity<Donation>()
                 .HasOne(d => d.Donors)
                 .WithMany(p => p.Donations)
                 .HasForeignKey(d => d.DonorId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Donee → Donation: NO CASCADE (donation history must remain)
+            // Donee to Donation: no cascade
             modelBuilder.Entity<Donation>()
                 .HasOne(d => d.Donees)
                 .WithMany(p => p.Donations)
@@ -110,7 +109,7 @@ namespace Givehub.Models
 
         public string? StripeTransactionId { get; set; }
 
-        public string? Items { get; set; }
+        public Dictionary<string,int>? Items { get; set; }
 
         public int DoneeId { get; set; }
         public Donee Donees { get; set; }
@@ -134,8 +133,7 @@ namespace Givehub.Models
 
         public string? Description { get; set; }
 
-        public int CategoryId { get; set; }
-        public Category Categories { get; set; }  //for identify refugees, nursing home, orphanage
+        public string? Category { get; set; }  //for identify refugees, nursing home, orphanage
 
         public string Address { get; set; }
 
@@ -147,18 +145,6 @@ namespace Givehub.Models
         public Admin Admins { get; set; }
 
         public ICollection<Donation> Donations { get; set; } = new List<Donation>();
-    }
-
-    public class Category
-    {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public ICollection<Donee> Donees { get; set; }
     }
 
     public class PasswordResetToken

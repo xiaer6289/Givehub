@@ -1,0 +1,73 @@
+﻿@model Givehub.Models.Donee
+
+@{
+    ViewBag.Title = "Create Donee";
+    Layout = "_EmptyLayout";
+}
+
+<div class="create-donee-container">
+    <form action="post" class="create-donee-form">
+        <div class="input-wrapper">
+            <label for="name">Name: </label>
+            <input type="text" id="name" placeholder="eg. johndoe sdn bhd" class="donee-input">
+            <!-- <span></span> -->
+        </div>
+        <div class="input-wrapper">
+            <label for="category">Category: </label>
+            <select id="category" name="categoryId" class="dropdown">
+                <option value="">Select category</option>
+                <option value="">Orphanages</option>
+                <option value="">Nursing Homes</option>
+                <option value="">Refugees</option>
+            </select>
+            <!--drop down-->
+            <!-- <span></span> -->
+        </div>
+        <div class="input-wrapper">
+            <label for="address">Address: </label>
+            <input type="text" id="address" placeholder="address" class="donee-input">
+            <!-- <span></span> -->
+        </div>
+        <div class="input-wrapper">
+            <label for="requirement">Requirements: </label>
+            <input type="text" id="requirement" placeholder="Requirements" class="donee-input">
+            <!-- <span></span> -->
+        </div>
+        <div class="input-wrapper">
+            <label for="description">Description: </label>
+            <textarea row="3" type="text" id="description" placeholder="description" class="donee-input"></textarea>
+            <span></span>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="image">Image: </label>
+            <input type="file" id="image" name="imageFile" accept="image/*" class="donee-input">
+            <!-- <span></span> -->
+        </div>
+        <div class="preview">
+            <img src="" alt="preview" id="img" style="width: 200px; height: 200px; border-radius: 5px;">
+        </div>
+
+        <div class="btn-grp">
+            <button type="submit" class="submit-btn">Submit</button>
+            <a href="#" class="cancel-btn">Cancel</a>
+        </div>
+
+    </form>
+</div>
+
+<script>
+    const img = document.getElementById("img");
+    img.style.display = "none";
+
+    image.onchange = evt => {
+
+        const [file] = image.files
+        if (file) {
+            img.src = URL.createObjectURL(file);
+            img.style.display = "block";
+        }
+    }
+</script>
+
+        @*Change js to event handling*@

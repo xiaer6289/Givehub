@@ -10,4 +10,9 @@ public class DoneeController : Controller
         return View();
     }
 
+    public IActionResult CreateDonee()
+    {
+        return View();
+    }
+
 }
