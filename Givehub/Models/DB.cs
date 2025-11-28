@@ -103,7 +103,7 @@ namespace Givehub.Models
         [Required]
         public decimal? Amount { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [Required]
         public DateTime Date { get; set; }
 
