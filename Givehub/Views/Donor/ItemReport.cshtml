@@ -1,9 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Donor Report";
+    ViewBag.Title = "Item Donation Report";
     Layout = "_EmptyLayout";
 }
 
-<div class="money-report" id="MoneyReportPDF">
+<div class="money-report" id="ItemReportPDF">
     <div class="report-header">
         <img src="~/images/logo.png" alt="Givehub Logo" class="report-logo">
         <div class="report-top">
@@ -12,7 +12,7 @@
             <h5>Tel: 03-00000000</h5>
         </div>
     </div>
-    <h1 class="title">Money Donation Report</h1>
+    <h1 class="title">Item Donation Report</h1>
     <div class="output-wrapper">
         <h4>Name: </h4>
         <span>John Doe</span>
@@ -21,13 +21,14 @@
         <h4>Email: </h4>
         <span>johndoe@example.com</span>
     </div>
-    <table class="money-table-report">
+    <table class="item-table-report">
         <thead>
             <tr>
                 <th>No.</th>
                 <th>Organization Name</th>
+                <th>Donated Item</th>
+                <th>Item Quantity</th>
                 <th>Donated Date</th>
-                <th>Amount (RM)</th>
             </tr>
         </thead>
         <tbody>
@@ -35,26 +36,23 @@
                 <!--use for loop to print out the each payment-->
                 <td>1</td>
                 <td>Nursing Home</td>
+                <td>Medicine</td>
+                <td>20</td>
                 <td>2025-11-28</td>
-                <td>3000</td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>Nursing Home</td>
+                <td>Medicine</td>
+                <td>20</td>
                 <td>2025-11-28</td>
-                <td>5000</td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>Nursing Home</td>
+                <td>Medicine</td>
+                <td>20</td>
                 <td>2025-11-28</td>
-                <td>4000</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td style="text-align: right;">Total Amount:</td>
-                <td>12000</td>
             </tr>
         </tbody>
     </table>
@@ -73,7 +71,7 @@
 </div>
 
 <div class="btn-grp">
-    <button class="pdf-btn" type="button" onclick="generatePDF('MoneyReportPDF', 'Money Donation Report')" id="savePdf">
+    <button class="pdf-btn" type="button" onclick="generatePDF('ItemReportPDF', 'Item Donation Report')" id="savePdf">
         Print PDF
         <span class="material-symbols-sharp">print</span>
     </button>

@@ -458,6 +458,7 @@ p {
     justify-content: center;
     gap: 20px;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .dropdown {
@@ -702,21 +703,24 @@ p {
 
 .money-report {
     width: 100%;
+    padding-top: 0;
+    height: auto;
+    margin-bottom: 0;
+    page-break-before: auto;
 }
 
 .report-header {
     display: flex;
-    flex-direction: row;
-    margin-top: 30px;
+    flex-direction: column;
+    margin-top: 20px;
     align-items: center;
-    max-width: 54%;
-    justify-content: space-between;
+    page-break-inside: avoid;
+    page-break-after: avoid;
 }
 
 .report-logo {
-    width: 170px;
+    width: 190px;
     height: 80px;
-    margin-left: 150px;
 }
 
 .report-top {
@@ -725,6 +729,7 @@ p {
     align-items: center;
     text-align: center;
     max-width: 140px;
+    margin-top: 10px;
 }
 
 .title {
@@ -732,37 +737,64 @@ p {
     text-align: center;
 }
 
-.table-report {
+.money-table-report,
+.item-table-report {
     overflow-x: hidden;
     border-spacing: 0 30px;
     width: 100%;
+    margin-top: 20px;
+    page-break-inside: auto;
+    page-break-after: avoid;
 }
 
-    .table-report th {
-        padding-top: 30px;
+    .money-table-report th,
+    .item-table-report th {
+        padding-top: 12px;
         border-bottom: 2px solid var(--color-black);
     }
 
-    .table-report td {
+    .money-table-report td,
+    .item-table-report td {
         text-align: center;
         align-items: center;
     }
 
-    .table-report thead th:nth-child(1) {
+    .money-table-report thead th:nth-child(1) {
         width: 5%;
     }
 
-    .table-report thead th:nth-child(2) {
+    .money-table-report thead th:nth-child(2) {
         width: 50%;
     }
 
-    .table-report thead th:nth-child(3) {
+    .money-table-report thead th:nth-child(3) {
         width: 25%;
     }
 
-    .table-report thead th:nth-child(4) {
+    .money-table-report thead th:nth-child(4) {
         width: 20%;
     }
+
+    .item-table-report thead th:nth-child(1) { /*no*/
+        width: 5%;
+    }
+
+    .item-table-report thead th:nth-child(2) { /*org name*/
+        width: 20%;
+    }
+
+    .item-table-report thead th:nth-child(3) { /*item*/
+        width: 30%;
+    }
+
+    .item-table-report thead th:nth-child(4) { /*quantity*/
+        width: 10%;
+    }
+
+    .item-table-report thead th:nth-child(5) { /*date*/
+        width: 20%;
+    }
+
 
 .pdf-btn,
 .return-btn {
@@ -807,3 +839,63 @@ p {
         cursor: pointer;
         background-color: var(--color-primary-hover);
     }
+
+.output-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+    margin-top: 5px;
+    justify-content: flex-start;
+    gap: 8px;
+    page-break-inside: avoid;
+}
+
+.report-footer {
+    padding-top: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    border-top: 2px solid var(--color-black);
+    page-break-inside: avoid;
+    page-break-before: auto;
+}
+
+    .report-footer .footer-title {
+        font-weight: 500;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+.footer-signature {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    page-break-inside: avoid;
+}
+
+    .footer-signature div {
+        width: 200px;
+    }
+
+    .footer-signature hr {
+        border: none;
+        border-bottom: 1px solid black;
+        margin-bottom: 5px;
+    }
+
+.footer-note {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.report-header, 
+.output-wrapper {
+    page-break-inside: avoid;
+    page-break-after: avoid;
+}
+

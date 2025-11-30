@@ -8,4 +8,9 @@ public class DonorController : Controller
     {
         return View();
     }
+
+    public IActionResult ItemReport()
+    {
+        return View();
+    }
 }
