@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 namespace Givehub.Models
 {
     public class DB : DbContext
@@ -109,7 +110,15 @@ namespace Givehub.Models
 
         public string? StripeTransactionId { get; set; }
 
-        public Dictionary<string,int>? Items { get; set; }
+        [Column(TypeName = "nvarchar(max)")]
+        public string? ItemsJson { get; set; }
+
+        [NotMapped]
+        public Dictionary<string,int>? Items 
+        { 
+            get => string.IsNullOrEmpty(ItemsJson) ? null : JsonSerializer.Deserialize<Dictionary<string, int>>(ItemsJson);
+            set => ItemsJson = value == null ? null : JsonSerializer.Serialize(value); 
+        }
 
         public int DoneeId { get; set; }
         public Donee Donees { get; set; }
