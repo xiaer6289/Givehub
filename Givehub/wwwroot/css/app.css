@@ -237,8 +237,17 @@ p {
     height: 300px;
 }
 
+.intro,
+.orphane-intro,
+.elderly-intro,
+.refugees-intro,
+.conclusion {
+    width: 35%;
+    box-sizing: border-box;
+}
 .card:hover .car-img {
     transform: scale(1.1);
+
 }
 
 .card-body {
@@ -414,6 +423,99 @@ p {
     max-width: 60%;
     background-color: var(--color-border);
 }
+
+    .cancel-container:hover {
+        box-shadow: none;
+    }
+
+.create-donee-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: auto;
+    padding: 40px 120px;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+    .create-donee-container:hover {
+        box-shadow: none;
+    }
+
+.input-wrapper {
+    margin: 20px 20px;
+    display: flex;
+    align-items: center;
+}
+
+    .input-wrapper label {
+        width: 150px; /* <-- adjust this value */
+        font-weight: 500;
+    }
+
+    .input-wrapper .donee-input,
+    .input-wrapper select,
+    .input-wrapper textarea {
+        flex: 1;
+    }
+
+.btn-grp {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.dropdown {
+    box-sizing: border-box;
+    width: 180px;
+    text-align: center;
+    padding: 10px;
+    margin-top: -10px;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    border: 2px solid #fff;
+    background: #fafafa;
+    margin-left: 10px;
+}
+
+.cancel-btn {
+    color: black;
+    text-decoration: none;
+    background: var(--color-white);
+    border: 2px solid var(--color-danger);
+    border-radius: 12px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    height: 40px;
+    width: 140px;
+    margin-top: 15px;
+    text-align: center;
+    color: #000000;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    padding-top: 9px;
+}
+
+    .cancel-btn:hover {
+        background: var(--color-danger);
+        cursor: pointer;
+    }
+
+.preview {
+    display: flex;
+    justify-content: center;
+}
+
+
+.input-wrapper textarea,
+.input-wrapper input[type="file"] {
+    align-items: center;
+    padding: 10px;
+}
+
 
     .cancel-container:hover {
         box-shadow: none;
@@ -899,87 +1001,362 @@ p {
     page-break-after: avoid;
 }
 
-.donee-top-actions {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
+
+/*-----------------------------Items page css----------------------------------------------*/
+.item-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%);
+    min-height: 100vh;
 }
 
-.donee-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+.item-container h1 {
+    color: #203748;
+    text-align: center;
 }
 
-.donee-card {
-    width: 350px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.item-container p {
+    color: #718096;
+    text-align: center;
+}
+
+.item-container {
+    width: 60%;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.item-span {
+    border: 2px solid;
+    border-radius: 2%;
+    border-color: black;
+    padding: 5px;
+}
+
+.donation-entry-form input {
+    width: 200px;
+    height: 30px;
+    padding: 8px;
+}
+
+.donate-button {
+    background-color: var(--primary-btn-hover);
+    cursor: pointer;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 3px;
+    font-size: 16px;
+    width: 166px;
+}
+
+.item-wrapping {
+    display: flex;
+    font-size: large;
+    justify-content: center;
+}
+
+.donation-form {
+    padding: 10px;
+    outline: 1px solid gray;
+    margin: 1px 0;
+    overflow-x: hidden;
+}
+
+.donation-form label {
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.donation-entry-form {
+    margin: 20px auto; /* center the .form box */
+    display: flex;
+    flex-direction: column; /* stack items vertically */
+    align-items: center; /* center all child elements */
+    gap: 15px;
+    align-items: center;
+}
+
+.item-container * {
+    padding: 10px;
+}
+
+
+.add-new-container {
+    margin-right: 20px;
+}
+
+.add-more-button {
+    background-color: rgb(29, 178, 69);
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    border-radius: 3px;
+}
+
+.remove-donation-button {
+    color: rgb(5, 0, 0);
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.donation-entry {
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.donation-form {
+    margin-left: 50px
+}
+
+.donation-entry:nth-child(2) .remove-donation-button {
+    display: none;
+}
+
+.donation-entry:nth-child(2) {
+    margin-right: 78px
+}
+
+.button-section {
+    display: flex;
+    gap: 50px;
+}
+
+.slogan {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.slogan-icon {
+    font-size: 40px;
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: center; /* center vertically */
+}
+
+.donation-entry-form {
+    outline: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.donation-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: auto;
+    margin-bottom: 0px;
+}
+
+
+.delivery-date label {
+    font-weight: bold;
+}
+
+/*-------------------------------------------Item page css End--------------------------------------*/
+
+
+/*------------------------------------------ Donation History Page--------------------------------  */
+.donation-history-table th {
+    outline: 1px solid black;
+}
+
+/*-------------------------------- Donation History Page End-------------------------------- */
+
+/*------LOGIN REGISTER START---------*/
+
+.login-text {
+    text-align: center;
+}
+
+.login-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.register-title {
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 0%;
+    margin-bottom: 25px;
+}
+
+.login-slogan {
+    margin-bottom: 25px;
+    font-size: 20px
+}
+
+.login-border-header {
+    text-align: center;
+    margin-top: 22px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.login-border, .register-border {
+    overflow-y: hidden;
+    border: 2px solid #000000;
+    border-radius: 30px;
+    width: 458px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.);
+}
+
+.login-container, .register-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    margin-top: 120px;
 }
 
-.donee-img-wrapper {
-    width: 100%;
-    height: 150px;
-    overflow: hidden;
-    margin-bottom: 10px;
+    .login-container * {
+        color: #000000;
+    }
+
+.login-btn-div, .register-btn-div {
+    display: flex;
+    justify-content: center;
 }
 
-.donee-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
+.login-page-btn, .register-btn {
+    border-radius: 12px;
+    font-size: 16px;
+    text-align: center;
+    width: 75%;
+    height: 35px;
+    padding: 5px;
+    margin-top: 15px;
+    margin-bottom:10px;
+    background: #3f3fd1;
 }
 
-.donee-img-placeholder {
-    width: 100%;
-    height: 100%;
+.register-grp, .login-grp {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.register-url, .login-url {
+    color: #7380ec;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    margin: 0px;
+}
+
+.email-input, .password-input, .name-input, .phone-input {
+    width: 95%;
+    border-radius: 12px;
+    border-color: #dce1eb !important;
+}
+
+.register-form{
+    padding: 25px
+}
+
+/*------LOGIN REGISTER END---------*/
+
+/*----Forgot and reset password start----*/
+.forgot-container, .reset-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #eee;
-    border-radius: 5px;
-    color: #777;
-    font-size: 14px;
+    /* height: 100vh; */
+
+    max-width: 1200px;
+    margin: auto;
+    gap: 40px;
 }
 
-.donee-info p {
-    margin: 5px 0;
-    font-size: 14px;
+.forgot-image-box, .reset-image-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
-.edit-btn {
-    background-color: #7380ec;
-    color: #fff;
+.forgot-image, .reset-image {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+}
+
+.forgot-form, .reset-form {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.password-text p,
+.password-text label {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.password-text input {
+    width: 100%;
+    padding: 10px 5px;
+    margin-top: 20px;
     border: none;
-    border-radius: 12px;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    margin-top: 20px;
 }
 
-    .edit-btn:hover {
-        background-color: #5a63d8;
-    }
-
-.delete-btn {
-    background-color: #ff7782;
-    color: #fff;
+.send-link-btn, .reset-btn {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    margin-top: 10px;
     border: none;
-    border-radius: 12px;
-    padding: 10px 20px;
-    font-size: 14px;
+    border-radius: 25px;
+    font-size: 16px;
+    background: #3f3fd1;
+    color: white;
     cursor: pointer;
-    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: 0.2s ease;
 }
 
-    .delete-btn:hover {
-        background-color: #ff505f;
-    }
+.link-signin {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 20px;
+}
 
+.reset-password-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.reset-password-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.reset-password-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000;
+    text-align: center;
+}
+
+/*----Forgot and reset password end----*/
+
+* {
+/*     outline: solid 1px red; */
+}
