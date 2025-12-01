@@ -237,8 +237,17 @@ p {
     height: 300px;
 }
 
+.intro,
+.orphane-intro,
+.elderly-intro,
+.refugees-intro,
+.conclusion {
+    width: 35%;
+    box-sizing: border-box;
+}
 .card:hover .car-img {
     transform: scale(1.1);
+
 }
 
 .card-body {
@@ -414,6 +423,99 @@ p {
     max-width: 60%;
     background-color: var(--color-border);
 }
+
+    .cancel-container:hover {
+        box-shadow: none;
+    }
+
+.create-donee-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: auto;
+    padding: 40px 120px;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+    .create-donee-container:hover {
+        box-shadow: none;
+    }
+
+.input-wrapper {
+    margin: 20px 20px;
+    display: flex;
+    align-items: center;
+}
+
+    .input-wrapper label {
+        width: 150px; /* <-- adjust this value */
+        font-weight: 500;
+    }
+
+    .input-wrapper .donee-input,
+    .input-wrapper select,
+    .input-wrapper textarea {
+        flex: 1;
+    }
+
+.btn-grp {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.dropdown {
+    box-sizing: border-box;
+    width: 180px;
+    text-align: center;
+    padding: 10px;
+    margin-top: -10px;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    border: 2px solid #fff;
+    background: #fafafa;
+    margin-left: 10px;
+}
+
+.cancel-btn {
+    color: black;
+    text-decoration: none;
+    background: var(--color-white);
+    border: 2px solid var(--color-danger);
+    border-radius: 12px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    height: 40px;
+    width: 140px;
+    margin-top: 15px;
+    text-align: center;
+    color: #000000;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    padding-top: 9px;
+}
+
+    .cancel-btn:hover {
+        background: var(--color-danger);
+        cursor: pointer;
+    }
+
+.preview {
+    display: flex;
+    justify-content: center;
+}
+
+
+.input-wrapper textarea,
+.input-wrapper input[type="file"] {
+    align-items: center;
+    padding: 10px;
+}
+
 
     .cancel-container:hover {
         box-shadow: none;
@@ -899,3 +1001,164 @@ p {
     page-break-after: avoid;
 }
 
+
+/*-----------------------------Items page css----------------------------------------------*/
+.item-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%);
+    min-height: 100vh;
+}
+
+.item-container h1 {
+    color: #203748;
+    text-align: center;
+}
+
+.item-container p {
+    color: #718096;
+    text-align: center;
+}
+
+.item-container {
+    width: 60%;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.item-span {
+    border: 2px solid;
+    border-radius: 2%;
+    border-color: black;
+    padding: 5px;
+}
+
+.donation-entry-form input {
+    width: 200px;
+    height: 30px;
+    padding: 8px;
+}
+
+.donate-button {
+    background-color: var(--primary-btn-hover);
+    cursor: pointer;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 3px;
+    font-size: 16px;
+    width: 166px;
+}
+
+.item-wrapping {
+    display: flex;
+    font-size: large;
+    justify-content: center;
+}
+
+.donation-form {
+    padding: 10px;
+    outline: 1px solid gray;
+    margin: 1px 0;
+    overflow-x: hidden;
+}
+
+.donation-form label {
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.donation-entry-form {
+    margin: 20px auto; /* center the .form box */
+    display: flex;
+    flex-direction: column; /* stack items vertically */
+    align-items: center; /* center all child elements */
+    gap: 15px;
+    align-items: center;
+}
+
+.item-container * {
+    padding: 10px;
+}
+
+
+.add-new-container {
+    margin-right: 20px;
+}
+
+.add-more-button {
+    background-color: rgb(29, 178, 69);
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    border-radius: 3px;
+}
+
+.remove-donation-button {
+    color: rgb(5, 0, 0);
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.donation-entry {
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.donation-form {
+    margin-left: 50px
+}
+
+.donation-entry:nth-child(2) .remove-donation-button {
+    display: none;
+}
+
+.donation-entry:nth-child(2) {
+    margin-right: 78px
+}
+
+.button-section {
+    display: flex;
+    gap: 50px;
+}
+
+.slogan {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.slogan-icon {
+    font-size: 40px;
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: center; /* center vertically */
+}
+
+.donation-entry-form {
+    outline: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.donation-header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: auto;
+    margin-bottom: 0px;
+}
+
+
+.delivery-date label {
+    font-weight: bold;
+}
+
+/*-------------------------------------------Item page css End--------------------------------------*/
+
+
+/*------------------------------------------ Donation History Page--------------------------------  */
+.donation-history-table th {
+    outline: 1px solid black;
+}
+
+/*-------------------------------- Donation History Page End-------------------------------- */
