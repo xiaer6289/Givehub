@@ -1,0 +1,80 @@
+﻿<link rel="stylesheet" href="app.css" />
+
+@{
+    ViewBag.Title = "Register Page";
+    Layout = "_EmptyLayout";
+}
+
+<div class="register-container">
+    <p class="register-title">Register Form</p>
+
+    <div class="register-border">
+        <form method="post" asp-controller="Account" asp-action="Register" class="register-form">
+            <div>
+                <div class="input-wrapper">
+                    <label for="name">Name: </label>
+                    <input type="text" id="name" name="Name" class="name-input" placeholder="John Doe" required>
+                </div>
+            </div>
+            <div>
+                <div class="input-wrapper">
+                    <label for="email">Email: </label>
+                    <input type="email" id="email" name="email" class="email-input" placeholder="johndoe@example.com" required>
+                </div>
+
+                <!-- @if (ViewBag.EmailError != null)
+                {
+                        <span style="color: red; font-size: 11px; margin-top: 4px; display: block; margin-left: 160px;">
+                            @ViewBag.EmailError
+                        </span>
+                }
+ -->
+            </div>
+            <div>
+                <div class="input-wrapper">
+                    <label for="phoneNo">Phone No: </label>
+                    <input type="text" id="phoneNo" name="phoneNo" class="phone-input" placeholder="Enter Phone No" required>
+                </div>
+
+                <!-- @if (ViewBag.PhoneError != null)
+                {
+                        <span style="color: red; font-size: 11px; margin-top: 4px; display: block; margin-left: 180px;">
+                            @ViewBag.PhoneError
+                        </span>
+                }
+ -->
+            </div>
+            <div>
+                <div class="input-wrapper">
+                    <label for="password">Password: </label>
+                    <input type="password" id="password" name="password" class="password-input" placeholder="Enter Password" required>
+                </div>
+
+                <!-- @if (ViewBag.PasswordError != null)
+                {
+                        <span style="color: red; font-size: 11px; margin-top: 4px; display: block; white-space: normal; max-width: 300px; margin-left: 160px;">
+                            @ViewBag.PasswordError
+                        </span>
+                }
+ -->
+
+            </div>
+            <div>
+                <div class="input-wrapper">
+                    <label for="confirm-password">Confirm Password: </label>
+                    <input type="password" id="confirm-password" name="confirm-password" class="password-input" placeholder="Confirm Password" required>
+                </div>
+            </div>
+
+            <div class="register-btn-div">
+                <button type="submit" method="post" class="register-btn">®️ Register</button>
+            </div>
+
+            <p class="login-grp">
+                Already have an account?
+                <a asp-controller="Account" asp-action="Login" class="login-url">Sign In</a>
+            </p>
+            </p>
+        </form>
+    </div>
+</div>

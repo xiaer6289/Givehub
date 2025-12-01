@@ -11,14 +11,14 @@
 
 </head>
 <body>
-    <header>
+    <header>    
         <a asp-controller="Home" asp-action="Index" class="header-link">
             <img src="~/images/logo.png" alt="logo" style="width: 100px; height: 40px;">
         </a>
         <a asp-controller="Home" asp-action="Index" class="header-link">About Us</a>
         <a asp-controller="Home" asp-action="Donation" class="header-link">Donation</a>
         <a asp-controller="Home" asp-action="Contact" class="header-link">Contact</a>
-        <a href="#" class="login-btn">Login</a>
+        <a asp-controller="Account" asp-action="Login" class="login-btn">Login</a>
     </header>
     <main>
         @RenderBody()

@@ -1162,3 +1162,201 @@ p {
 }
 
 /*-------------------------------- Donation History Page End-------------------------------- */
+
+/*------LOGIN REGISTER START---------*/
+
+.login-text {
+    text-align: center;
+}
+
+.login-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.register-title {
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 0%;
+    margin-bottom: 25px;
+}
+
+.login-slogan {
+    margin-bottom: 25px;
+    font-size: 20px
+}
+
+.login-border-header {
+    text-align: center;
+    margin-top: 22px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.login-border, .register-border {
+    overflow-y: hidden;
+    border: 2px solid #000000;
+    border-radius: 30px;
+    width: 458px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.);
+}
+
+.login-container, .register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 120px;
+}
+
+    .login-container * {
+        color: #000000;
+    }
+
+.login-btn-div, .register-btn-div {
+    display: flex;
+    justify-content: center;
+}
+
+.login-page-btn, .register-btn {
+    border-radius: 12px;
+    font-size: 16px;
+    text-align: center;
+    width: 75%;
+    height: 35px;
+    padding: 5px;
+    margin-top: 15px;
+    margin-bottom:10px;
+    background: #3f3fd1;
+}
+
+.register-grp, .login-grp {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.register-url, .login-url {
+    color: #7380ec;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    margin: 0px;
+}
+
+.email-input, .password-input, .name-input, .phone-input {
+    width: 95%;
+    border-radius: 12px;
+    border-color: #dce1eb !important;
+}
+
+.register-form{
+    padding: 25px
+}
+
+/*------LOGIN REGISTER END---------*/
+
+/*----Forgot and reset password start----*/
+.forgot-container, .reset-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; */
+
+    max-width: 1200px;
+    margin: auto;
+    gap: 40px;
+}
+
+.forgot-image-box, .reset-image-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.forgot-image, .reset-image {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+}
+
+.forgot-form, .reset-form {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.password-text p,
+.password-text label {
+    font-size: 32px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.password-text input {
+    width: 100%;
+    padding: 10px 5px;
+    margin-top: 20px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.send-link-btn, .reset-btn {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    background: #3f3fd1;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: 0.2s ease;
+}
+
+.link-signin {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.reset-password-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.reset-password-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.reset-password-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000;
+    text-align: center;
+}
+
+/*----Forgot and reset password end----*/
+
+* {
+/*     outline: solid 1px red; */
+}
