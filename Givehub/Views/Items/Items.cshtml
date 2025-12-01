@@ -1,0 +1,52 @@
+﻿<link rel="stylesheet" href="app.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
+<body class="item-page">
+    <div class="item-container">
+        <h1>Make a Difference Today</h1>
+        <p>Your donations help families in need. Every contribution counts.</p>
+        <div class="slogan">
+            <div class="slogan-item">
+                <div class="slogan-icon">⚡</div>
+                <div class="slogan-label">Fast & Easy</div>
+            </div>
+            <div class="slogan-item">
+                <div class="slogan-icon">🎯</div>
+                <div class="slogan-label">Direct Impact</div>
+            </div>
+            <div class="slogan-item">
+                <div class="slogan-icon">🔒</div>
+                <div class="slogan-label">Secure & Trusted</div>
+            </div>
+        </div>
+
+        <div class="form" id="donation-wrapper">
+            <div class="donation-header">Donate Items :</div>
+            <div class="donation-entry">
+                <form class="donation-form">
+                    <label for="ItemName">Choose an item: </label>
+                    <select id="ItemName" name="ItemName">
+                        <option value="rice">Rice</option>
+                        <option value="clothes">Clothes</option>
+                        <option value="shoes">Shoes</option>
+                    </select>
+                    <label for="Quantity" class="quantity">Quantity: </label>
+                    <input type="number" name="quantity" min="1" />
+                </form>
+                <div class="remove-donation-button">
+                    <span class="material-symbols-sharp">delete</span>
+                </div>
+            </div>
+            <div class="delivery-date">
+                <label type=delivery-date>Select delivery date:</label>
+                <input type="date" id="delivery-date">
+            </div>
+            <div class="button-section">
+                <button class="add-more-button" id="add-more-button">
+                    + Add New Donation
+                </button>
+                <button type="submit" class="donate-button">Donate</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="~/js/app.js"></script>
