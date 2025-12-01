@@ -18,8 +18,13 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult SendContactForm(ContactFormDTO form)
+    public IActionResult Contact(ContactFormDTO form)
     {
+        if (!ModelState.IsValid)
+        {
+            TempData["Error"] = "Please fill in all fields correctly";
+            return View(form);
+        }
         string toEmail = "xiaer6289@gmail.com";
         string fromEmail = "noreply@yourdomain.com";
 
@@ -37,10 +42,11 @@ public class HomeController : Controller
 
         using (var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525))
         {
-            client.Credentials = new NetworkCredential("", "");
+            client.Credentials = new NetworkCredential("e44055254a42c6", "249e21fa08254e");
             client.EnableSsl = true;
             client.Send(message);
-        };
+        }
+        ;
 
         TempData["Success"] = "Your Request has been sent successfully!";
         return RedirectToAction("Contact");

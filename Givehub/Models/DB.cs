@@ -110,14 +110,14 @@ namespace Givehub.Models
 
         public string? StripeTransactionId { get; set; }
 
-        [Column(TypeName = "nvarchar(max)")]
+        [Column(TypeName = "nvarchar(max)")] // type for json purpose
         public string? ItemsJson { get; set; }
 
         [NotMapped]
         public Dictionary<string,int>? Items 
         { 
-            get => string.IsNullOrEmpty(ItemsJson) ? null : JsonSerializer.Deserialize<Dictionary<string, int>>(ItemsJson);
-            set => ItemsJson = value == null ? null : JsonSerializer.Serialize(value); 
+            get => string.IsNullOrEmpty(ItemsJson) ? null : JsonSerializer.Deserialize<Dictionary<string, int>>(ItemsJson);  //convert json string to object
+            set => ItemsJson = value == null ? null : JsonSerializer.Serialize(value);  //convert object to json string
         }
 
         public int DoneeId { get; set; }
