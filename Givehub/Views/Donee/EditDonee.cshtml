@@ -1,0 +1,89 @@
+﻿@model Givehub.Models.ViewModels.DoneeVM
+@{
+    ViewBag.Title = "Edit Donee";
+    Layout = "_EmptyLayout";
+}
+
+<div class="create-donee-container">
+    <form asp-action="EditDonee" method="post" enctype="multipart/form-data" class="create-donee-form">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Image" /> 
+
+        <div class="input-wrapper">
+            <label for="name">Name: </label>
+            <input asp-for="Name" id="name" placeholder="eg. johndoe sdn bhd" class="donee-input" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="category">Category: </label>
+            <select asp-for="Category" id="category" class="dropdown">
+                <option value="">Select category</option>
+                <option value="Orphanages">Orphanages</option>
+                <option value="Nursing Homes">Nursing Homes</option>
+                <option value="Refugees">Refugees</option>
+            </select>
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="address">Address: </label>
+            <input asp-for="Address" id="address" placeholder="address" class="donee-input" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="requirement">Requirements: </label>
+            <input asp-for="Requirements" id="requirement" placeholder="Requirements" class="donee-input" />
+            <span asp-validation-for="Requirements" class="text-danger"></span>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="description">Description: </label>
+            <textarea asp-for="Description" rows="3" id="description" placeholder="description" class="donee-input"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="input-wrapper">
+            <label>Current / Preview Image:</label>
+            <div class="donee-img-wrapper">
+                <img id="img" src="@Url.Content(Model.Image ?? "")" class="donee-img" alt="Donee Image" />
+            </div>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="image">Upload New Image (optional):</label>
+            <input type="file" id="image" name="ImageFile" accept="image/*" class="donee-input" />
+        </div>
+
+        <div class="btn-grp">
+            <button type="submit" class="submit-btn">Update</button>
+            <a href="@Url.Action("DoneeHomePage", "Donee")" class="cancel-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    const img = document.getElementById("img");
+    const imageInput = document.getElementById("image");
+    const oldImage = '@Url.Content(Model.Image ?? "")';
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (oldImage !== "") {
+            img.src = oldImage;
+            img.style.display = "block";
+        } else {
+            img.style.display = "none";
+        }
+    });
+
+    imageInput.onchange = evt => {
+        const [file] = imageInput.files;
+        if (file) {
+            img.src = URL.createObjectURL(file);
+            img.style.display = "block";
+        }
+    };
+</script>
+

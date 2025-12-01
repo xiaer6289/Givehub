@@ -1,3 +1,60 @@
 ﻿@{
     ViewBag.Title = "Donee Page";
 }
+@model IEnumerable<Givehub.Models.Donee>
+
+<h2>Donee Page</h2>
+
+<div class="donee-top-actions">
+    <a asp-action="CreateDonee" class="custom-btn">Create Donee</a>
+</div>
+
+<div class="donee-grid">
+    @foreach (var d in Model)
+    {
+        <div class="donee-card">
+            <div class="donee-img-wrapper">
+                @if (!string.IsNullOrEmpty(d.Image))
+                {
+                    <img src="@Url.Content(d.Image)" class="donee-img" alt="@d.Name" />
+                }
+                else
+                {
+                    <div class="donee-img-placeholder">No Image</div>
+                }
+            </div>
+
+            <div class="donee-info">
+                <h3>@(d.Name ?? "-")</h3>
+                <p><strong>Date:</strong> @(d.Date != null ? d.Date.ToString("yyyy-MM-dd HH:mm") : "-")</p>
+                <p><strong>Category:</strong> @(d.Category ?? "-")</p>
+                <p><strong>Address:</strong> @(d.Address ?? "-")</p>
+                <p><strong>Requirements:</strong> @(d.Requirements ?? "-")</p>
+                <p><strong>Description:</strong> @(d.Description ?? "-")</p>
+            </div>
+
+            <div class="btn-grp">
+                <a asp-action="EditDonee" asp-route-id="@d.Id" class="edit-btn">View</a>
+                <a asp-action="EditDonee" asp-route-id="@d.Id" class="edit-btn">Update</a>
+
+                <form asp-action="DeleteDonee" method="post" style="display:inline;" onsubmit="return confirmDelete('@d.Name')">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@d.Id" />
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </div>
+
+            <script>
+                function confirmDelete(name) {
+                    return confirm(`Are you sure you want to delete "${name}"? This action cannot be undone.`);
+                }
+            </script>
+
+
+        </div>
+    }
+</div>
+
+
+
+
