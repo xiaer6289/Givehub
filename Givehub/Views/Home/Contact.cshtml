@@ -1,7 +1,17 @@
 ﻿@{
-    ViewBag.Title = "Copntact Us";
+    ViewBag.Title = "Contact Us";
 }
-
+@* <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script> *@
+@* <script type="text/javascript">
+   (function(){
+      emailjs.init({
+         publicKey: "",
+      });
+   })();
+</script> *@
 <div class="contact-container">
     <div class="contact-wrapper">
         <div class="contact-header">
@@ -17,25 +27,25 @@
             <p>johndoe@example.com</p>
         </div>
     </div>
-    <form method="post" class="contact-form">
-        <input type="text" placeholder="Name">
-        <input type="text" placeholder="Phone Number">
-        <input type="email" placeholder="Email">
+    <form method="post" class="contact-form" asp-controller="home" asp-action="SendContactForm">
+        <input type="text" placeholder="Name" name="Name" required>
+        <input type="text" placeholder="Phone Number" name="PhoneNo" required>
+        <input type="email" placeholder="Email" name="Email" required>
         <div class="checkbox-grp">
             <p class="contact-needs">Needs: </p>
             <label>
-                <input type="checkbox">monetary donation
+                <input type="checkbox" name="Needs" value="Monetary Donation">Monetary Donation
             </label>
             <label>
-                <input type="checkbox">medical supplies
+                <input type="checkbox" name="Needs" value="Medical Supplies">Medical Supplies
             </label>
             <label>
-                <input type="checkbox">clothing and shelter
+                <input type="checkbox" name="Needs" value="Clothing and Shelter">Clothing and Shelter
             </label>
             <label>
-                <input type="checkbox">basic necessities
+                <input type="checkbox" name="Needs" value="Basic Neccessities">Basic Necessities
             </label>
         </div>
-        <button type="submit" class="contact-submit-btn">Submit</button>
+        <button type="submit" class="submit-btn">Submit</button>
     </form>
 </div>

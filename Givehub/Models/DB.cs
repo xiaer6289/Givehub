@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 namespace Givehub.Models
 {
     public class DB : DbContext
@@ -11,20 +12,19 @@ namespace Givehub.Models
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Donee> Donees { get; set; }
-        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Donor → Donation: NO CASCADE (donation history must remain)
+            // donor to donation: no cascade
             modelBuilder.Entity<Donation>()
                 .HasOne(d => d.Donors)
                 .WithMany(p => p.Donations)
                 .HasForeignKey(d => d.DonorId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Donee → Donation: NO CASCADE (donation history must remain)
+            // Donee to Donation: no cascade
             modelBuilder.Entity<Donation>()
                 .HasOne(d => d.Donees)
                 .WithMany(p => p.Donations)
@@ -104,13 +104,21 @@ namespace Givehub.Models
         [Required]
         public decimal? Amount { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [Required]
         public DateTime Date { get; set; }
 
         public string? StripeTransactionId { get; set; }
 
-        public string? Items { get; set; }
+        [Column(TypeName = "nvarchar(max)")]
+        public string? ItemsJson { get; set; }
+
+        [NotMapped]
+        public Dictionary<string,int>? Items 
+        { 
+            get => string.IsNullOrEmpty(ItemsJson) ? null : JsonSerializer.Deserialize<Dictionary<string, int>>(ItemsJson);
+            set => ItemsJson = value == null ? null : JsonSerializer.Serialize(value); 
+        }
 
         public int DoneeId { get; set; }
         public Donee Donees { get; set; }
@@ -134,8 +142,7 @@ namespace Givehub.Models
 
         public string? Description { get; set; }
 
-        public int CategoryId { get; set; }
-        public Category Categories { get; set; }  //for identify refugees, nursing home, orphanage
+        public string? Category { get; set; }  //for identify refugees, nursing home, orphanage
 
         public string Address { get; set; }
 
@@ -147,18 +154,6 @@ namespace Givehub.Models
         public Admin Admins { get; set; }
 
         public ICollection<Donation> Donations { get; set; } = new List<Donation>();
-    }
-
-    public class Category
-    {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public ICollection<Donee> Donees { get; set; }
     }
 
     public class PasswordResetToken

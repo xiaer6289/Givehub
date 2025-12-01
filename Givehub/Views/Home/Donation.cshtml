@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Donation";
+}
+<div class="page-search">
+    <p class="pagination-count">
+        Page <span>1</span> of <span>1</span>
+    </p>
+
+    <form method="get" class="search">
+        <input class="search-input-box" type="search" id="search" name="search" placeholder="Search by name or location" th:value="${search}">
+        <span class="material-symbols-sharp" style="padding:5px;">search</span>
+    </form>
+</div>
+
+<div class="needs-table">
+    <a href="" class="needs-wrapper">
+        <img src="~/images/img3.png" alt="image">
+        <p>Sunway Sanctuary</p>
+        <p>Nursing Home</p>
+        <p>Kuala lumpur</p>
+    </a>
+    <a href="" class="needs-wrapper">
+        <img src="~/images/img4.png" alt="image">
+        <p>Sunway Sanctuary</p>
+        <p>Nursing Home</p>
+        <p>Kuala lumpur</p>
+    </a>
+    <a href="" class="needs-wrapper">
+        <img src="~/images/img5.png" alt="image">
+        <p>Sunway Sanctuary</p>
+        <p>Nursing Home</p>
+        <p>Kuala lumpur</p>
+    </a>
+    <a href="" class="needs-wrapper">
+        <img src="~/images/img7.png" alt="image">
+        <p>Sunway Sanctuary</p>
+        <p>Orpahanage</p>
+        <p>Kuala lumpur</p>
+    </a>
+    <a href="" class="needs-wrapper">
+        <img src="~/images/img6.png" alt="image">
+        <p>Sunway Sanctuary</p>
+        <p>Orphanage</p>
+        <p>Kuala lumpur</p>
+    </a>
+    <a href="" class="needs-wrapper">
+        <img src="~/images/img8.png" alt="image">
+        <p>Sunway Sanctuary</p>
+        <p>Orpahange</p>
+        <p>Kuala lumpur</p>
+    </a>
+</div>
+
+<div class="pagination">
+    <a>
+        Prev
+    </a>
+
+    <span th:each="i : ${#numbers.sequence(1, totalPages)}" style="padding: 40px 10px;">
+        <a>1</a>
+    </span>
+
+    <a>
+        Next
+    </a>
+</div>
