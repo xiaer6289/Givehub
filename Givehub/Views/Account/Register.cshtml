@@ -1,79 +1,85 @@
-﻿<link rel="stylesheet" href="app.css" />
-
+﻿@model Givehub.Models.RegisterVM
+<link rel="stylesheet" href="app.css" />
 @{
     ViewBag.Title = "Register Page";
     Layout = "_EmptyLayout";
 }
-
-<div class="register-container">
+<div class="register-container center-container">
     <p class="register-title">Register Form</p>
-
     <div class="register-border">
         <form method="post" asp-controller="Account" asp-action="Register" class="register-form">
+            @Html.AntiForgeryToken()
+            
+            @* Display success message *@
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            
+            @* Name *@
             <div>
                 <div class="input-wrapper">
                     <label for="name">Name: </label>
-                    <input type="text" id="name" name="Name" class="name-input" placeholder="John Doe" required>
+                    <input type="text" id="name" asp-for="Name" class="name-input" placeholder="John Doe">
                 </div>
+                
+                @* Vm validate  *@
+                <span asp-validation-for="Name" class="text-error"></span>
             </div>
+            
+            @* Email *@
             <div>
                 <div class="input-wrapper">
                     <label for="email">Email: </label>
-                    <input type="email" id="email" name="email" class="email-input" placeholder="johndoe@example.com" required>
+                    <input type="email" id="email" asp-for="Email" class="email-input" placeholder="johndoe@example.com">
                 </div>
-
-                <!-- @if (ViewBag.EmailError != null)
+                <span asp-validation-for="Email" class="text-error"></span>
+                @if (ViewBag.EmailError != null)
                 {
-                        <span style="color: red; font-size: 11px; margin-top: 4px; display: block; margin-left: 160px;">
-                            @ViewBag.EmailError
-                        </span>
+                    <span class="text-error">@ViewBag.EmailError</span>
                 }
- -->
             </div>
+            
+            @* PhoneNo *@
             <div>
                 <div class="input-wrapper">
                     <label for="phoneNo">Phone No: </label>
-                    <input type="text" id="phoneNo" name="phoneNo" class="phone-input" placeholder="Enter Phone No" required>
+                    <input type="text" id="phoneNo" asp-for="PhoneNo" class="phone-input" placeholder="Enter Phone No">
                 </div>
-
-                <!-- @if (ViewBag.PhoneError != null)
+                <span asp-validation-for="PhoneNo" class="text-error"></span>
+                @if (ViewBag.PhoneError != null)
                 {
-                        <span style="color: red; font-size: 11px; margin-top: 4px; display: block; margin-left: 180px;">
-                            @ViewBag.PhoneError
-                        </span>
+                    <span class="text-error">@ViewBag.PhoneError</span>
                 }
- -->
             </div>
+            
+            @* Password *@
             <div>
                 <div class="input-wrapper">
                     <label for="password">Password: </label>
-                    <input type="password" id="password" name="password" class="password-input" placeholder="Enter Password" required>
+                    <input type="password" id="password" asp-for="Password" class="password-input" placeholder="Enter Password">
                 </div>
-
-                <!-- @if (ViewBag.PasswordError != null)
-                {
-                        <span style="color: red; font-size: 11px; margin-top: 4px; display: block; white-space: normal; max-width: 300px; margin-left: 160px;">
-                            @ViewBag.PasswordError
-                        </span>
-                }
- -->
-
+                <span asp-validation-for="Password" class="text-error"></span>
             </div>
+            
+            @* Confirm Password *@
             <div>
                 <div class="input-wrapper">
                     <label for="confirm-password">Confirm Password: </label>
-                    <input type="password" id="confirm-password" name="confirm-password" class="password-input" placeholder="Confirm Password" required>
+                    <input type="password" id="confirm-password" asp-for="ConfirmPassword" class="password-input" placeholder="Confirm Password">
                 </div>
+                <span asp-validation-for="ConfirmPassword" class="text-error"></span>
             </div>
-
+            
+            @* Button *@
             <div class="register-btn-div">
-                <button type="submit" method="post" class="register-btn">®️ Register</button>
+                <button type="submit" class="register-btn">®️ Register</button>
             </div>
-
             <p class="login-grp">
                 Already have an account?
                 <a asp-controller="Account" asp-action="Login" class="login-url">Sign In</a>
-            </p>
             </p>
         </form>
     </div>
