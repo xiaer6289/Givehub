@@ -1444,3 +1444,16 @@ p {
     .delete-btn:hover {
         background-color: #ff505f;
     }
+
+.input-validation {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-danger {
+    font-size: 11px;
+    color: var(--color-danger);
+    max-width: 200px;
+    text-align: left;
+    margin-left: 10px;
+}

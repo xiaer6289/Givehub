@@ -25,7 +25,7 @@ public class HomeController : Controller
             TempData["Error"] = "Please fill in all fields correctly";
             return View(form);
         }
-        string toEmail = "xiaer6289@gmail.com";
+        string toEmail = "johndoe@gmail.com";
         string fromEmail = "noreply@yourdomain.com";
 
         string needsList = form.Needs != null ? string.Join(", ", form.Needs) : "None";
@@ -42,7 +42,7 @@ public class HomeController : Controller
 
         using (var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525))
         {
-            client.Credentials = new NetworkCredential("e44055254a42c6", "249e21fa08254e");
+            client.Credentials = new NetworkCredential("", "");
             client.EnableSsl = true;
             client.Send(message);
         }

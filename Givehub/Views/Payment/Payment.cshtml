@@ -2,10 +2,10 @@
     ViewBag.Title = "Payment";
 }
 
-<form method="post" >
+<form method="post" asp-controller="Payment" asp-action="CreateCheckoutSession">
     <div>
         <label for="amount">Amount</label>
         <input type="text" id="amount" name="amount" value="" />
     </div>
     <button type="submit">Checkout</button>
-</form>
+</form> 
