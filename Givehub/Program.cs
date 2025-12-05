@@ -5,6 +5,7 @@ using Givehub.Helper;
 //using Givehub.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<DoneeHelper>();
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
 builder.Services.AddSession(options =>

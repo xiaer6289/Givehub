@@ -1,0 +1,52 @@
+﻿<link rel="stylesheet" href="app.css" />
+
+@{
+    ViewBag.Title = "Login Page";
+    Layout = "_EmptyLayout";
+}
+
+<div class="login-container">
+    <div class="login-text">
+        <p class="login-title">Welcome to GiveHub</p>
+        <p class="login-slogan">
+            Efficient Inventory, Endless Possibilities
+        </p>
+    </div>
+
+    <div class="login-border">
+        <!-- <img src="https://tse3.mm.bing.net/th/id/OIP.N0C6Icf1mvdYH3EFVyEjywHaHa?pid=Api&P=0&h=180" alt="logo" class="login-logo" /> -->
+
+        <p class="login-border-header">Login Form</p>
+
+        <!-- @if (ViewBag.Error != null)
+        {
+                <p style="color: red; font-size: 11px; margin: 3px;">@ViewBag.Error</p>
+        }
+ -->
+
+        <form method="post" asp-action="Login" asp-controller="Account" class="login-form">
+            <div>
+                <div class="input-wrapper">
+                    <label for="email">Email: </label>
+                    <input type="email" id="email" name="email" class="email-input" placeholder="johndoe@example.com" required>
+                </div>
+            </div>
+
+            <div>
+                <div class="input-wrapper">
+                    <label>Password: </label>
+                    <input type="password" name="password" class="password-input" placeholder="Enter Password" required>
+                </div>
+            </div>
+
+            <div class="login-btn-div">
+                <button type="submit" class="login-page-btn">🔓 Login</button>
+            </div>
+        </form>
+
+        <p class="register-grp">
+            Don't have an account?
+            <a asp-controller="Account" asp-action="Register" class="register-url">Register here</a>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Donation>
+
+<p>@(Model?.Count() ?? 0) record(s)</p>
+
+<link rel="stylesheet" href="app.css">
+<table class="donation-history-table">
+
+	<tr>
+		<th>Id</th>
+		<th>Method</th>
+		<th>Amount</th>
+		<th>Date</th>
+		<th>Items</th>
+		<th>Donee</th>
+	</tr>
+
+	@* @foreach(var s in Model)
+	{
+		
+		<tr>
+			<th>@s.Id</th>
+			<td>@s.Method</td>
+			<td>@s.Amount</td>
+			<td>@s.Date</td>
+			<td>@s.Items</td>
+			<td>@s.DoneeId</td>
+			<td>
+				<button data-get="  ">Detail</button>
+			</td>
+		</tr>
+	} *@
+
+</table>
