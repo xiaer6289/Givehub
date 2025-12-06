@@ -1,11 +1,12 @@
-﻿<link rel="stylesheet" href="app.css" />
+﻿@model Givehub.Models.LoginVM
+<link rel="stylesheet" href="app.css" />
 
 @{
     ViewBag.Title = "Login Page";
     Layout = "_EmptyLayout";
 }
-
-<div class="login-container">
+<div class="login-container center-container">
+    
     <div class="login-text">
         <p class="login-title">Welcome to GiveHub</p>
         <p class="login-slogan">
@@ -14,31 +15,41 @@
     </div>
 
     <div class="login-border">
-        <!-- <img src="https://tse3.mm.bing.net/th/id/OIP.N0C6Icf1mvdYH3EFVyEjywHaHa?pid=Api&P=0&h=180" alt="logo" class="login-logo" /> -->
-
         <p class="login-border-header">Login Form</p>
 
-        <!-- @if (ViewBag.Error != null)
-        {
-                <p style="color: red; font-size: 11px; margin: 3px;">@ViewBag.Error</p>
-        }
- -->
-
-        <form method="post" asp-action="Login" asp-controller="Account" class="login-form">
+        <form method="post" asp-controller="Account" asp-action="Login" class="login-form">
+            @Html.AntiForgeryToken()
+            
+            @* Email *@
             <div>
                 <div class="input-wrapper">
                     <label for="email">Email: </label>
-                    <input type="email" id="email" name="email" class="email-input" placeholder="johndoe@example.com" required>
+                    <input type="email" id="email" asp-for="Email" class="email-input" placeholder="johndoe@example.com">
                 </div>
-            </div>
 
+                <span asp-validation-for="Email" class="text-error"></span>
+
+                @if (ViewBag.EmailError != null)
+                {
+                    <span class="text-error">@ViewBag.EmailError</span>
+                }
+            </div>
+            
+            @* Password *@
             <div>
                 <div class="input-wrapper">
-                    <label>Password: </label>
-                    <input type="password" name="password" class="password-input" placeholder="Enter Password" required>
+                    <label for="password">Password: </label>
+                    <input type="password" id="password" asp-for="Password" class="password-input" placeholder="Enter Password">
                 </div>
-            </div>
 
+                <span asp-validation-for="Password" class="text-error"></span>
+
+                @if (ViewBag.PasswordError != null)
+                {
+                    <span class="text-error">@ViewBag.PasswordError</span>
+                }
+            </div>
+            
             <div class="login-btn-div">
                 <button type="submit" class="login-page-btn">🔓 Login</button>
             </div>
@@ -48,5 +59,6 @@
             Don't have an account?
             <a asp-controller="Account" asp-action="Register" class="register-url">Register here</a>
         </p>
+
     </div>
 </div>

@@ -18,7 +18,20 @@
         <a asp-controller="Home" asp-action="Index" class="header-link">About Us</a>
         <a asp-controller="Home" asp-action="Donation" class="header-link">Donation</a>
         <a asp-controller="Home" asp-action="Contact" class="header-link">Contact</a>
-        <a asp-controller="Account" asp-action="Login" class="login-btn">Login</a>
+        
+        @{
+            int? donorId = Context.Session.GetInt32("DonorId");
+        }
+
+        @if (donorId == null)
+        {
+            <a asp-controller="Account" asp-action="Login" class="login-btn">Login</a>
+        }
+        else
+        {
+            <span class="login-btn">ID = @donorId</span>
+        }
+
     </header>
     <main>
         @RenderBody()
@@ -38,5 +51,5 @@
 
     @RenderSection("scripts", required: false)
 </body>
-
+x
 </html>

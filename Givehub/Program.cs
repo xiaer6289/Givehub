@@ -22,5 +22,6 @@ builder.Services.AddSqlServer<DB>($@"
 var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 app.MapDefaultControllerRoute();
 app.Run();

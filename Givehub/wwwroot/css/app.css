@@ -1197,8 +1197,10 @@ p {
 }
 /*-------------------------------- Donation History Page End-------------------------------- */
 /*------LOGIN REGISTER START---------*/
-.login-text {
+
+.login-text *{
     text-align: center;
+    color: black;
 }
 
 .login-title {
@@ -1224,6 +1226,7 @@ p {
     margin-top: 22px;
     font-weight: bold;
     font-size: 20px;
+    color: black;
 }
 
 .login-border, .register-border {
@@ -1234,17 +1237,20 @@ p {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.);
 }
 
-.login-container, .register-container {
+.center-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.login-container {
     margin-top: 120px;
 }
 
-    .login-container * {
-        color: #000000;
-    }
+.register-container{
+    margin-top:60px;
+}
 
 .login-btn-div, .register-btn-div {
     display: flex;
@@ -1276,9 +1282,15 @@ p {
 .input-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: first baseline;
+    align-items: center;
     margin: 0px;
+    text-align: left;
 }
+
+    .input-wrapper label {
+        align-self: flex-start;
+        margin-left: 15px; 
+    }
 
 .email-input, .password-input, .name-input, .phone-input {
     width: 95%;
@@ -1288,6 +1300,37 @@ p {
 
 .register-form{
     padding: 25px
+}
+
+.text-error {
+    color: #dc3545 !important;
+    font-size: 14px;
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    margin-left: 15px;
+}
+
+.login-text-error {
+    color: #dc3545 !important;
+    font-size: 14px;
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    margin-left: 15px;
+}
+
+.alert {
+    padding: 12px 20px;
+    margin-bottom: 16px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
 }
 
 /*------LOGIN REGISTER END---------*/
