@@ -1002,7 +1002,7 @@ p {
 }
 
 
-/*-----------------------------Items page css----------------------------------------------*/
+/*-----------------------------Items Page Start----------------------------------------------*/
 .item-page {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #f5f7fa 0%, #e8eef3 100%);
@@ -1153,7 +1153,7 @@ p {
     font-weight: bold;
 }
 
-/*-------------------------------------------Item page css End--------------------------------------*/
+/*-------------------------------------------Item Page End--------------------------------------*/
 
 
 /*------------------------------------------ Donation History Page--------------------------------  */
@@ -1161,10 +1161,42 @@ p {
     outline: 1px solid black;
 }
 
+.donation-history-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/*Id*/
+.donation-history-table thead th:nth-child(1) {
+    width: 10%;
+}
+
+/*Method*/
+.donation-history-table thead th:nth-child(2) {
+    width: 15%;
+}
+
+/*Amount*/
+.donation-history-table thead th:nth-child(3) {
+    width: 15%;
+}
+
+/*Date*/
+.donation-history-table thead th:nth-child(4) {
+    width: 15%;
+}
+
+/*Items*/
+.donation-history-table thead th:nth-child(5) {
+     width: 25%;
+}
+
+/*Donee*/
+.donation-history-table thead th:nth-child(6) {
+     width: 20%;
+}
 /*-------------------------------- Donation History Page End-------------------------------- */
-
 /*------LOGIN REGISTER START---------*/
-
 .login-text {
     text-align: center;
 }
