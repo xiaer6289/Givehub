@@ -89,3 +89,18 @@ document.addEventListener("click", function (e) {
 });
 
 //-----------------Item Page End---------------------//
+
+document.addEventListener('DOMContentLoaded', () => {
+    const amountInput = document.getElementById('amountInput');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function updateBtnState() {
+        const amount = parseFloat(amountInput.value) || 0;
+        const enabled = amount > 0;
+
+        checkoutBtn.disabled = !enabled;
+    }
+
+    amountInput.addEventListener('input', updateBtnState);
+    updateBtnState();
+})
