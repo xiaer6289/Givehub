@@ -1,12 +1,16 @@
 global using Givehub.Models;
-using Givehub.Helper;
+using Givehub.Helpers;
 using Microsoft.Extensions.Configuration;
 using Stripe;
 //using Givehub.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<DoneeHelper>();
+builder.Services.AddScoped<Givehub.Helpers.DoneeHelper>();
+builder.Services.AddScoped<Givehub.Helpers.Helper>(); 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<DB>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
 builder.Services.AddSession(options =>
 {
