@@ -24,7 +24,7 @@ public class PaymentController : Controller
         return View();
     }
 
-    public IActionResult CreateCheckoutSesssion(string amount)
+    public IActionResult CreateCheckoutSession(string amount)
     {
         var currency = "myr";
         var successUrl = "http://localhost:7198/Payment/Success";

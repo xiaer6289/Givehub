@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Givehub.DTO.ContactFormDTO
+
+@{
     ViewBag.Title = "Contact Us";
 }
 @* <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -27,10 +29,23 @@
             <p>johndoe@example.com</p>
         </div>
     </div>
-    <form method="post" class="contact-form" asp-controller="home" asp-action="SendContactForm">
-        <input type="text" placeholder="Name" name="Name" required>
-        <input type="text" placeholder="Phone Number" name="PhoneNo" required>
-        <input type="email" placeholder="Email" name="Email" required>
+    <form method="post" class="contact-form" asp-controller="home" asp-action="Contact">
+        <div class="input-validation">
+            <input type="text" placeholder="Organization Name" name="Name" required asp-for="Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="input-validation">
+            <input type="text" placeholder="Phone Number" name="PhoneNo" required asp-for="PhoneNo">
+            <span asp-validation-for="PhoneNo" class="text-danger"></span>
+        </div>
+
+        <div class="input-validation">
+            <input type="email" placeholder="Email" name="Email" required asp-for="Email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+
         <div class="checkbox-grp">
             <p class="contact-needs">Needs: </p>
             <label>

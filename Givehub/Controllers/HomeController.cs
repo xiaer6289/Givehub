@@ -18,9 +18,14 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult SendContactForm(ContactFormDTO form)
+    public IActionResult Contact(ContactFormDTO form)
     {
-        string toEmail = "xiaer6289@gmail.com";
+        if (!ModelState.IsValid)
+        {
+            TempData["Error"] = "Please fill in all fields correctly";
+            return View(form);
+        }
+        string toEmail = "johndoe@gmail.com";
         string fromEmail = "noreply@yourdomain.com";
 
         string needsList = form.Needs != null ? string.Join(", ", form.Needs) : "None";
@@ -40,7 +45,8 @@ public class HomeController : Controller
             client.Credentials = new NetworkCredential("", "");
             client.EnableSsl = true;
             client.Send(message);
-        };
+        }
+        ;
 
         TempData["Success"] = "Your Request has been sent successfully!";
         return RedirectToAction("Contact");

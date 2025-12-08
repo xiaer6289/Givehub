@@ -54,10 +54,19 @@ document.querySelector(".add-more-button").addEventListener("click", function (e
     const firstForm = document.querySelector(".donation-entry");
     const newForm = firstForm.cloneNode(true);
 
-    newForm.querySelector("input").value = "";
+    //Clear the previous input
+    newForm.querySelector(".item-qty-input").value = "";
+        
+    //get the total number of donation entry form that existing
+    const index = wrapper.querySelectorAll(".donation-entry").length;
+
+    const select = newForm.querySelector(".item-name-input");
+    const qty = newForm.querySelector(".item-qty-input");
+
+    select.name = `Items[${index}].ItemName`;
+    qty.name = `Items[${index}].Quantity`;
 
     // Insert the new form before the button section**
-    const buttonSection = document.querySelector(".button-section");
     const dateSection = document.querySelector(".delivery-date");
 
     wrapper.insertBefore(newForm, dateSection);
@@ -66,9 +75,32 @@ document.querySelector(".add-more-button").addEventListener("click", function (e
 // "Remove" button will remove the respective donation entry form
 document.addEventListener("click", function (e) {
     if (e.target.closest(".remove-donation-button")) {
+        e.preventDefault();
         const row = e.target.closest(".donation-entry");
         row.remove();
+
+        const rows = document.querySelectorAll(".donation-entry");
+        rows.forEach((r, i) => {
+            r.querySelector(".item-name-input").name = `Items[${i}].ItemName`;
+            r.querySelector(".item-qty-input").name = `Items[${i}].Quantity`;
+
+        });
     }
-})
+});
 
 //-----------------Item Page End---------------------//
+
+document.addEventListener('DOMContentLoaded', () => {
+    const amountInput = document.getElementById('amountInput');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function updateBtnState() {
+        const amount = parseFloat(amountInput.value) || 0;
+        const enabled = amount > 0;
+
+        checkoutBtn.disabled = !enabled;
+    }
+
+    amountInput.addEventListener('input', updateBtnState);
+    updateBtnState();
+})

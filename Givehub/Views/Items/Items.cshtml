@@ -1,6 +1,5 @@
-﻿<link rel="stylesheet" href="app.css" />
+﻿@model Givehub.Models.ItemDonationVM
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
 <body class="item-page">
     <div class="item-container">
         <h1>Make a Difference Today</h1>
@@ -20,26 +19,26 @@
             </div>
         </div>
 
-        <div class="donation-entry-form" id="donation-wrapper">
+        <form asp-controller="Items" class="donation-entry-form" id="donation-wrapper" method="post" asp-action="Items">
             <div class="donation-header">Donate Items :</div>
             <div class="donation-entry">
-                <form class="donation-form">
+                <div class="donation-form">
                     <label for="ItemName">Choose an item: </label>
-                    <select id="ItemName" name="ItemName">
+                    <select name="Items[0].ItemName" class="item-name-input">
                         <option value="rice">Rice</option>
                         <option value="clothes">Clothes</option>
                         <option value="shoes">Shoes</option>
                     </select>
                     <label for="Quantity" class="quantity">Quantity: </label>
-                    <input type="number" name="quantity" min="1" />
-                </form>
+                    <input name="Items[0].Quantity" class="item-qty-input "type="number" min="1" />
+                </div>
                 <div class="remove-donation-button">
                     <span class="material-symbols-sharp">delete</span>
                 </div>
             </div>
             <div class="delivery-date">
-                <label type=delivery-date>Select delivery date:</label>
-                <input type="date" id="delivery-date">
+                <label type="date">Select delivery date:</label>
+                <input type="datetime-local" asp-for="DeliveryDate">
             </div>
             <div class="button-section">
                 <button class="add-more-button" id="add-more-button">
@@ -47,7 +46,7 @@
                 </button>
                 <button type="submit" class="donate-button">Donate</button>
             </div>
-        </div>
+        </form>
     </div>
 </body>
 <script src="~/js/app.js"></script>

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Givehub.Models
+@{
     ViewBag.Title = "Item Donation Report";
     Layout = "_EmptyLayout";
 }
@@ -32,6 +33,41 @@
             </tr>
         </thead>
         <tbody>
+            @for (int i = 0; i < Model.Donation.Count; i++)
+            {
+                var item = Model.Donation.ElementAt(i);
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@item.Donees?.Name</td>
+                    <td>
+                        @if (item.Items != null)
+                        {
+                            foreach (var entry in item.Items)
+                            {
+                                <div>@entry.Key</div>
+                            } 
+                        }else
+                            {
+                                <div>-</div>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (item.Items != null)
+                        {
+                            foreach (var entry in item.Items)
+                            {
+                                <div>@entry.Value</div>
+                            }
+                        } else
+                            {
+                                <div>-</div>
+                            }
+                        }
+                    </td>
+                    <td>@item.Date.toString("yyyy-MM-dd")</td>
+                </tr>
+            }
             <tr>
                 <!--use for loop to print out the each payment-->
                 <td>1</td>

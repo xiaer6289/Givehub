@@ -1,4 +1,6 @@
-﻿@{
+﻿using Givehub.Models
+
+@{
     ViewBag.Title = "Donor Report";
     Layout = "_EmptyLayout";
 }
@@ -31,7 +33,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            @for (int i = 0; i < Model.Donation.Count; i++)
+            {
+                var donation = Model.Donation.ElementAt(i);
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@donation.Donees?.Name</td>
+                    <td>@donation.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@donation.Amount.ToString("F2")</td>
+                </tr>
+            }
+                <tr>
                 <!--use for loop to print out the each payment-->
                 <td>1</td>
                 <td>Nursing Home</td>

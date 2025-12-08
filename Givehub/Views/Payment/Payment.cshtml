@@ -1,11 +1,36 @@
 ﻿@{
     ViewBag.Title = "Payment";
+    Layout = "_EmptyLayout";
 }
 
-<form method="post" >
-    <div>
-        <label for="amount">Amount</label>
-        <input type="text" id="amount" name="amount" value="" />
+<form class="payment-container" asp-controller="Payment" asp-action="CreateCheckoutSession">
+    <div class="payment-header">
+        Make a Donation
     </div>
-    <button type="submit">Checkout</button>
+    <div class="slogan-text">
+        <p x-text="slogan" class="fade-text"></p>
+    </div>
+    <div class="payment-input">
+        <span class="currency-symbol">RM</span>
+        <input type="number" placeholder="0" class="amount-input" autofocus min="1" name="amount" value="" id="amountInput" />
+    </div>
+    <div class="payment-btn-grp">
+        <a asp-controller="Home" asp-action="Index" class="cancel-payment-btn">Cancel</a>
+        <button disabled class="cta-btn" type="submit" id="checkoutBtn">
+            <span>Proceed to Checkout</span>
+        </button>
+    </div>
+
+    <div class="trust-footer">
+        <div class="trust-item">
+            <div class="trust-item">
+                <span class="material-symbols-sharp trust-icon-secure">lock</span>
+                <span class="font-semibold">Securely Processed, 100% to Donee</span>
+            </div>
+            <div class="trust-item">
+                <span class="material-symbols-sharp trust-icon-info">done</span>
+                <span class="font-smibold">Funds are Tracked and Guranteed</span>
+            </div>
+        </div>
+    </div>
 </form>

@@ -1,4 +1,5 @@
 ﻿using Givehub.Helper;
+using Givehub.Helpers;
 using Givehub.Models;
 using Givehub.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -100,7 +101,7 @@ namespace Givehub.Controllers
             existing.Requirements = vm.Requirements;
             existing.Description = vm.Description;
 
-           
+
             if (vm.ImageFile != null && vm.ImageFile.Length > 0)
             {
                 var fileName = Guid.NewGuid() + Path.GetExtension(vm.ImageFile.FileName);

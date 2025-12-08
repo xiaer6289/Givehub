@@ -10,4 +10,13 @@ public class AdminController : Controller
         return View();
     }
 
+     public IActionResult DonationHistory()
+      {
+          // Even if you have NO DATA, return an empty list
+          var donations = new List<Donation>();
+
+          return View(donations);
+      }
+    
+
 }
