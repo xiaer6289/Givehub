@@ -92,6 +92,48 @@ header {
         box-shadow: none;
     }
 
+.user_icon {
+    width: 65px;
+    height: 50px;
+}
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-icon {
+    width: 55px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background: white;
+    padding: 10px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 10px;
+    width: 180px;
+    text-align: left;
+    z-index: 99;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+}
+
+.dropdown-menu a:hover {
+    background: #f0f0f0;
+}
+
 main {
     flex: 1;
 }
