@@ -1322,7 +1322,7 @@ p {
     color: black;
 }
 
-.register-url, .login-url {
+.register-url, .login-url, .forgotpass-url {
     color: #7380ec;
 }
 
@@ -1387,10 +1387,10 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* height: 100vh; */
 
     max-width: 1200px;
     margin: auto;
+    margin-top: 155px;
     gap: 40px;
 }
 
@@ -1423,18 +1423,17 @@ p {
 .password-text input {
     width: 100%;
     padding: 10px 5px;
-    margin-top: 20px;
     border: none;
     border-bottom: 2px solid #ccc;
     outline: none;
     background: transparent;
     font-size: 16px;
     margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .send-link-btn, .reset-btn {
-    width: 100%;
-    max-width: 500px;
+    width: 600px;
     padding: 12px;
     margin-top: 10px;
     border: none;
@@ -1477,12 +1476,20 @@ p {
     text-align: center;
 }
 
-/*----Forgot and reset password end----*/
-
-* {
-/*     outline: solid 1px red; */
+.forgot-message {
+    margin-left: 5px;
 }
 
+.valid-email-message {
+    margin-left: 2px;
+    color: #155724;
+}
+
+.invalid-email-message {
+    margin-left: 2px;
+    color: #dc3545;
+}
+/*----Forgot and reset password end----*/
 .donee-top-actions {
     margin-bottom: 20px;
     display: flex;
@@ -1742,4 +1749,10 @@ p {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
+}
+
+
+
+* {
+/*    outline: solid 1px red;*/
 }

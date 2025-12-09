@@ -6,6 +6,7 @@ using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<DoneeHelper>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
 builder.Services.AddSession(options =>

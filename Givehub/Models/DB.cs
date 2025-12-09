@@ -13,6 +13,8 @@ namespace Givehub.Models
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Donee> Donees { get; set; }
 
+        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -30,6 +32,12 @@ namespace Givehub.Models
                 .WithMany(p => p.Donations)
                 .HasForeignKey(d => d.DoneeId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<PasswordResetToken>()
+                .HasOne(p => p.Donor)
+                .WithMany()
+                .HasForeignKey(p => p.DonorId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
 
@@ -160,8 +168,11 @@ namespace Givehub.Models
     {
         [Key]
         public int Id { get; set; }
-        public string DonorId { get; set; }
+        public int DonorId { get; set; }
         public string Token { get; set; }
         public DateTime Expiration { get; set; }
+
+        [ForeignKey("DonorId")]
+        public Donor Donor { get; set; }
     }
 }

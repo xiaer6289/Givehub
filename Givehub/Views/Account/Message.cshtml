@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Message Page";
+    Layout = "_EmptyLayout";
+}
+
+@if (TempData["Error"] != null)
+{
+    <div>@TempData["Error"]</div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div>@TempData["Success"]</div>
+}

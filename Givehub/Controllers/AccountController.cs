@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Givehub.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
+using Org.BouncyCastle.Crypto.Generators;
 using System.Security.Cryptography;
-using Givehub.Models;
+using System.Text;
 
 namespace Givehub.Controllers
 {
     public class AccountController : Controller
     {
         private readonly DB _context;
+        private readonly IEmailService _emailService;
 
-        public AccountController(DB context)
+        public AccountController(DB context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         public IActionResult Index()
@@ -58,7 +61,7 @@ namespace Givehub.Controllers
                 }
 
                 // Hashing Password
-                string hashedPassword = HashPassword(model.Password);
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
                 var donor = new Donor
                 {
@@ -106,8 +109,7 @@ namespace Givehub.Controllers
                 return View(model);
             }
 
-            string hashedPassword = HashPassword(model.Password);
-            if (user.Password != hashedPassword)
+            if (!BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
             {
                 ViewBag.PasswordError = "Incorrect password";
                 return View(model);
@@ -118,15 +120,6 @@ namespace Givehub.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private string HashPassword(string password)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(hashedBytes);
-            }
-        }
-
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -134,13 +127,166 @@ namespace Givehub.Controllers
         }
 
 
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
             return View();
         }
-        public IActionResult ResetPassword()
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            var donor = await _context.Donors
+                .FirstOrDefaultAsync(d => d.Email == email);
+
+            if (donor == null)
+            {
+                TempData["InvalidMessage"] = "Email not found. Please enter a valid email.";
+                return View();
+            }
+
+            var existingTokens = _context.PasswordResetTokens
+                .Where(t => t.DonorId == donor.Id);
+            _context.PasswordResetTokens.RemoveRange(existingTokens);
+
+            // Generate secure token
+            var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+
+            var resetToken = new PasswordResetToken
+            {
+                DonorId = donor.Id,
+                Token = token,
+                Expiration = DateTime.UtcNow.AddMinutes(5) 
+            };
+
+            _context.PasswordResetTokens.Add(resetToken);
+            await _context.SaveChangesAsync();
+
+            // Create reset link
+            var resetLink = Url.Action("ResetPassword", "Account",
+                new { token, email = donor.Email }, Request.Scheme);
+
+            var emailBody = $@"
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body {{ 
+                        font-family: Arial, sans-serif; 
+                        line-height: 1.6; 
+                        color: #333;
+                    }}
+                    .container {{
+                        max-width: 600px; 
+                        margin: 0 auto; 
+                        padding: 20px; 
+                    }}
+                    .button {{ 
+                        display: inline-block; 
+                        padding: 12px 24px; 
+                        background-color: #007bff; 
+                        color: white; 
+                        text-decoration: none; 
+                        border-radius: 5px; 
+                        margin: 20px 0;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <h2>Password Reset Request</h2>
+                    <p>Hello {donor.Name},</p>
+                    <p>We received a request to reset your password. Click the button below to reset it:</p>
+                    <a href='{resetLink}' class='button'>Reset Password</a>
+                    <p><strong>Please change your password within 5 minutes, or the request will expire.</strong></p>
+                    <p>If you didn't request this password reset, please ignore this email. Your password will remain unchanged.</p>
+                </div>
+            </body>
+            </html>
+            ";
+
+            await _emailService.SendEmailAsync(donor.Email, "Reset Your Password - GiveHub", emailBody);
+
+            TempData["Message"] = "Password reset link has been sent to your email!";
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ResetPassword(string token, string email)
+        {
+            var donor = await _context.Donors
+                .FirstOrDefaultAsync(d => d.Email == email);
+
+            if (donor == null)
+            {
+                TempData["Error"] = "Invalid reset link.";
+                return RedirectToAction("Message");
+            }
+
+            var resetToken = await _context.PasswordResetTokens
+                .FirstOrDefaultAsync(t =>
+                    t.DonorId == donor.Id &&
+                    t.Token == token &&
+                    t.Expiration > DateTime.UtcNow);
+
+            if (resetToken == null)
+            {
+                TempData["Error"] = "Invalid or expired reset link.";
+                return RedirectToAction("Message");
+            }
+
+            var model = new ResetPasswordVM
+            {
+                Token = token,
+                Email = email
+            };
+
+            // Pass Token and Email to view
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var donor = await _context.Donors
+                .FirstOrDefaultAsync(d => d.Email == model.Email);
+
+            if (donor == null)
+            {
+                TempData["Error"] = "Invalid reset link.";
+                return RedirectToAction("Message");
+            }
+
+            var resetToken = await _context.PasswordResetTokens
+                .FirstOrDefaultAsync(t =>
+                    t.DonorId == donor.Id &&
+                    t.Token == model.Token &&
+                    t.Expiration > DateTime.UtcNow);
+
+            //if (resetToken == null)
+            //{
+            //    TempData["Error"] = "Invalid or expired reset l   ink.";
+            //    return RedirectToAction("Message");
+            //}
+
+            donor.Password = BCrypt.Net.BCrypt.HashPassword(model.NewPassword);
+
+            _context.PasswordResetTokens.Remove(resetToken);
+
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Password reset successful! Go back to your previous tab and login.";
+            return RedirectToAction("Message");
+        }
+
+        public IActionResult Message()
         {
             return View();
         }
+
     }
 }
