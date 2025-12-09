@@ -1,5 +1,4 @@
-﻿using Givehub.Helper;
-using Givehub.Helpers;
+﻿using Givehub.Helpers;
 using Givehub.Models;
 using Givehub.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;

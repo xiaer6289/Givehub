@@ -38,10 +38,10 @@
         @RenderBody()
     </main>
     <footer>
-        <a href="#" class="footer-link">About us</a>
-        <a href="#" class="footer-link">Donation</a>
+        <a asp-controller="Home" asp-action="Index" class="footer-link">About us</a>
+        <a asp-controller="Home" asp-action="Donation" class="footer-link">Donation</a>
         <a href="#" class="footer-link">How to fundraise</a>
-        <a href="#" class="footer-link">Contact</a>
+        <a asp-controller="Home" asp-action="Contact" class="footer-link">Contact</a>
     </footer>
 
     <script src="/js/jquery.min.js"></script>
