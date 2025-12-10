@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/css/app.css" asp-append-version="true">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" />
     @RenderSection("head", false)
-    <script src="~/js/app.js"></script>
+    @* <script src="~/js/app.js"></script> *@
 
 </head>
 <body>
@@ -29,8 +29,15 @@
         }
         else
         {
-            <img src="~/images/user_icon.png" alt="User Icon" class="user_icon"/>
-            @* <span class="login-btn">ID = @donorId</span> *@
+            <div class="profile-dropdown">
+                <img src="~/images/user_icon.png" alt="User Icon" class="user-icon" />
+                
+                <div class="dropdown-menu">
+                    <a asp-controller="Donor" asp-action="ViewMoney">View Money</a>
+                    <a asp-controller="Report" asp-action="ItemReport">Item Report</a>
+                    <a asp-controller="Account" asp-action="Logout">Logout</a>
+                </div>
+            </div>
         }
 
     </header>
@@ -48,9 +55,8 @@
     <script src="js/jquery.unobtrusive-ajax.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/jquery.validate.unobtrusive.min.js"></script>
-    <script src="js/app.js" asp-append-version="true"></script>
+    <script src="~/js/app.js" asp-append-version="true"></script>
 
     @RenderSection("scripts", required: false)
 </body>
-x
 </html>

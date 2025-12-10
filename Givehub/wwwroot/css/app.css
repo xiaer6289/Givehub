@@ -66,6 +66,7 @@ header {
     padding-bottom: 10px;
     align-items: center;
     background: #f0f640;
+    overflow-x: visible;
 }
 
 .header-link {
@@ -97,20 +98,17 @@ header {
         box-shadow: none;
     }
 
-.user_icon {
+.user-icon {
     width: 65px;
-    height: 50px;
+    height: 55px;
+    cursor: pointer;
+    border-radius: 50%;
 }
 
 .profile-dropdown {
     position: relative;
     display: inline-block;
-}
-
-.profile-icon {
-    width: 55px;
-    height: 45px;
-    cursor: pointer;
+    overflow-x: visible;
 }
 
 .dropdown-menu {
@@ -122,9 +120,9 @@ header {
     padding: 10px 0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     border-radius: 10px;
-    width: 180px;
+    width: 220px;
     text-align: left;
-    z-index: 99;
+    z-index: 999;
 }
 
 .dropdown-menu a {

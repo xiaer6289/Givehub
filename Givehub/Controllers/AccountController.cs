@@ -95,6 +95,7 @@ namespace Givehub.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM model)
         {
+            ViewBag.EmailError = null;
             ViewBag.PasswordError = null;
 
             if (!ModelState.IsValid)
@@ -102,30 +103,42 @@ namespace Givehub.Controllers
                 return View(model);
             }
 
-            var user = await _context.Donors.FirstOrDefaultAsync(d => d.Email == model.Email);
-            if (user == null)
+            var admin = await _context.Admins
+                .FirstOrDefaultAsync(a => a.Email == model.Email);
+
+            if (admin != null)
             {
-                ViewBag.EmailError = "Email not found";
-                return View(model);
+                if (model.Password != admin.Password)
+                {
+                    ViewBag.PasswordError = "Incorrect password";
+                    return View(model);
+                }
+
+                HttpContext.Session.SetInt32("AdminId", admin.Id);
+                HttpContext.Session.SetString("Role", "Admin");
+                return RedirectToAction("AdminHomePage", "Admin");
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
+            var donor = await _context.Donors
+                .FirstOrDefaultAsync(d => d.Email == model.Email);
+
+            if (donor != null)
             {
-                ViewBag.PasswordError = "Incorrect password";
-                return View(model);
+                if (!BCrypt.Net.BCrypt.Verify(model.Password, donor.Password))
+                {
+                    ViewBag.PasswordError = "Incorrect password";
+                    return View(model);
+                }
+
+
+                HttpContext.Session.SetInt32("DonorId", donor.Id);
+                HttpContext.Session.SetString("Role", "Donor");
+                return RedirectToAction("Index", "Home");
             }
 
-            HttpContext.Session.SetInt32("DonorId", user.Id);
-
-            return RedirectToAction("Index", "Home");
+            ViewBag.EmailError = "Email not found";
+            return View(model);
         }
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login");
-        }
-
 
         [HttpGet]
         public IActionResult ForgotPassword()
@@ -288,5 +301,10 @@ namespace Givehub.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
     }
 }
