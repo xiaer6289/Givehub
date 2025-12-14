@@ -13,6 +13,11 @@ namespace Givehub.Models
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Donee> Donees { get; set; }
 
+        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
+
+        public DbSet<AdminLoginToken> AdminLoginTokens { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -30,6 +35,18 @@ namespace Givehub.Models
                 .WithMany(p => p.Donations)
                 .HasForeignKey(d => d.DoneeId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<PasswordResetToken>()
+                .HasOne(p => p.Donor)
+                .WithMany()
+                .HasForeignKey(p => p.DonorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<AdminLoginToken>()
+                .HasOne(t => t.Admin)
+                .WithMany()
+                .HasForeignKey(t => t.AdminId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
 
@@ -161,8 +178,23 @@ namespace Givehub.Models
     {
         [Key]
         public int Id { get; set; }
-        public string DonorId { get; set; }
+        public int DonorId { get; set; }
         public string Token { get; set; }
         public DateTime Expiration { get; set; }
+
+        [ForeignKey("DonorId")]
+        public Donor Donor { get; set; }
+    }
+
+    public class AdminLoginToken
+    {
+        [Key]
+        public int Id { get; set; }
+        public int AdminId { get; set; }
+        public string Token { get; set; }
+        public DateTime Expiration { get; set; }
+
+        [ForeignKey("AdminId")]
+        public Admin Admin { get; set; }
     }
 }

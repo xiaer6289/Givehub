@@ -66,6 +66,7 @@ header {
     padding-bottom: 10px;
     align-items: center;
     background: #f0f640;
+    overflow-x: visible;
 }
 
 .header-link {
@@ -96,6 +97,45 @@ header {
         background: #2525e8;
         box-shadow: none;
     }
+
+.user-icon {
+    width: 65px;
+    height: 55px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+    overflow-x: visible;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background: white;
+    padding: 10px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 10px;
+    width: 220px;
+    text-align: left;
+    z-index: 999;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+}
+
+.dropdown-menu a:focus {
+    background: #f0f0f0;
+}
 
 main {
     flex: 1;
@@ -1346,7 +1386,7 @@ p {
     color: black;
 }
 
-.register-url, .login-url {
+.register-url, .login-url, .forgotpass-url {
     color: #7380ec;
 }
 
@@ -1411,10 +1451,10 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* height: 100vh; */
 
     max-width: 1200px;
     margin: auto;
+    margin-top: 155px;
     gap: 40px;
 }
 
@@ -1447,18 +1487,17 @@ p {
 .password-text input {
     width: 100%;
     padding: 10px 5px;
-    margin-top: 20px;
     border: none;
     border-bottom: 2px solid #ccc;
     outline: none;
     background: transparent;
     font-size: 16px;
     margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .send-link-btn, .reset-btn {
-    width: 100%;
-    max-width: 500px;
+    width: 600px;
     padding: 12px;
     margin-top: 10px;
     border: none;
@@ -1501,12 +1540,25 @@ p {
     text-align: center;
 }
 
-/*----Forgot and reset password end----*/
-
-* {
-/*     outline: solid 1px red; */
+.forgot-message {
+    margin-left: 5px;
 }
 
+.valid-email-message {
+    margin-left: 2px;
+    color: #155724;
+}
+
+.admin-login-message {
+    margin-left: 12px;
+    color: #155724;
+}
+
+.invalid-email-message {
+    margin-left: 2px;
+    color: #dc3545;
+}
+/*----Forgot and reset password end----*/
 .donee-top-actions {
     margin-bottom: 20px;
     display: flex;
@@ -1766,4 +1818,10 @@ p {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
+}
+
+
+
+* {
+/*    outline: solid 1px red;*/
 }

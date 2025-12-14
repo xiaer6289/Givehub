@@ -1,5 +1,4 @@
-﻿using Givehub.Helper;
-using Givehub.Helpers;
+﻿using Givehub.Helpers;
 using Givehub.Models;
 using Givehub.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +34,7 @@ namespace Givehub.Controllers
                 Name = vm.Name,
                 Category = vm.Category,
                 Address = vm.Address,
-                Requirements = vm.Requirements,
+                Requirements = vm.Requirements != null ? string.Join(",", vm.Requirements) : null,
                 Description = vm.Description,
                 Date = DateTime.Now,
                 AdminId = 1
@@ -60,12 +59,52 @@ namespace Givehub.Controllers
             return RedirectToAction("DoneeHomePage");
         }
 
-
-        public IActionResult DoneeHomePage()
+        [AcceptVerbs("Get", "Post")]
+        public IActionResult CheckNameExists(string name, int id)
         {
-            var donees = _context.Donees.Include(d => d.Donations).ToList();
+            if (string.IsNullOrWhiteSpace(name))
+                return Json(true);
+
+            var exists = _context.Donees
+                .Any(d => d.Name.ToLower() == name.ToLower() && d.Id != id);
+
+            if (exists)
+                return Json($"The name '{name}' already exists in our system.");
+
+            return Json(true);
+        }
+
+        public IActionResult DoneeHomePage(string search, int page = 1)
+        {
+            int pageSize = 8; // 8 donees per page
+            var query = _context.Donees.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.ToLower();
+                query = query.Where(d =>
+                    d.Name.ToLower().Contains(search) ||
+                    d.Address.ToLower().Contains(search) ||
+                    d.Category.ToLower().Contains(search)
+                );
+            }
+
+            int totalItems = query.Count();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var donees = query
+                .OrderBy(d => d.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.Search = search;
+
             return View(donees);
         }
+
 
         public IActionResult EditDonee(int id)
         {
@@ -78,7 +117,9 @@ namespace Givehub.Controllers
                 Name = donee.Name,
                 Category = donee.Category,
                 Address = donee.Address,
-                Requirements = donee.Requirements,
+                Requirements = string.IsNullOrEmpty(donee.Requirements)
+                       ? new List<string>()
+                       : donee.Requirements.Split(',').Select(r => r.Trim()).ToList(),
                 Description = donee.Description,
                 Image = donee.Image
             };
@@ -98,7 +139,7 @@ namespace Givehub.Controllers
             existing.Name = vm.Name;
             existing.Category = vm.Category;
             existing.Address = vm.Address;
-            existing.Requirements = vm.Requirements;
+            existing.Requirements = string.Join(", ", vm.Requirements ?? new List<string>());
             existing.Description = vm.Description;
 
 
@@ -123,6 +164,25 @@ namespace Givehub.Controllers
 
 
 
+        public ActionResult ViewDonee(int id)
+        {
+            var donee = _context.Donees.Find(id);
+            if (donee == null) NotFound();
+
+            var vm = new DoneeVM
+            {
+                Id = donee.Id,
+                Name = donee.Name,
+                Category = donee.Category,
+                Address = donee.Address,
+                Requirements = !string.IsNullOrEmpty(donee.Requirements)
+        ? donee.Requirements.Split(',').Select(r => r.Trim()).ToList()
+        : new List<string>(),
+                Description = donee.Description,
+                Image = donee.Image
+            };
+            return View(vm);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

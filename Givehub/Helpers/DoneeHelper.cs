@@ -2,7 +2,7 @@
 using SixLabors.ImageSharp.Processing;
 using System.Text.RegularExpressions;
 
-namespace Givehub.Helper
+namespace Givehub.Helpers
 {
     public class DoneeHelper
     {

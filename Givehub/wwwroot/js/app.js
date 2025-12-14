@@ -40,10 +40,41 @@ window.generatePDF = function (elementId, title) {
 
 //const fileName = "Order_" + new Date().toISOString().slice(0, 10) + ".pdf";
 
+//----------------Dropdown Start ---------------------//
+$(document).ready(function () {
+    $('.user-icon').click(function (event) {
+        event.stopPropagation();
+        $(this).siblings('.dropdown-menu').toggle();
+    });
+
+    $(document).click(function () {
+        $('.dropdown-menu').hide();
+    });
+
+    //// ----------------- Auto logout functionality -----------------
+    //var logoutTimer;
+    //var logoutTime = 1 * 60 * 1000;
+
+    //function resetLogoutTimer() {
+    //    clearTimeout(logoutTimer);
+    //    logoutTimer = setTimeout(autoLogout, logoutTime);
+    //}
+
+    //function autoLogout() {
+    //    alert("You have been inactive for 1 minutes. Logging out...");
+    //    window.location.href = '/Account/Logout'; // Replace with your actual logout URL
+    //}
+
+    //// Listen for user activity
+    //$(document).on('mousemove keydown click scroll', resetLogoutTimer);
+
+    //// Start the timer when page loads
+    //resetLogoutTimer();
+});
+
+//----------------Dropdown Start ---------------------//
 
 //----------------Item Page Start ---------------------//
-
-
 
 // "Add More" button will add a identical input form for donation entry
 document.querySelector(".add-more-button").addEventListener("click", function (e) {
