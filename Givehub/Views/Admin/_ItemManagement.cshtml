@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ItemManagementVM>
+
+
+<h1 class="item-management">Donation Items Management</h1>
+<p>@(Model?.Count() ?? 0) record(s)</p>
+
+<link rel="stylesheet" href="app.css">
+<table class="donation-history-table">
+	<thead>
+	<tr>
+		<th>Id</th>
+        <th>Donor</th>
+		<th>Donee</th>
+        <th>Date</th>
+		<th>Item</th>
+		<th>Quantity</th>
+        <th>Status</th>
+        <th>Action</th>
+
+	</tr>
+	<thead>
+
+	<tbody>
+        @if (Model != null)
+        {
+            foreach (var donation in Model)
+            {
+
+				bool firstRow = true;
+                int rowCount = donation.Items.Count;
+
+                foreach (var item in donation.Items)
+                {
+                    <tr>
+                        @if(firstRow){
+                        <td rowspan="@rowCount">@donation.Id</td>
+                        <td rowspan="@rowCount">@donation.DonorName</td>
+                        <td rowspan="@rowCount">@donation.DoneeName</td>
+                        <td rowspan="@rowCount">@donation.Date.ToString("yyyy-MM-dd HH:mm")</td>
+                        }
+                        <td>@item.ItemName</td>
+                        <td>@item.Quantity</td>
+
+                        @if(firstRow){
+                        <td rowspan="@rowCount">@donation.Status</td> 
+
+                        <td rowspan="@rowCount">
+                            <form asp-action="UpdateStatus" method="post">
+                                <input type="hidden" name="id" value="@donation.Id" />
+                                <select name="status" class="action-select">
+                                    <option value="Pending" selected="@(donation.Status == "Pending")">Pending</option>
+                                    <option value="Completed" selected="@(donation.Status == "Completed")">Completed</option>
+                                    <option value="Not Received" selected="@(donation.Status == "Not Received")">Not Received</option>
+                                </select>
+                                <button class="btn-update">Update</button>
+                                </form>
+                        </td>
+                        }
+                    </tr>
+
+                    firstRow = false;   
+                }
+            }
+        }
+	</tbody>
+</table>

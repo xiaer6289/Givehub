@@ -1162,44 +1162,110 @@ p {
 
 
 /*------------------------------------------ Donation History Page--------------------------------  */
-.donation-history-table th {
-    outline: 1px solid black;
+.item-management {
+    font-size: 28px;
+    font-weight: bold;
+    color: #14283c;
+    margin-bottom: 15px;
+    display: block;
+    padding-bottom: 10px;
 }
 
 .donation-history-table {
     width: 100%;
     table-layout: fixed;
+    border-spacing: 0;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-/*Id*/
-.donation-history-table thead th:nth-child(1) {
-    width: 10%;
+
+    .donation-history-table th,
+    .donation-history-table td {
+        outline: 1px solid rgb(222, 229, 230);
+        text-align: center;
+        padding: 10px;
+    }
+
+    .donation-history-table th {
+        background-color: #d9d9dbfe;
+        text-transform: uppercase;
+    }
+
+
+    .donation-history-table .btn-update {
+        background-color: rgb(15, 186, 15);
+        color: white;
+        font-weight: bold;
+        padding: 8px;
+        margin-top: 6px;
+        border-radius: 6px;
+        border-color:green;
+        cursor: pointer;
+        width: 165px;
+    }
+
+
+        .donation-history-table .btn-update:hover {
+            background: rgb(9, 162, 9);
+        }
+
+
+.action-select {
+    width: 100%;
+    padding: 12px;
+    padding-right: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #1054a16d;
+    background-color: #f7e2f3;
+    cursor: pointer;
 }
 
+    .action-select:hover {
+        border-color: #2525e8;
+        background-color: #e8edff;
+    }
+
+
+/*.donation-history-table tbody tr:nth-child(even){
+    background-color:#0000000b;
+}
+
+
+   
 /*Method*/
-.donation-history-table thead th:nth-child(2) {
-    width: 15%;
-}
+/*.donation-history-table thead th:nth-child(2) {
+    width: 12%;
+}*/
 
 /*Amount*/
-.donation-history-table thead th:nth-child(3) {
-    width: 15%;
-}
+/*.donation-history-table thead th:nth-child(3) {
+    width: 12%;
+}*/
 
 /*Date*/
-.donation-history-table thead th:nth-child(4) {
-    width: 15%;
-}
+/*.donation-history-table thead th:nth-child(4) {
+    width: 8%;
+}*/
 
 /*Items*/
-.donation-history-table thead th:nth-child(5) {
-     width: 25%;
-}
+/*.donation-history-table thead th:nth-child(5) {
+     width: 12%;
+}*/
 
 /*Donee*/
-.donation-history-table thead th:nth-child(6) {
-     width: 20%;
+/*.donation-history-table thead th:nth-child(6) {
+     width: 8%;
 }
+
+.donation-history-table thead th:nth-child(7) {
+     width: 8%;
+}*/
+
 /*-------------------------------- Donation History Page End-------------------------------- */
 /*------LOGIN REGISTER START---------*/
 

@@ -14,7 +14,7 @@ namespace Givehub.Controllers
         }
 
         [HttpPost]
-        public IActionResult Items(ItemDonationVM model)
+        public async Task<IActionResult> Items(ItemDonationVM model)
         {
             var donation = new Donation
             {
@@ -36,7 +36,7 @@ namespace Givehub.Controllers
             };
 
             _db.Donations.Add(donation);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return RedirectToAction("Index", "Home");
         }

@@ -120,6 +120,7 @@ namespace Givehub.Models
             set => ItemsJson = value == null ? null : JsonSerializer.Serialize(value);  //convert object to json string
         }
 
+        public string Status { get; set; }
         public int DoneeId { get; set; }
         public Donee Donees { get; set; }
 

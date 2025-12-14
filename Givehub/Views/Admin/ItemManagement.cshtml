@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ItemManagementVM>
+<link rel="stylesheet" href="~/css/app.css" />
+@{
+    ViewBag.Title = "Item Donation Management";
+    Layout = "_EmptyLayout";
+}
+
+
+<div id="target">
+    <partial name="_ItemManagement" model="Model" />
+</div>
