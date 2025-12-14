@@ -133,7 +133,7 @@ header {
     font-size: 15px;
 }
 
-.dropdown-menu a:hover {
+.dropdown-menu a:focus {
     background: #f0f0f0;
 }
 
@@ -1480,6 +1480,11 @@ p {
 
 .valid-email-message {
     margin-left: 2px;
+    color: #155724;
+}
+
+.admin-login-message {
+    margin-left: 12px;
     color: #155724;
 }
 

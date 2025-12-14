@@ -19,7 +19,7 @@
 
         <form method="post" asp-controller="Account" asp-action="Login" class="login-form">
             @Html.AntiForgeryToken()
-            
+             
             @* Email *@
             <div>
                 <div class="input-wrapper">
@@ -49,11 +49,33 @@
                     <span class="text-error">@ViewBag.PasswordError</span>
                 }
             </div>
-            
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="admin-login-message">
+                    @ViewBag.Message
+                </div>
+
+                // Runs every 3 seconds to check
+                <script>
+                    setInterval(async () => {
+                        const res = await fetch('/Account/CheckAdminLoginStatus');
+                        const data = await res.json();
+                        if (data.loggedIn) {
+                            window.location.href = '/Admin/AdminHomePage';
+                        }
+                    }, 3000);
+                </script>
+            }
+
             <div class="login-btn-div">
                 <button type="submit" class="login-page-btn">🔓 Login</button>
             </div>
         </form>
+
+        @* <p>Admin ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
+        <p>Donor ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
+        <p>Role: @(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "None")</p> *@
 
         <p class="register-grp">
             Don't have an account?

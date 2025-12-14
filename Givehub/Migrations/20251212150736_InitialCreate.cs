@@ -26,6 +26,27 @@ namespace Givehub.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AdminLoginTokens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AdminId = table.Column<int>(type: "int", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdminLoginTokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AdminLoginTokens_Admins_AdminId",
+                        column: x => x.AdminId,
+                        principalTable: "Admins",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Donees",
                 columns: table => new
                 {
@@ -125,6 +146,11 @@ namespace Givehub.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AdminLoginTokens_AdminId",
+                table: "AdminLoginTokens",
+                column: "AdminId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Donations_DoneeId",
                 table: "Donations",
                 column: "DoneeId");
@@ -153,6 +179,9 @@ namespace Givehub.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AdminLoginTokens");
+
             migrationBuilder.DropTable(
                 name: "Donations");
 

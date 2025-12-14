@@ -1,5 +1,6 @@
 global using Givehub.Models;
 using Givehub.Helpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Configuration;
 using Stripe;
 //using Givehub.Services;
@@ -24,9 +25,20 @@ builder.Services.AddSqlServer<DB>($@"
     AttachDbFilename={builder.Environment.ContentRootPath}\DB.mdf;
 ");
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/NoPermission";
+        options.ExpireTimeSpan = TimeSpan.FromHours(1);
+        options.SlidingExpiration = true;
+    });
+
 var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapDefaultControllerRoute();
 app.Run();
