@@ -1,12 +1,32 @@
 ﻿@{
     ViewBag.Title = "Donee Page";
+    Layout = "_EmptyLayout";
 }
 @model IEnumerable<Givehub.Models.Donee>
 
 <h2>Donee Page</h2>
 
+
+<div>
+    
+</div>
+
 <div class="donee-top-actions">
+
     <a asp-action="CreateDonee" class="custom-btn">Create Donee</a>
+    <a href="@Url.Action("Adminhomepage", "Admin")" class="delete-btn">Back to Home</a>
+
+    <form method="get" asp-action="DoneeHomePage" class="search">
+        <input class="search-input-box"
+               name="search"
+               placeholder="Search by name or location"
+               value="@Context.Request.Query["search"]" />
+
+        <button type="submit" class="search-btn">
+            <span class="material-symbols-sharp">search</span>
+        </button>
+    </form>
+
 </div>
 
 <div class="donee-grid">
@@ -34,7 +54,7 @@
             </div>
 
             <div class="btn-grp">
-                <a asp-action="EditDonee" asp-route-id="@d.Id" class="edit-btn">View</a>
+                <a asp-action="ViewDonee" asp-route-id="@d.Id" class="edit-btn">View</a>
                 <a asp-action="EditDonee" asp-route-id="@d.Id" class="edit-btn">Update</a>
 
                 <form asp-action="DeleteDonee" method="post" style="display:inline;" onsubmit="return confirmDelete('@d.Name')">
@@ -52,9 +72,34 @@
 
 
         </div>
+        
+
     }
 </div>
 
 
+<div class="pagination">
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <a asp-action="DoneeHomePage" asp-route-page="@(ViewBag.CurrentPage - 1)" asp-route-search="@ViewBag.Search">Prev</a>
+    }
+
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        if (i == ViewBag.CurrentPage)
+        {
+            <span class="current-page" style="padding: 40px 10px;">@i</span>
+        }
+        else
+        {
+            <a asp-action="DoneeHomePage" asp-route-page="@i" asp-route-search="@ViewBag.Search">@i</a>
+        }
+    }
+
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <a asp-action="DoneeHomePage" asp-route-page="@(ViewBag.CurrentPage + 1)" asp-route-search="@ViewBag.Search">Next</a>
+    }
+</div>
 
 
