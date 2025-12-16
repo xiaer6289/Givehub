@@ -11,6 +11,10 @@ namespace Givehub.Models.ViewModels
         [Remote(action: "CheckNameExists", controller: "Donee")]
         public string? Name { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
+        [Required]
+        public DateTime Date { get; set; }
+
         [Required(ErrorMessage = "Please select a Category.")]
         public string? Category { get; set; }
 

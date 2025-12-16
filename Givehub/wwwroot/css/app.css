@@ -448,6 +448,7 @@ p {
     text-align: center;
     color: #000000;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
 }
 
     .submit-btn:hover {
@@ -776,7 +777,9 @@ p {
     margin: 15px 220px 15px 0;
     padding: 3px 15px;
     position: relative;
-    max-width: 250px;
+    max-width: 450px;
+    gap: 5px;
+    overflow: hidden;
 }
 
     .search:hover {
@@ -787,8 +790,24 @@ p {
 .search-input-box {
     border: none;
     background: var(--color-background);
-    width: 300px;
+    width: 200px;
 }
+
+.search button.clear-btn {
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 4px 8px;
+    margin-left: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+    .search button.clear-btn:hover {
+        background-color: #e0e0e0;
+    }
 
 .needs-table > a > img {
     width: 270px;
@@ -1655,6 +1674,10 @@ p {
     gap: 10px;
 }
 
+    .donee-top-actions .search {
+        margin-left: auto;
+    }
+
 .donee-grid {
     display: flex;
     flex-wrap: wrap;
@@ -1915,4 +1938,75 @@ input[type="number"]::-webkit-inner-spin-button {
 
 * {
 /*    outline: solid 1px red;*/
+}
+
+.createdoneebutton {
+    /* Color variables: set via --btn-color on element */
+    --btn-color: #6fdc8c; /* default green */
+    --btn-dark: #4fb96b; /* darker shade for border/shadow */
+    --btn-shadow: #6fdc8c66; /* translucent shadow */
+
+    cursor: pointer;
+    width: 184px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.125em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #fff;
+    background: var(--btn-color);
+    border: 2px solid var(--btn-dark);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 0 var(--btn-dark);
+    transform: skew(-10deg);
+    transition: all 0.1s ease;
+    filter: drop-shadow(0 15px 20px var(--btn-shadow));
+    text-decoration: none;
+}
+
+    .createdoneebutton:active {
+        letter-spacing: 0;
+        transform: skew(-10deg) translateY(8px);
+        box-shadow: 0 0 0 var(--btn-shadow);
+    }
+
+.btn-donate {
+    /* Color variables (can be overridden per button) */
+    --clr-font-main: hsla(0, 0%, 20%, 1);
+    --btn-bg-1: hsla(194, 100%, 69%, 1); /* gradient start */
+    --btn-bg-2: hsla(217, 100%, 56%, 1); /* gradient middle/end */
+    --btn-bg-color: hsla(360, 100%, 100%, 1); /* text color */
+    --radii: 0.5em;
+    cursor: pointer;
+    padding: 0.9em 1.4em;
+    min-width: 80px;
+    min-height: 44px;
+    font-size: var(--size, 1rem);
+    font-weight: 500;
+    transition: 0.8s;
+    background-size: 280% auto;
+    background-image: linear-gradient( 325deg, var(--btn-bg-2) 0%, var(--btn-bg-1) 55%, var(--btn-bg-2) 90% );
+    border: none;
+    border-radius: var(--radii);
+    color: var(--btn-bg-color);
+    box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 0px 5px 5px -1px rgba(58, 125, 233, 0.25), inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+    text-decoration: none;
+}
+
+    .btn-donate:hover {
+        background-position: right top;
+    }
+
+    .btn-donate:is(:focus, :focus-visible, :active) {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--btn-bg-color), 0 0 0 6px var(--btn-bg-2);
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-donate {
+        transition: linear;
+    }
 }
