@@ -182,7 +182,6 @@ namespace Givehub.Models
         public string Token { get; set; }
         public DateTime Expiration { get; set; }
 
-        [ForeignKey("DonorId")]
         public Donor Donor { get; set; }
     }
 
@@ -194,7 +193,6 @@ namespace Givehub.Models
         public string Token { get; set; }
         public DateTime Expiration { get; set; }
 
-        [ForeignKey("AdminId")]
         public Admin Admin { get; set; }
     }
 }

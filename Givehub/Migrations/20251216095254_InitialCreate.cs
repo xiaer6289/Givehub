@@ -106,6 +106,7 @@ namespace Givehub.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StripeTransactionId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ItemsJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DoneeId = table.Column<int>(type: "int", nullable: false),
                     DonorId = table.Column<int>(type: "int", nullable: false)
                 },

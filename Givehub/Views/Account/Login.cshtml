@@ -5,86 +5,89 @@
     ViewBag.Title = "Login Page";
     Layout = "_EmptyLayout";
 }
-<div class="login-container center-container">
+
+<div class="auth-background login-register-background">
+    <div class="login-container center-container">
     
-    <div class="login-text">
-        <p class="login-title">Welcome to GiveHub</p>
-        <p class="login-slogan">
-            Smart Giving Starts Here.
-        </p>
-    </div>
+        <div class="login-text">
+            <p class="login-title">Welcome to GiveHub</p>
+            <p class="login-slogan">
+                Smart Giving Starts Here.
+            </p>
+        </div>
 
-    <div class="login-border">
-        <p class="login-border-header">Login Form</p>
+        <div class="login-border">
+            <p class="login-border-header">Login Form</p>
 
-        <form method="post" asp-controller="Account" asp-action="Login" class="login-form">
-            @Html.AntiForgeryToken()
+            <form method="post" asp-controller="Account" asp-action="Login" class="login-form">
+                @Html.AntiForgeryToken()
              
-            @* Email *@
-            <div>
-                <div class="input-wrapper">
-                    <label for="email">Email: </label>
-                    <input type="email" id="email" asp-for="Email" class="email-input" placeholder="johndoe@example.com">
+                @* Email *@
+                <div>
+                    <div class="input-wrapper input-wrapper-auth">
+                        <label for="email">Email: </label>
+                        <input type="email" id="email" asp-for="Email" class="email-input" placeholder="johndoe@example.com">
+                    </div>
+
+                    <span asp-validation-for="Email" class="text-error"></span>
+
+                    @if (ViewBag.EmailError != null)
+                    {
+                        <span class="text-error">@ViewBag.EmailError</span>
+                    }
                 </div>
-
-                <span asp-validation-for="Email" class="text-error"></span>
-
-                @if (ViewBag.EmailError != null)
-                {
-                    <span class="text-error">@ViewBag.EmailError</span>
-                }
-            </div>
             
-            @* Password *@
-            <div>
-                <div class="input-wrapper">
-                    <label for="password">Password: </label>
-                    <input type="password" id="password" asp-for="Password" class="password-input" placeholder="Enter Password">
+                @* Password *@
+                <div>
+                    <div class="input-wrapper input-wrapper-auth">
+                        <label for="password">Password: </label>
+                        <input type="password" id="password" asp-for="Password" class="password-input" placeholder="Enter Password">
+                    </div>
+
+                    <span asp-validation-for="Password" class="text-error"></span>
+
+                    @if (ViewBag.PasswordError != null)
+                    {
+                        <span class="text-error">@ViewBag.PasswordError</span>
+                    }
                 </div>
 
-                <span asp-validation-for="Password" class="text-error"></span>
-
-                @if (ViewBag.PasswordError != null)
+                @if (ViewBag.Message != null)
                 {
-                    <span class="text-error">@ViewBag.PasswordError</span>
+                    <div class="admin-login-message">
+                        @ViewBag.Message
+                    </div>
+
+                    // Runs every 3 seconds to check
+                    <script>
+                        setInterval(async () => {
+                            const res = await fetch('/Account/CheckAdminLoginStatus');
+                            const data = await res.json();
+                            if (data.loggedIn) {
+                                window.location.href = '/Admin/AdminHomePage';
+                            }
+                        }, 3000);
+                    </script>
                 }
-            </div>
 
-            @if (ViewBag.Message != null)
-            {
-                <div class="admin-login-message">
-                    @ViewBag.Message
+                <div class="login-btn-div">
+                    <button type="submit" class="login-page-btn">🔓 Login</button>
                 </div>
+            </form>
 
-                // Runs every 3 seconds to check
-                <script>
-                    setInterval(async () => {
-                        const res = await fetch('/Account/CheckAdminLoginStatus');
-                        const data = await res.json();
-                        if (data.loggedIn) {
-                            window.location.href = '/Admin/AdminHomePage';
-                        }
-                    }, 3000);
-                </script>
-            }
+            @* <p>Admin ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
+            <p>Donor ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
+            <p>Role: @(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "None")</p> *@
 
-            <div class="login-btn-div">
-                <button type="submit" class="login-page-btn">🔓 Login</button>
-            </div>
-        </form>
-
-        @* <p>Admin ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
-        <p>Donor ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
-        <p>Role: @(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "None")</p> *@
-
-        <p class="register-grp">
-            Don't have an account?
-            <a asp-controller="Account" asp-action="Register" class="register-url">Register here</a>
+            <p class="register-grp">
+                Don't have an account?
+                <a asp-controller="Account" asp-action="Register" class="register-url">Register here</a>
             
-            <br />
+                <br />
 
-            Forgot your password?
-            <a asp-controller="Account" asp-action="ForgotPassword" class="forgotpass-url">Click here</a>
-        </p>
+                Forgot your password?
+                <a asp-controller="Account" asp-action="ForgotPassword" class="forgotpass-url">Click here</a>
+            </p>
+        </div>
     </div>
 </div>

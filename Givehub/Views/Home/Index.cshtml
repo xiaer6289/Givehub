@@ -4,6 +4,10 @@
     ViewBag.Title = "Index";
 }
 
+<p>Admin ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
+<p>Donor ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
+<p>Role: @(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "None")</p>
+
 <div class="hero-section">
     <div class="hero-overlay">
         <img src="~/images/img2.png" alt="Community helping each other" class="hero-bg-img" style="width: 100%;">
