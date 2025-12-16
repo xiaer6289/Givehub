@@ -4,28 +4,32 @@
 }
 @model IEnumerable<Givehub.Models.Donee>
 
-<h2>Donee Page</h2>
+<h1 class=" title">Donee Page</h1>
 
-
-<div>
-    
-</div>
 
 <div class="donee-top-actions">
 
-    <a asp-action="CreateDonee" class="custom-btn">Create Donee</a>
-    <a href="@Url.Action("Adminhomepage", "Admin")" class="delete-btn">Back to Home</a>
+    <a asp-action="CreateDonee" class="createdoneebutton" style="--btn-color:#6fdc8c; --btn-dark:#4fb96b; --btn-shadow:#6fdc8c66;margin-left: 30px;">Create Donee</a>
+    <a href="@Url.Action("Adminhomepage", "Admin")" class="createdoneebutton" style="--btn-color:#ff6b6b; --btn-dark:#c94c4c; --btn-shadow:#ff6b6b66;">Back to Home</a>
 
-    <form method="get" asp-action="DoneeHomePage" class="search">
-        <input class="search-input-box"
-               name="search"
-               placeholder="Search by name or location"
-               value="@Context.Request.Query["search"]" />
+  <form method="get" asp-action="DoneeHomePage" class="search">
+    <input class="search-input-box" id="searchBox" name="search"
+           placeholder="Search by name or location"
+           value="@ViewBag.Search" />
 
-        <button type="submit" class="search-btn">
-            <span class="material-symbols-sharp">search</span>
-        </button>
-    </form>
+        <select name="category" class="search-category">
+            <option value="" selected="@(string.IsNullOrEmpty(ViewBag.Category))">All Categories</option>
+            <option value="Orphanages" selected="@(ViewBag.Category == "Orphanages")">Orphanages</option>
+            <option value="Nursing Homes" selected="@(ViewBag.Category == "Nursing Homes")">Nursing Homes</option>
+            <option value="Refugees" selected="@(ViewBag.Category == "Refugees")">Refugees</option>
+        </select>
+
+    <button type="submit" class="search-btn">
+        <span class="material-symbols-sharp">search</span>
+    </button>
+
+    <button type="button" class="search-clear-btn" onclick="clearSearch()">Clear</button>
+</form>
 
 </div>
 
@@ -46,21 +50,21 @@
 
             <div class="donee-info">
                 <h3>@(d.Name ?? "-")</h3>
-                <p><strong>Date:</strong> @(d.Date != null ? d.Date.ToString("yyyy-MM-dd HH:mm") : "-")</p>
                 <p><strong>Category:</strong> @(d.Category ?? "-")</p>
                 <p><strong>Address:</strong> @(d.Address ?? "-")</p>
                 <p><strong>Requirements:</strong> @(d.Requirements ?? "-")</p>
-                <p><strong>Description:</strong> @(d.Description ?? "-")</p>
             </div>
 
             <div class="btn-grp">
-                <a asp-action="ViewDonee" asp-route-id="@d.Id" class="edit-btn">View</a>
-                <a asp-action="EditDonee" asp-route-id="@d.Id" class="edit-btn">Update</a>
+                <a asp-action="ViewDonee" asp-route-id="@d.Id" class="btn-donate">View</a>
+                <a asp-action="EditDonee" asp-route-id="@d.Id" class="btn-donate" >Update</a>
 
                 <form asp-action="DeleteDonee" method="post" style="display:inline;" onsubmit="return confirmDelete('@d.Name')">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="id" value="@d.Id" />
-                    <button type="submit" class="delete-btn">Delete</button>
+                    <button type="submit" class="btn-donate" style="--btn-bg-1: #ff6b6b; --btn-bg-2: #c94c4c; --btn-bg-color: #fff; --btn-shadow: #ff6b6b66;">
+                        Delete
+                    </button>
                 </form>
             </div>
 
@@ -79,10 +83,12 @@
 
 
 <div class="pagination">
-    @if (ViewBag.CurrentPage > 1)
-    {
-        <a asp-action="DoneeHomePage" asp-route-page="@(ViewBag.CurrentPage - 1)" asp-route-search="@ViewBag.Search">Prev</a>
-    }
+    <a asp-action="DoneeHomePage"
+       asp-route-page="@(ViewBag.CurrentPage - 1)"
+       asp-route-search="@ViewBag.Search"
+       class="@(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+        Prev
+    </a>
 
     @for (int i = 1; i <= ViewBag.TotalPages; i++)
     {
@@ -96,10 +102,19 @@
         }
     }
 
-    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-    {
-        <a asp-action="DoneeHomePage" asp-route-page="@(ViewBag.CurrentPage + 1)" asp-route-search="@ViewBag.Search">Next</a>
-    }
+    <a asp-action="DoneeHomePage"
+       asp-route-page="@(ViewBag.CurrentPage + 1)"
+       asp-route-search="@ViewBag.Search"
+       class="@(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+        Next
+    </a>
 </div>
 
+<script>
+    function clearSearch() {
+        const searchBox = document.getElementById('searchBox');
+        searchBox.value = ''; 
+         window.location.href = '@Url.Action("DoneeHomePage", "Donee")';
+    }
+</script>
 
