@@ -1328,51 +1328,82 @@ p {
 /*-------------------------------- Donation History Page End-------------------------------- */
 /*------LOGIN REGISTER START---------*/
 
-.login-text *{
+.login-text * {
     text-align: center;
-    color: black;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .login-title {
-    font-size: 30px;
+    font-size: 42px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .register-title {
     color: black;
-    font-size: 30px;
+    font-size: 27px;
     font-weight: bold;
     margin-top: 0%;
     margin-bottom: 25px;
+    text-align: center;
 }
 
 .login-slogan {
-    margin-bottom: 25px;
-    font-size: 20px
+    margin-bottom: 35px;
+    font-size: 22px;
+    font-weight: 300;
 }
 
 .login-border-header {
     text-align: center;
     margin-top: 22px;
+    margin-bottom: 20px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 23px;
     color: black;
 }
 
-.login-border, .register-border {
+.login-border {
     overflow-y: hidden;
-    border: 2px solid #000000;
+    border: none;
     border-radius: 30px;
     width: 458px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 20px;
 }
 
+.register-border {
+    overflow-y: hidden;
+    border: none;
+    border-radius: 30px;
+    width: 458px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0px 15px;
+}
 .center-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
+.auth-background {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.login-register-background {
+    background-image: url("/images/login_register_background.jpg");
+}
+
+.forgot-reset-background {
+    background-image: url("/images/forgot_reset_background.png");
+}
+
 
 .login-container {
     margin-top: 120px;
@@ -1389,14 +1420,20 @@ p {
 
 .login-page-btn, .register-btn {
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
     text-align: center;
-    width: 75%;
-    height: 35px;
+    width: 85%;
+    height: 48px;
     padding: 5px;
-    margin-top: 15px;
-    margin-bottom:10px;
-    background: #3f3fd1;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #5b5bdb 0%, #3f3fd1 100%);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(63, 63, 209, 0.3);
 }
 
 .register-grp, .login-grp {
@@ -1409,7 +1446,7 @@ p {
     color: #7380ec;
 }
 
-.input-wrapper {
+.input-wrapper-auth {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1417,7 +1454,7 @@ p {
     text-align: left;
 }
 
-    .input-wrapper label {
+    .input-wrapper-auth label {
         align-self: flex-start;
         margin-left: 15px; 
     }
@@ -1466,7 +1503,7 @@ p {
 /*------LOGIN REGISTER END---------*/
 
 /*----Forgot and reset password start----*/
-.forgot-container, .reset-container {
+.forgot-container   {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1474,6 +1511,15 @@ p {
     max-width: 1200px;
     margin: auto;
     margin-top: 155px;
+    gap: 40px;
+}
+
+.reset-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: auto;   
     gap: 40px;
 }
 
@@ -1516,7 +1562,7 @@ p {
 }
 
 .send-link-btn, .reset-btn {
-    width: 600px;
+/*    width: 600px;*/
     padding: 12px;
     margin-top: 10px;
     border: none;
@@ -1540,7 +1586,7 @@ p {
     text-align: center;
     font-size: 36px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #000000;
 }
 
@@ -1548,7 +1594,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 120px;
 }
 
 .reset-password-title {
