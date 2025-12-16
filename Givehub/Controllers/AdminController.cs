@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Givehub.Controllers;
 
+[Authorize (Roles = "Admin")]
 public class AdminController : Controller
 {
     private readonly DB _db;

@@ -1,11 +1,14 @@
 ﻿using Givehub.Helpers;
 using Givehub.Models;
 using Givehub.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Givehub.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DoneeController : Controller
     {
         private readonly DB _context;

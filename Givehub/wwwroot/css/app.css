@@ -1543,18 +1543,34 @@ p {
 }
 
 .send-link-btn, .reset-btn {
-/*    width: 600px;*/
     padding: 12px;
     margin-top: 10px;
     border: none;
-    border-radius: 25px;
+    border-radius: 18px;
     font-size: 16px;
-    background: #3f3fd1;
+    background: linear-gradient(135deg, #5b5bdb 0%, #3f3fd1 100%);
     color: white;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: 0.2s ease;
+    box-shadow: 0 4px 15px rgba(63, 63, 209, 0.3);
 }
+
+/*.login-page-btn, .register-btn {
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    width: 85%;
+    height: 48px;
+    padding: 5px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #5b5bdb 0%, #3f3fd1 100%);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(63, 63, 209, 0.3);
+}*/
 
 .link-signin {
     display: block;
@@ -1605,6 +1621,52 @@ p {
     color: #dc3545;
 }
 /*----Forgot and reset password end----*/
+
+/*----No Permission start----*/
+.no-permission-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.no-permission-card {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.acess-denied-image {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.no-permission-card h1 {
+    font-size: 28px;
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+.no-permission-card p {
+    font-size: 16px;
+    color: #6c757d;
+    margin-bottom: 25px;
+}
+
+.btn-home {
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+/*----No Permission end----*/
 .donee-top-actions {
     margin-bottom: 20px;
     display: flex;
@@ -1634,6 +1696,7 @@ p {
     overflow: hidden;
     margin-bottom: 10px;
 }
+
 
 .donee-img {
     width: 100%;
