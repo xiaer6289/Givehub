@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Givehub.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20251216095254_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251217054720_CreateDB")]
+    partial class CreateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
