@@ -1,11 +1,14 @@
 ﻿using Givehub.Helpers;
 using Givehub.Models;
 using Givehub.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Givehub.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DoneeController : Controller
     {
         private readonly DB _context;
@@ -74,19 +77,25 @@ namespace Givehub.Controllers
             return Json(true);
         }
 
-        public IActionResult DoneeHomePage(string search, int page = 1)
+        public IActionResult DoneeHomePage(string search, string category, int page = 1)
         {
             int pageSize = 8; // 8 donees per page
             var query = _context.Donees.AsQueryable();
 
+            // Filter by search term
             if (!string.IsNullOrWhiteSpace(search))
             {
                 search = search.ToLower();
                 query = query.Where(d =>
                     d.Name.ToLower().Contains(search) ||
-                    d.Address.ToLower().Contains(search) ||
-                    d.Category.ToLower().Contains(search)
+                    d.Address.ToLower().Contains(search)
                 );
+            }
+
+            // Filter by category
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                query = query.Where(d => d.Category == category);
             }
 
             int totalItems = query.Count();
@@ -101,6 +110,7 @@ namespace Givehub.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
             ViewBag.Search = search;
+            ViewBag.Category = category; // keep selected category for the view
 
             return View(donees);
         }

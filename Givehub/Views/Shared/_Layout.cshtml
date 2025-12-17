@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -20,10 +22,11 @@
         <a asp-controller="Home" asp-action="Contact" class="header-link">Contact</a>
         
         @{
-            int? donorId = Context.Session.GetInt32("DonorId");
+            var donorIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var roleClaim = User.FindFirstValue(ClaimTypes.Role);
         }
 
-        @if (donorId == null)
+        @if (string.IsNullOrEmpty(donorIdClaim))
         {
             <a asp-controller="Account" asp-action="Login" class="login-btn">Login</a>
         }

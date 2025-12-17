@@ -15,6 +15,9 @@ namespace Givehub.Models
 
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
 
+        public DbSet<AdminLoginToken> AdminLoginTokens { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -37,6 +40,12 @@ namespace Givehub.Models
                 .HasOne(p => p.Donor)
                 .WithMany()
                 .HasForeignKey(p => p.DonorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<AdminLoginToken>()
+                .HasOne(t => t.Admin)
+                .WithMany()
+                .HasForeignKey(t => t.AdminId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
@@ -128,6 +137,7 @@ namespace Givehub.Models
             set => ItemsJson = value == null ? null : JsonSerializer.Serialize(value);  //convert object to json string
         }
 
+        public string Status { get; set; }
         public int DoneeId { get; set; }
         public Donee Donees { get; set; }
 
@@ -172,7 +182,17 @@ namespace Givehub.Models
         public string Token { get; set; }
         public DateTime Expiration { get; set; }
 
-        [ForeignKey("DonorId")]
         public Donor Donor { get; set; }
+    }
+
+    public class AdminLoginToken
+    {
+        [Key]
+        public int Id { get; set; }
+        public int AdminId { get; set; }
+        public string Token { get; set; }
+        public DateTime Expiration { get; set; }
+
+        public Admin Admin { get; set; }
     }
 }

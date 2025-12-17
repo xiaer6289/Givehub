@@ -47,22 +47,6 @@ $(document).ready(function () {
         $(this).siblings('.dropdown-menu').toggle();
     });
 
-    $('.user-icon').mouseenter(function () {
-        $(this).siblings('.dropdown-menu').show();
-    }).mouseleave(function () {
-        var dropdown = $(this).siblings('.dropdown-menu');
-        dropdown.delay(200).queue(function (next) {
-            if (!dropdown.is(':hover')) {
-                dropdown.hide();
-            }
-            next();
-        });
-    });
-
-    $('.dropdown-menu').mouseleave(function () {
-        $(this).hide();
-    });
-
     $(document).click(function () {
         $('.dropdown-menu').hide();
     });

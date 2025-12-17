@@ -44,6 +44,31 @@ namespace Givehub.Migrations
                     b.ToTable("Admins");
                 });
 
+            modelBuilder.Entity("Givehub.Models.AdminLoginToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
+
+                    b.ToTable("AdminLoginTokens");
+                });
+
             modelBuilder.Entity("Givehub.Models.Donation", b =>
                 {
                     b.Property<int>("Id")
@@ -72,6 +97,10 @@ namespace Givehub.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StripeTransactionId")
                         .HasColumnType("nvarchar(max)");
@@ -185,6 +214,17 @@ namespace Givehub.Migrations
                     b.HasIndex("DonorId");
 
                     b.ToTable("PasswordResetTokens");
+                });
+
+            modelBuilder.Entity("Givehub.Models.AdminLoginToken", b =>
+                {
+                    b.HasOne("Givehub.Models.Admin", "Admin")
+                        .WithMany()
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Admin");
                 });
 
             modelBuilder.Entity("Givehub.Models.Donation", b =>

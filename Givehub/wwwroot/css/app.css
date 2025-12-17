@@ -133,7 +133,7 @@ header {
     font-size: 15px;
 }
 
-.dropdown-menu a:hover {
+.dropdown-menu a:focus {
     background: #f0f0f0;
 }
 
@@ -448,6 +448,7 @@ p {
     text-align: center;
     color: #000000;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
 }
 
     .submit-btn:hover {
@@ -776,7 +777,9 @@ p {
     margin: 15px 220px 15px 0;
     padding: 3px 15px;
     position: relative;
-    max-width: 250px;
+    max-width: 450px;
+    gap: 5px;
+    overflow: hidden;
 }
 
     .search:hover {
@@ -787,8 +790,24 @@ p {
 .search-input-box {
     border: none;
     background: var(--color-background);
-    width: 300px;
+    width: 200px;
 }
+
+.search button.clear-btn {
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 4px 8px;
+    margin-left: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+    .search button.clear-btn:hover {
+        background-color: #e0e0e0;
+    }
 
 .needs-table > a > img {
     width: 270px;
@@ -1202,92 +1221,189 @@ p {
 
 
 /*------------------------------------------ Donation History Page--------------------------------  */
-.donation-history-table th {
-    outline: 1px solid black;
+.item-management {
+    font-size: 28px;
+    font-weight: bold;
+    color: #14283c;
+    margin-bottom: 15px;
+    display: block;
+    padding-bottom: 10px;
 }
 
 .donation-history-table {
     width: 100%;
     table-layout: fixed;
+    border-spacing: 0;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-/*Id*/
-.donation-history-table thead th:nth-child(1) {
-    width: 10%;
+
+    .donation-history-table th,
+    .donation-history-table td {
+        outline: 1px solid rgb(222, 229, 230);
+        text-align: center;
+        padding: 10px;
+    }
+
+    .donation-history-table th {
+        background-color: #d9d9dbfe;
+        text-transform: uppercase;
+    }
+
+
+    .donation-history-table .btn-update {
+        background-color: rgb(15, 186, 15);
+        color: white;
+        font-weight: bold;
+        padding: 8px;
+        margin-top: 6px;
+        border-radius: 6px;
+        border-color:green;
+        cursor: pointer;
+        width: 165px;
+    }
+
+
+        .donation-history-table .btn-update:hover {
+            background: rgb(9, 162, 9);
+        }
+
+
+.action-select {
+    width: 100%;
+    padding: 12px;
+    padding-right: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #1054a16d;
+    background-color: #f7e2f3;
+    cursor: pointer;
 }
 
+    .action-select:hover {
+        border-color: #2525e8;
+        background-color: #e8edff;
+    }
+
+
+/*.donation-history-table tbody tr:nth-child(even){
+    background-color:#0000000b;
+}
+
+
+   
 /*Method*/
-.donation-history-table thead th:nth-child(2) {
-    width: 15%;
-}
+/*.donation-history-table thead th:nth-child(2) {
+    width: 12%;
+}*/
 
 /*Amount*/
-.donation-history-table thead th:nth-child(3) {
-    width: 15%;
-}
+/*.donation-history-table thead th:nth-child(3) {
+    width: 12%;
+}*/
 
 /*Date*/
-.donation-history-table thead th:nth-child(4) {
-    width: 15%;
-}
+/*.donation-history-table thead th:nth-child(4) {
+    width: 8%;
+}*/
 
 /*Items*/
-.donation-history-table thead th:nth-child(5) {
-     width: 25%;
-}
+/*.donation-history-table thead th:nth-child(5) {
+     width: 12%;
+}*/
 
 /*Donee*/
-.donation-history-table thead th:nth-child(6) {
-     width: 20%;
+/*.donation-history-table thead th:nth-child(6) {
+     width: 8%;
 }
+
+.donation-history-table thead th:nth-child(7) {
+     width: 8%;
+}*/
+
 /*-------------------------------- Donation History Page End-------------------------------- */
 /*------LOGIN REGISTER START---------*/
 
-.login-text *{
+.login-text * {
     text-align: center;
-    color: black;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .login-title {
-    font-size: 30px;
+    font-size: 42px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .register-title {
     color: black;
-    font-size: 30px;
+    font-size: 27px;
     font-weight: bold;
     margin-top: 0%;
     margin-bottom: 25px;
+    text-align: center;
 }
 
 .login-slogan {
-    margin-bottom: 25px;
-    font-size: 20px
+    margin-bottom: 35px;
+    font-size: 22px;
+    font-weight: 300;
 }
 
 .login-border-header {
     text-align: center;
     margin-top: 22px;
+    margin-bottom: 20px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 23px;
     color: black;
 }
 
-.login-border, .register-border {
+.login-border {
     overflow-y: hidden;
-    border: 2px solid #000000;
+    border: none;
     border-radius: 30px;
     width: 458px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 20px;
 }
 
+.register-border {
+    overflow-y: hidden;
+    border: none;
+    border-radius: 30px;
+    width: 458px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0px 15px;
+}
 .center-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
+.auth-background {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.login-register-background {
+    background-image: url("/images/login_register_background.jpg");
+}
+
+.forgot-reset-background {
+    background-image: url("/images/forgot_reset_background.png");
+}
+
 
 .login-container {
     margin-top: 120px;
@@ -1304,14 +1420,20 @@ p {
 
 .login-page-btn, .register-btn {
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
     text-align: center;
-    width: 75%;
-    height: 35px;
+    width: 85%;
+    height: 48px;
     padding: 5px;
-    margin-top: 15px;
-    margin-bottom:10px;
-    background: #3f3fd1;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #5b5bdb 0%, #3f3fd1 100%);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(63, 63, 209, 0.3);
 }
 
 .register-grp, .login-grp {
@@ -1324,7 +1446,7 @@ p {
     color: #7380ec;
 }
 
-.input-wrapper {
+.input-wrapper-auth {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1332,7 +1454,7 @@ p {
     text-align: left;
 }
 
-    .input-wrapper label {
+    .input-wrapper-auth label {
         align-self: flex-start;
         margin-left: 15px; 
     }
@@ -1381,7 +1503,7 @@ p {
 /*------LOGIN REGISTER END---------*/
 
 /*----Forgot and reset password start----*/
-.forgot-container, .reset-container {
+.forgot-container   {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1389,6 +1511,15 @@ p {
     max-width: 1200px;
     margin: auto;
     margin-top: 155px;
+    gap: 40px;
+}
+
+.reset-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: auto;   
     gap: 40px;
 }
 
@@ -1431,17 +1562,15 @@ p {
 }
 
 .send-link-btn, .reset-btn {
-    width: 600px;
     padding: 12px;
     margin-top: 10px;
     border: none;
-    border-radius: 25px;
+    border-radius: 18px;
     font-size: 16px;
-    background: #3f3fd1;
+    background: linear-gradient(135deg, #5b5bdb 0%, #3f3fd1 100%);
     color: white;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: 0.2s ease;
+    box-shadow: 0 4px 15px rgba(63, 63, 209, 0.3);
 }
 
 .link-signin {
@@ -1455,7 +1584,7 @@ p {
     text-align: center;
     font-size: 36px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #000000;
 }
 
@@ -1463,7 +1592,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 120px;
 }
 
 .reset-password-title {
@@ -1483,16 +1612,71 @@ p {
     color: #155724;
 }
 
+.admin-login-message {
+    margin-left: 12px;
+    color: #155724;
+}
+
 .invalid-email-message {
     margin-left: 2px;
     color: #dc3545;
 }
 /*----Forgot and reset password end----*/
+
+/*----No Permission start----*/
+.no-permission-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.no-permission-card {
+    background-color: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.acess-denied-image {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.no-permission-card h1 {
+    font-size: 28px;
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+.no-permission-card p {
+    font-size: 16px;
+    color: #6c757d;
+    margin-bottom: 25px;
+}
+
+.btn-home {
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+/*----No Permission end----*/
 .donee-top-actions {
     margin-bottom: 20px;
     display: flex;
     gap: 10px;
 }
+
+    .donee-top-actions .search {
+        margin-left: auto;
+    }
 
 .donee-grid {
     display: flex;
@@ -1517,6 +1701,7 @@ p {
     overflow: hidden;
     margin-bottom: 10px;
 }
+
 
 .donee-img {
     width: 100%;
@@ -1753,4 +1938,75 @@ input[type="number"]::-webkit-inner-spin-button {
 
 * {
 /*    outline: solid 1px red;*/
+}
+
+.createdoneebutton {
+    /* Color variables: set via --btn-color on element */
+    --btn-color: #6fdc8c; /* default green */
+    --btn-dark: #4fb96b; /* darker shade for border/shadow */
+    --btn-shadow: #6fdc8c66; /* translucent shadow */
+
+    cursor: pointer;
+    width: 184px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.125em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #fff;
+    background: var(--btn-color);
+    border: 2px solid var(--btn-dark);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 0 var(--btn-dark);
+    transform: skew(-10deg);
+    transition: all 0.1s ease;
+    filter: drop-shadow(0 15px 20px var(--btn-shadow));
+    text-decoration: none;
+}
+
+    .createdoneebutton:active {
+        letter-spacing: 0;
+        transform: skew(-10deg) translateY(8px);
+        box-shadow: 0 0 0 var(--btn-shadow);
+    }
+
+.btn-donate {
+    /* Color variables (can be overridden per button) */
+    --clr-font-main: hsla(0, 0%, 20%, 1);
+    --btn-bg-1: hsla(194, 100%, 69%, 1); /* gradient start */
+    --btn-bg-2: hsla(217, 100%, 56%, 1); /* gradient middle/end */
+    --btn-bg-color: hsla(360, 100%, 100%, 1); /* text color */
+    --radii: 0.5em;
+    cursor: pointer;
+    padding: 0.9em 1.4em;
+    min-width: 80px;
+    min-height: 44px;
+    font-size: var(--size, 1rem);
+    font-weight: 500;
+    transition: 0.8s;
+    background-size: 280% auto;
+    background-image: linear-gradient( 325deg, var(--btn-bg-2) 0%, var(--btn-bg-1) 55%, var(--btn-bg-2) 90% );
+    border: none;
+    border-radius: var(--radii);
+    color: var(--btn-bg-color);
+    box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 0px 5px 5px -1px rgba(58, 125, 233, 0.25), inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+    text-decoration: none;
+}
+
+    .btn-donate:hover {
+        background-position: right top;
+    }
+
+    .btn-donate:is(:focus, :focus-visible, :active) {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--btn-bg-color), 0 0 0 6px var(--btn-bg-2);
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-donate {
+        transition: linear;
+    }
 }
