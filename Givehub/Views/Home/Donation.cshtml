@@ -1,66 +1,124 @@
-﻿@{
+﻿@model IEnumerable<Givehub.Models.Donee>
+@{
     ViewBag.Title = "Donation";
 }
 <div class="page-search">
-    <p class="pagination-count">
-        Page <span>1</span> of <span>1</span>
-    </p>
+    
 
-    <form method="get" class="search">
-        <input class="search-input-box" type="search" id="search" name="search" placeholder="Search by name or location" th:value="${search}">
-        <span class="material-symbols-sharp" style="padding:5px;">search</span>
+    <form method="get" asp-action="Donation" class="search">
+
+        <input class="search-input-box"
+               id="searchBox"
+               name="search"
+               placeholder="Search by name or location"
+               value="@ViewBag.Search" />
+
+        <select name="category" class="search-category">
+            <option value="" selected="@(string.IsNullOrEmpty(ViewBag.Category))">
+                All Categories
+            </option>
+            <option value="Orphanages" selected="@(ViewBag.Category == "Orphanages")">
+                Orphanages
+            </option>
+            <option value="Nursing Homes" selected="@(ViewBag.Category == "Nursing Homes")">
+                Nursing Homes
+            </option>
+            <option value="Refugees" selected="@(ViewBag.Category == "Refugees")">
+                Refugees
+            </option>
+        </select>
+
+        <button type="submit" class="search-btn">
+            <span class="material-symbols-sharp">search</span>
+        </button>
+
+        <button type="button" class="search-clear-btn" onclick="clearSearch()">
+            Clear
+        </button>
+
     </form>
 </div>
 
 <div class="needs-table">
-    <a href="" class="needs-wrapper">
-        <img src="~/images/img3.png" alt="image">
-        <p>Sunway Sanctuary</p>
-        <p>Nursing Home</p>
-        <p>Kuala lumpur</p>
-    </a>
-    <a href="" class="needs-wrapper">
-        <img src="~/images/img4.png" alt="image">
-        <p>Sunway Sanctuary</p>
-        <p>Nursing Home</p>
-        <p>Kuala lumpur</p>
-    </a>
-    <a href="" class="needs-wrapper">
-        <img src="~/images/img5.png" alt="image">
-        <p>Sunway Sanctuary</p>
-        <p>Nursing Home</p>
-        <p>Kuala lumpur</p>
-    </a>
-    <a href="" class="needs-wrapper">
-        <img src="~/images/img7.png" alt="image">
-        <p>Sunway Sanctuary</p>
-        <p>Orpahanage</p>
-        <p>Kuala lumpur</p>
-    </a>
-    <a href="" class="needs-wrapper">
-        <img src="~/images/img6.png" alt="image">
-        <p>Sunway Sanctuary</p>
-        <p>Orphanage</p>
-        <p>Kuala lumpur</p>
-    </a>
-    <a href="" class="needs-wrapper">
-        <img src="~/images/img8.png" alt="image">
-        <p>Sunway Sanctuary</p>
-        <p>Orpahange</p>
-        <p>Kuala lumpur</p>
-    </a>
+
+    @if (!Model.Any())
+    {
+        <p>No result found for "@ViewBag.Search"</p>
+    }
+    else
+    {
+        @foreach (var d in Model)
+        {
+            <a asp-controller="Donee"
+               asp-action="ViewDonee"
+               asp-route-id="@d.Id"
+               class="needs-wrapper">
+
+                @if (!string.IsNullOrEmpty(d.Image))
+                {
+                    <img src="@Url.Content(d.Image)" alt="@d.Name" />
+                }
+                else
+                {
+                    <img src="~/images/no-image.png" alt="No image" />
+                }
+
+                <p>@d.Name</p>
+                <p>@d.Category</p>
+                <p>@d.Requirements</p>
+            </a>
+        }
+    }
+
 </div>
 
+<p class="pagination-count">
+    Page <span>@ViewBag.CurrentPage</span> of <span>@ViewBag.TotalPages</span>
+</p>
+
 <div class="pagination">
-    <a>
+
+    <a asp-action="Donation"
+       asp-controller="Home"
+       asp-route-page="@(ViewBag.CurrentPage - 1)"
+       asp-route-search="@ViewBag.Search"
+       asp-route-category="@ViewBag.Category"
+       class="@(ViewBag.CurrentPage == 1 ? "disabled" : "")">
         Prev
     </a>
 
-    <span th:each="i : ${#numbers.sequence(1, totalPages)}" style="padding: 40px 10px;">
-        <a>1</a>
-    </span>
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        if (i == ViewBag.CurrentPage)
+        {
+            <span class="current-page">@i</span>
+        }
+        else
+        {
+            <a asp-action="Donation"
+               asp-controller="Home"
+               asp-route-page="@i"
+               asp-route-search="@ViewBag.Search"
+               asp-route-category="@ViewBag.Category">
+                @i
+            </a>
+        }
+    }
 
-    <a>
+    <a asp-action="Donation"
+       asp-controller="Home"
+       asp-route-page="@(ViewBag.CurrentPage + 1)"
+       asp-route-search="@ViewBag.Search"
+       asp-route-category="@ViewBag.Category"
+       class="@(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
         Next
     </a>
+
 </div>
+
+<script>
+    function clearSearch() {
+        document.getElementById('searchBox').value = '';
+        window.location.href = '@Url.Action("Donation", "Home")';
+    }
+</script>

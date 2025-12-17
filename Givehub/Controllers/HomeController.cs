@@ -3,10 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.Mail;
 
+
 namespace Givehub.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly DB _context;
+    public HomeController(DB context)
+    {
+        _context = context;
+    }
     public IActionResult Index()
     {
         return View();
@@ -52,9 +58,39 @@ public class HomeController : Controller
         return RedirectToAction("Contact");
     }
 
-    public IActionResult Donation()
+    public IActionResult Donation(string search, string category, int page = 1)
     {
-        return View();
+        int pageSize = 6;
+        var query =_context.Donees.AsQueryable();
+
+        if(!string.IsNullOrWhiteSpace(search))
+        {
+            search = search.ToLower();
+            query = query.Where(d=>
+            d.Name.ToLower().Contains(search)||
+            d.Address.ToLower().Contains(search));
+        }
+
+        if (!string.IsNullOrWhiteSpace(category))
+        {
+            query = query.Where(d => d.Category == category);
+        }
+
+        int totalItems = query.Count();
+        int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+        var donees = query
+            .OrderBy(d => d.Name)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        ViewBag.CurrentPage = page;
+        ViewBag.TotalPages = totalPages;
+        ViewBag.Search = search;
+        ViewBag.Category = category;
+
+        return View(donees);
     }
 
 }

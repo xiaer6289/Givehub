@@ -79,10 +79,9 @@ namespace Givehub.Controllers
 
         public IActionResult DoneeHomePage(string search, string category, int page = 1)
         {
-            int pageSize = 8; // 8 donees per page
+            int pageSize = 8;
             var query = _context.Donees.AsQueryable();
 
-            // Filter by search term
             if (!string.IsNullOrWhiteSpace(search))
             {
                 search = search.ToLower();
@@ -92,7 +91,6 @@ namespace Givehub.Controllers
                 );
             }
 
-            // Filter by category
             if (!string.IsNullOrWhiteSpace(category))
             {
                 query = query.Where(d => d.Category == category);
@@ -110,7 +108,7 @@ namespace Givehub.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
             ViewBag.Search = search;
-            ViewBag.Category = category; // keep selected category for the view
+            ViewBag.Category = category;
 
             return View(donees);
         }

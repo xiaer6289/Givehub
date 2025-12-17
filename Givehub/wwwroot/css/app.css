@@ -809,6 +809,10 @@ p {
         background-color: #e0e0e0;
     }
 
+    .material-symbols-sharp {
+    overflow: hidden;
+    }
+
 .needs-table > a > img {
     width: 270px;
     height: 150px;
