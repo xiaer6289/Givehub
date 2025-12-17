@@ -172,10 +172,12 @@ namespace Givehub.Controllers
 
 
 
-        public ActionResult ViewDonee(int id)
+        [AllowAnonymous]
+        public IActionResult ViewDonee(int id, string mode)
         {
             var donee = _context.Donees.Find(id);
-            if (donee == null) NotFound();
+            if (donee == null)
+                return NotFound();
 
             var vm = new DoneeVM
             {
@@ -184,13 +186,25 @@ namespace Givehub.Controllers
                 Category = donee.Category,
                 Address = donee.Address,
                 Requirements = !string.IsNullOrEmpty(donee.Requirements)
-        ? donee.Requirements.Split(',').Select(r => r.Trim()).ToList()
-        : new List<string>(),
+                    ? donee.Requirements.Split(',').Select(r => r.Trim()).ToList()
+                    : new List<string>(),
                 Description = donee.Description,
-                Image = donee.Image
+                Image = donee.Image,
+                Date = donee.Date
             };
-            return View(vm);
+
+            // 🔥 FORCE user view when coming from Home
+            if (mode == "user")
+                return View("ViewDonee.User", vm);
+
+            // Admin pages
+            if (User.IsInRole("Admin"))
+                return View("ViewDonee.Admin", vm);
+
+            // Default
+            return View("ViewDonee.User", vm);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

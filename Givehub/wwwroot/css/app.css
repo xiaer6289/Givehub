@@ -428,7 +428,7 @@ p {
 
 .checkbox-grp label {
     display: flex;
-    align-items: center;
+    align-items: center;submit-btn
 }
 
 .checkbox-grp input[type="checkbox"] {

@@ -52,6 +52,7 @@
             <a asp-controller="Donee"
                asp-action="ViewDonee"
                asp-route-id="@d.Id"
+               asp-route-mode="user"
                class="needs-wrapper">
 
                 @if (!string.IsNullOrEmpty(d.Image))
