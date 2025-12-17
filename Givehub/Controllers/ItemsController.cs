@@ -14,7 +14,7 @@ namespace Givehub.Controllers
         }
 
         [HttpPost]
-        public IActionResult Items(ItemDonationVM model)
+        public IActionResult Items(ItemDonation model)
         {
             var donation = new Donation
             {

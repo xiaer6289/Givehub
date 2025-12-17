@@ -20,14 +20,25 @@ public class DonorController : Controller
         try
         {
             int donorId = _helper.GetLoggedDonorId();
+
+            var donor = db.Donors
+                .Where(d => d.Id == donorId)
+                .Select(d => new { d.Name, d.Email })
+                .FirstOrDefault();
+
+
             var donation = db.Donations.Include(d => d.Donees)
                 .Where(d => d.DonorId == donorId && d.Amount != null)
                 .OrderByDescending(d => d.Date)
                 .ToList();
-            return View(new DonationVM
+
+            var vm = new ReportVM
             {
-                Donation = donation
-            });
+                DonorName = donor.Name,
+                DonorEmail = donor.Email,
+                Donations = donation
+            };
+            return View(vm);
         }
         catch (NotLoggedInException)
         {
@@ -41,16 +52,25 @@ public class DonorController : Controller
         try
         {
             int donorId = _helper.GetLoggedDonorId();
+
+            var donor = db.Donors
+                .Where(d => d.Id == donorId)
+                .Select(d => new { d.Name, d.Email })
+                .FirstOrDefault();
+
             var donation = db.Donations
                 .Include(d => d.Donees)
                 .Where(d => d.DonorId == donorId && d.ItemsJson != null)
                 .OrderByDescending(d => d.Date)
                 .ToList();
 
-            return View(new DonationVM
+            var vm = new ReportVM
             {
-                Donation = donation
-            });
+                DonorName = donor.Name,
+                DonorEmail = donor.Email,
+                Donations = donation
+            };
+            return View(vm);
         }
         catch (NotLoggedInException)
         {
