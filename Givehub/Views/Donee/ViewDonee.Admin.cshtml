@@ -1,0 +1,67 @@
+﻿@model Givehub.Models.ViewModels.DoneeVM
+@{
+    ViewBag.Title = "View Donee";
+    Layout = "_EmptyLayout";
+}
+
+<div class="create-donee-container">
+
+    <h2>Donee Details</h2>
+
+    <div class="input-wrapper">
+        <label>Date Created:</label>
+        <p class="donee-input">@Model.Date.ToString("dd MMM yyyy")</p>
+    </div>
+
+    <div class="input-wrapper">
+        <label>Name:</label>
+        <p class="donee-input">@Model.Name</p>
+    </div>
+
+    <div class="input-wrapper">
+        <label>Category:</label>
+        <p class="donee-input">@Model.Category</p>
+    </div>
+
+    <div class="input-wrapper">
+        <label>Address:</label>
+        <p class="donee-input">@Model.Address</p>
+    </div>
+
+    <div class="input-wrapper">
+        <label>Requirements:</label>
+        <p class="donee-input">
+            @(Model.Requirements != null && Model.Requirements.Any() ? string.Join(", ", Model.Requirements) : "-")
+        </p>
+    </div>
+
+    <div class="input-wrapper">
+        <label>Description:</label>
+        <p class="donee-input">@Model.Description</p>
+    </div>
+
+    <div class="input-wrapper">
+        <label>Image:</label>
+        <div class="donee-img-wrapper preview">
+            <img src="@Url.Content(Model.Image ?? "")" id="img" class="donee-img" alt="Donee Image" style="width: 200px; height: 200px; border-radius: 5px;" />
+        </div>
+    </div>
+
+    <div class="btn-grp">
+        <a href="@Url.Action("DoneeHomePage", "Donee")" class="cancel-btn">Back</a>
+    </div>
+</div>
+
+<script>
+    const img = document.getElementById("img");
+    const oldImage = '@Url.Content(Model.Image ?? "")';
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (oldImage !== "") {
+            img.src = oldImage;
+            img.style.display = "block";
+        } else {
+            img.style.display = "none";
+        }
+    });
+</script>

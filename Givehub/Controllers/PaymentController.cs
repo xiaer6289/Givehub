@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Stripe;
-
 using Stripe.Checkout;
+using Stripe.V2;
 using System.Diagnostics;
 
 namespace Givehub.Controllers;
 
+[Authorize]
 public class PaymentController : Controller
 {
     private readonly StripeSettings _stripeSettings;
@@ -63,8 +65,33 @@ public class PaymentController : Controller
         return Redirect(session.Url);
     }
 
-    public async Task<IActionResult> success()
+    public async Task<IActionResult> success(string sessionId, int donorId, int doneeId)
     {
+        var service = new SessionService();
+        var session = await service.GetAsync(sessionId);
+
+        var donor = await _db.Donors.FindAsync(donorId);
+        var donee = await _db.Donees.FindAsync(doneeId);
+        
+        if (donor == null || donee == null)
+        {
+            return View("Index", "Home");
+        }
+
+        var donation = new Donation
+        {
+            Method = "Stripe",
+            Amount = session.AmountTotal / 100m,
+            Date = DateTime.Now,
+            StripeTransactionId = session.PaymentIntentId,
+            DonorId = donor.Id,
+            DoneeId = donee.Id,
+            Donors = donor,
+            Donees = donee
+        };
+
+        _db.Donations.Add(donation);
+        await _db.SaveChangesAsync();
         return View("Index");
     }
 

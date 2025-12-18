@@ -14,7 +14,7 @@ namespace Givehub.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Items(ItemDonationVM model)
+        public async Task<IActionResult> Items(ItemDonation model)
         {
             var donation = new Donation
             {

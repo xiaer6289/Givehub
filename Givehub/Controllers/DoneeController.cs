@@ -1,11 +1,14 @@
 ﻿using Givehub.Helpers;
 using Givehub.Models;
 using Givehub.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Givehub.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DoneeController : Controller
     {
         private readonly DB _context;
@@ -74,9 +77,9 @@ namespace Givehub.Controllers
             return Json(true);
         }
 
-        public IActionResult DoneeHomePage(string search, int page = 1)
+        public IActionResult DoneeHomePage(string search, string category, int page = 1)
         {
-            int pageSize = 8; // 8 donees per page
+            int pageSize = 8;
             var query = _context.Donees.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(search))
@@ -84,9 +87,13 @@ namespace Givehub.Controllers
                 search = search.ToLower();
                 query = query.Where(d =>
                     d.Name.ToLower().Contains(search) ||
-                    d.Address.ToLower().Contains(search) ||
-                    d.Category.ToLower().Contains(search)
+                    d.Address.ToLower().Contains(search)
                 );
+            }
+
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                query = query.Where(d => d.Category == category);
             }
 
             int totalItems = query.Count();
@@ -101,6 +108,7 @@ namespace Givehub.Controllers
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
             ViewBag.Search = search;
+            ViewBag.Category = category;
 
             return View(donees);
         }
@@ -164,10 +172,12 @@ namespace Givehub.Controllers
 
 
 
-        public ActionResult ViewDonee(int id)
+        [AllowAnonymous]
+        public IActionResult ViewDonee(int id, string mode)
         {
             var donee = _context.Donees.Find(id);
-            if (donee == null) NotFound();
+            if (donee == null)
+                return NotFound();
 
             var vm = new DoneeVM
             {
@@ -176,13 +186,25 @@ namespace Givehub.Controllers
                 Category = donee.Category,
                 Address = donee.Address,
                 Requirements = !string.IsNullOrEmpty(donee.Requirements)
-        ? donee.Requirements.Split(',').Select(r => r.Trim()).ToList()
-        : new List<string>(),
+                    ? donee.Requirements.Split(',').Select(r => r.Trim()).ToList()
+                    : new List<string>(),
                 Description = donee.Description,
-                Image = donee.Image
+                Image = donee.Image,
+                Date = donee.Date
             };
-            return View(vm);
+
+            // 🔥 FORCE user view when coming from Home
+            if (mode == "user")
+                return View("ViewDonee.User", vm);
+
+            // Admin pages
+            if (User.IsInRole("Admin"))
+                return View("ViewDonee.Admin", vm);
+
+            // Default
+            return View("ViewDonee.User", vm);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

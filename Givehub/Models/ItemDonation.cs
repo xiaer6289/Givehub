@@ -2,10 +2,10 @@
 
 namespace Givehub.Models
 {
-    public class ItemDonationVM 
+    public class ItemDonation 
     {
         public DateTime DeliveryDate { get; set; }
-        public List<ItemEntry> Items { get; set; } = new List<ItemEntry>();
+        public List<ItemEntry>? Items { get; set; } = new List<ItemEntry>();
 
     }
 

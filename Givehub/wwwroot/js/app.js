@@ -8,6 +8,26 @@
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const amountInput = document.getElementById('amountInput');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    if (!amountInput || !checkoutBtn) {
+        return;
+    }
+
+    if (amountInput.value <= 0 || amountInput.value === '') {
+        checkoutBtn.disabled = true;
+    }
+
+    amountInput.addEventListener('input', function () {
+        if (this.value <= 0 || this.value === '') {
+            checkoutBtn.disabled = true;
+        } else {
+            checkoutBtn.disabled = false;
+        }
+    });
+});
 
 window.generatePDF = function (elementId, title) {
     const pdfElement = document.getElementById(elementId);
