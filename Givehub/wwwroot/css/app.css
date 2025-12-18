@@ -1269,42 +1269,14 @@ p {
         border-color: #2525e8;
         background-color: #e8edff;
     }
-
-
-/*.donation-history-table tbody tr:nth-child(even){
-    background-color:#0000000b;
+.donation-row {
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-
-   
-/*Method*/
-/*.donation-history-table thead th:nth-child(2) {
-    width: 12%;
-}*/
-
-/*Amount*/
-/*.donation-history-table thead th:nth-child(3) {
-    width: 12%;
-}*/
-
-/*Date*/
-/*.donation-history-table thead th:nth-child(4) {
-    width: 8%;
-}*/
-
-/*Items*/
-/*.donation-history-table thead th:nth-child(5) {
-     width: 12%;
-}*/
-
-/*Donee*/
-/*.donation-history-table thead th:nth-child(6) {
-     width: 8%;
+.fade-out {
+    opacity: 0;
+    transform: translateX(15px);
 }
-
-.donation-history-table thead th:nth-child(7) {
-     width: 8%;
-}*/
 
 /*-------------------------------- Donation History Page End-------------------------------- */
 /*------LOGIN REGISTER START---------*/
@@ -1815,11 +1787,11 @@ p {
     padding: 3px;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
+/*input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
-
+*/
 
 
 * {

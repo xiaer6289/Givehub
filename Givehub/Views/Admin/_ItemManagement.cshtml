@@ -21,7 +21,7 @@
 	<thead>
 
 	<tbody>
-        @if (Model != null)
+		@if (Model != null && Model.Any()) //the model exist and contain at least one record
         {
             foreach (var donation in Model)
             {
@@ -31,7 +31,7 @@
 
                 foreach (var item in donation.Items)
                 {
-                    <tr>
+                    <tr class="donation-row donation-@donation.Id">
                         @if(firstRow){
                         <td rowspan="@rowCount">@donation.Id</td>
                         <td rowspan="@rowCount">@donation.DonorName</td>
@@ -45,7 +45,7 @@
                         <td rowspan="@rowCount">@donation.Status</td> 
 
                         <td rowspan="@rowCount">
-                            <form asp-action="UpdateStatus" method="post">
+                            <form asp-action="UpdateStatus" method="post" class="status-form">
                                 <input type="hidden" name="id" value="@donation.Id" />
                                 <select name="status" class="action-select">
                                     <option value="Pending" selected="@(donation.Status == "Pending")">Pending</option>
@@ -56,11 +56,42 @@
                                 </form>
                         </td>
                         }
-                    </tr>
+                            </tr>
 
-                    firstRow = false;   
+                            firstRow = false;   
+                        }
+                    }
                 }
-            }
-        }
-	</tbody>
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="no-record">
+                            No record
+                        </td>
+                    </tr>
+                }
+            </tbody>
 </table>
+<script >
+        document.addEventListener('DOMContentLoaded', function () {
+        document.body.addEventListener('submit', function(e) {
+            const form = e.target;
+            if (!form.classList.contains('status-form')) return;
+
+            e.preventDefault();
+
+            // Get the selected status
+            const selectedStatus = form.querySelector('select[name="status"]').value;
+
+            // Only apply fade-out if status is NOT Pending
+            if (selectedStatus !== "Pending") {
+                const donationId = form.querySelector('input[name="id"]').value;
+                document.querySelectorAll(`.donation-${donationId}`)
+                    .forEach(row => row.classList.add('fade-out'));
+
+                // Submit after animation
+                setTimeout(() => form.submit(), 600);
+            } 
+        });
+    });
+</script>

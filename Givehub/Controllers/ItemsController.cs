@@ -21,8 +21,9 @@ namespace Givehub.Controllers
                 Method = "Item",
                 Date = model.DeliveryDate,
                 Amount = 0,
-                DonorId = 4,
-                DoneeId = 1,
+                Status = "Pending",
+                DonorId = 2,
+                DoneeId = 3,
 
                 Items = model.Items
                 .GroupBy(x =>x.ItemName) //group all the same item together

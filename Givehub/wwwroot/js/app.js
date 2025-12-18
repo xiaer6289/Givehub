@@ -135,3 +135,27 @@ document.addEventListener('DOMContentLoaded', () => {
     amountInput.addEventListener('input', updateBtnState);
     updateBtnState();
 })
+
+//item management table row fade out 
+document.addEventListener('DOMContentLoaded', function () {
+    document.body.addEventListener('submit', function (e) {
+        const form = e.target;
+        if (!form.classList.contains('status-form')) return;
+
+        e.preventDefault();
+
+        // Get the selected status
+        const selectedStatus = form.querySelector('select[name="status"]').value;
+
+        // Only apply fade-out if status is NOT Pending
+        if (selectedStatus !== "Pending") {
+            const donationId = form.querySelector('input[name="id"]').value;
+            document.querySelectorAll(`.donation-${donationId}`)
+                .forEach(row => row.classList.add('fade-out'));
+
+            // Submit after animation
+            setTimeout(() => form.submit(), 600);
+        }
+    });
+});
+
