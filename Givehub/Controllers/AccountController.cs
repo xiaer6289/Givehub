@@ -33,6 +33,12 @@ namespace Givehub.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterVM model)
@@ -72,7 +78,7 @@ namespace Givehub.Controllers
                     Email = model.Email,
                     PhoneNo = model.PhoneNo,
                     Password = hashedPassword,
-                    AdminId = 2
+                    AdminId = 1
                 };
 
                 _context.Donors.Add(donor);
@@ -86,12 +92,6 @@ namespace Givehub.Controllers
                 ViewBag.ErrorMessage = "An error occurred during registration. Please try again.";
                 return View(model);
             }
-        }
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
         }
 
         [HttpPost]
@@ -427,16 +427,16 @@ namespace Givehub.Controllers
             return RedirectToAction("Message");
         }
 
-        public IActionResult Message()
-        {
-            return View();
-        }
-
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
+        }
+
+        public IActionResult Message()
+        {
+            return View();
         }
 
         [AllowAnonymous]
