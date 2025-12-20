@@ -81,7 +81,7 @@
 
     <a asp-action="Donation"
        asp-controller="Home"
-       asp-route-page="@(ViewBag.CurrentPage - 1)"
+       asp-route-page="@(ViewBag.CurrentPage > 1 ? ViewBag.CurrentPage - 1 : 1)"
        asp-route-search="@ViewBag.Search"
        asp-route-category="@ViewBag.Category"
        class="@(ViewBag.CurrentPage == 1 ? "disabled" : "")">
@@ -108,7 +108,7 @@
 
     <a asp-action="Donation"
        asp-controller="Home"
-       asp-route-page="@(ViewBag.CurrentPage + 1)"
+       asp-route-page="@(ViewBag.CurrentPage<ViewBag.TotalPages? ViewBag.CurrentPage + 1 : ViewBag.TotalPages)"
        asp-route-search="@ViewBag.Search"
        asp-route-category="@ViewBag.Category"
        class="@(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">

@@ -5,8 +5,6 @@
     @model IEnumerable<Givehub.Models.Donee>
 
     <h1 class=" title">Donee Page</h1>
-
-
     <div class="donee-top-actions">
 
         <a asp-action="CreateDonee" class="createdoneebutton" style="--btn-color:#6fdc8c; --btn-dark:#4fb96b; --btn-shadow:#6fdc8c66;margin-left: 30px;">Create Donee</a>
@@ -33,7 +31,24 @@
 
     </div>
 
-    <div class="donee-grid">
+<div class="donee-grid">
+
+    @if (!Model.Any())
+    {
+        <div class="no-result">
+            No results found
+            @if (!string.IsNullOrWhiteSpace(ViewBag.Search))
+            {
+                <span>for "@ViewBag.Search"</span>
+            }
+            @if (!string.IsNullOrWhiteSpace(ViewBag.Category))
+            {
+                <span>in "@ViewBag.Category"</span>
+            }
+        </div>
+    }
+    else
+    {
         @foreach (var d in Model)
         {
             <div class="donee-card">
@@ -59,27 +74,21 @@
                     <a asp-action="ViewDonee" asp-route-id="@d.Id" class="btn-donate">View</a>
                     <a asp-action="EditDonee" asp-route-id="@d.Id" class="btn-donate" >Update</a>
 
-                    <form asp-action="DeleteDonee" method="post" style="display:inline;" onsubmit="return confirmDelete('@d.Name')">
+                    <form asp-action="DeleteDonee" method="post" style="display:inline;"
+                          onsubmit="return confirmDelete('@d.Name')">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="id" value="@d.Id" />
-                        <button type="submit" class="btn-donate" style="--btn-bg-1: #ff6b6b; --btn-bg-2: #c94c4c; --btn-bg-color: #fff; --btn-shadow: #ff6b6b66;">
+                        <button type="submit" class="btn-donate"
+                                style="--btn-bg-1:#ff6b6b;--btn-bg-2:#c94c4c;--btn-bg-color:#fff;--btn-shadow:#ff6b6b66;">
                             Delete
                         </button>
                     </form>
                 </div>
-
-                <script>
-                    function confirmDelete(name) {
-                        return confirm(`Are you sure you want to delete "${name}"? This action cannot be undone.`);
-                    }
-                </script>
-
-
             </div>
-        
-
         }
-    </div>
+    }
+</div>
+
 
     <p class="pagination-count">
         Page <span>@ViewBag.CurrentPage</span> of <span>@ViewBag.TotalPages</span>
