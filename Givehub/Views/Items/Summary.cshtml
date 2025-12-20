@@ -1,0 +1,61 @@
+﻿@model Givehub.Models.ItemDonation
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Donation Summary</title>
+</head>
+<body class="summary-body">
+
+    <div class="summary-container">
+        <h2>Donation Summary</h2>
+
+        <p>
+            <strong>Delivery Date:</strong>
+            @Model.DeliveryDate.ToString("dd MMMM yyyy")
+        </p>
+
+        <p>
+            <strong>Donate To:</strong> @Model.DoneeName
+        </p>
+
+        <p>
+            <strong>Address:</strong> @Model.DonateAddress
+        </p>
+
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+            </tr>
+
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.ItemName</td>
+                    <td>@item.Quantity</td>
+                </tr>
+            }
+        </table>
+
+        <div class="button-group">
+            <form asp-action="Cancel" method="post">
+                @* <input type="hidden" name="doneeId" value="@Model.DoneeId" /> *@
+                <button type="submit" class="cancel-btn">Cancel</button>
+            </form>
+
+            <form asp-action="Confirm" method="post">
+                <button type="submit" class="confirm-btn">Confirm</button>
+            </form>  
+        </div>
+
+        <div class="notification">
+            <strong>Note:</strong>
+            By confirming this donation, you agree that the items listed are in good condition
+            and will be delivered to the correct address on the scheduled date.
+        </div>
+    </div>
+
+</body>
+</html>

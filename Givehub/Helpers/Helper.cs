@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
 using System.Text.Json;
 using Givehub.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Givehub.Helpers;
 
@@ -17,10 +18,12 @@ public class Helper
 
     public int GetLoggedDonorId()
     {
-        int? donorId = _httpContextAccessor.HttpContext.Session.GetInt32("DonorId");
+        var claimValue = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        if (donorId == null) throw new NotLoggedInException();
-        return donorId.Value;
+        if (string.IsNullOrEmpty(claimValue))
+            throw new NotLoggedInException();
+
+        return int.Parse(claimValue);
     }
 
 }

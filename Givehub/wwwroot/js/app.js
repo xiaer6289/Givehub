@@ -114,8 +114,8 @@ document.querySelector(".add-more-button").addEventListener("click", function (e
     const select = newForm.querySelector(".item-name-input");
     const qty = newForm.querySelector(".item-qty-input");
 
-    select.name = `Items[${index}].ItemName`;
-    qty.name = `Items[${index}].Quantity`;
+    select.name = `Donation.Items[${index}].ItemName`;
+    qty.name = `Donation.Items[${index}].Quantity`;
 
     // Insert the new form before the button section**
     const dateSection = document.querySelector(".delivery-date");
@@ -132,8 +132,8 @@ document.addEventListener("click", function (e) {
 
         const rows = document.querySelectorAll(".donation-entry");
         rows.forEach((r, i) => {
-            r.querySelector(".item-name-input").name = `Items[${i}].ItemName`;
-            r.querySelector(".item-qty-input").name = `Items[${i}].Quantity`;
+            r.querySelector(".item-name-input").name = `Donation.Items[${i}].ItemName`;
+            r.querySelector(".item-qty-input").name = `Donation.Items[${i}].Quantity`;
 
         });
     }
@@ -141,4 +141,41 @@ document.addEventListener("click", function (e) {
 
 //-----------------Item Page End---------------------//
 
+document.addEventListener('DOMContentLoaded', () => {
+    const amountInput = document.getElementById('amountInput');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function updateBtnState() {
+        const amount = parseFloat(amountInput.value) || 0;
+        const enabled = amount > 0;
+
+        checkoutBtn.disabled = !enabled;
+    }
+
+    amountInput.addEventListener('input', updateBtnState);
+    updateBtnState();
+})
+
+//item management table row fade out 
+document.addEventListener('DOMContentLoaded', function () {
+    document.body.addEventListener('submit', function (e) {
+        const form = e.target;
+        if (!form.classList.contains('status-form')) return;
+
+        e.preventDefault();
+
+        // Get the selected status
+        const selectedStatus = form.querySelector('select[name="status"]').value;
+
+        // Only apply fade-out if status is NOT Pending
+        if (selectedStatus !== "Pending") {
+            const donationId = form.querySelector('input[name="id"]').value;
+            document.querySelectorAll(`.donation-${donationId}`)
+                .forEach(row => row.classList.add('fade-out'));
+
+            // Submit after animation
+            setTimeout(() => form.submit(), 600);
+        }
+    });
+});
 

@@ -25,6 +25,8 @@ public class AdminController : Controller
         var donations = await _db.Donations
             .Include(d => d.Donors)  //navigate to related table 
             .Include(d => d.Donees)  //navigate to related table 
+            .Where(d => d.Status == "Pending")
+
             .ToListAsync();
 
         var vm = donations.Select(d => new ItemManagementVM
@@ -47,6 +49,13 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult UpdateStatus(int id,string status)
     {
+
+        if (status == "Pending")
+        {
+            TempData["AlertMessage"] = "Cannot update the status to Pending.";
+            return RedirectToAction("ItemManagement");
+        }
+
         var donation = _db.Donations.FirstOrDefault(d => d.Id == id);
 
         if(donation !=null)

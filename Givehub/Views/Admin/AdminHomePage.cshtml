@@ -2,7 +2,13 @@
     ViewBag.Title = "Admin Page";
     Layout = "_EmptyLayout";
 }
-
+<div class="page-actions">
+    <a asp-controller="Account"
+       asp-action="Login"
+       class="btn-return">
+        ← Return
+    </a>
+</div>
 <h1 class="selection-title">Select an Option</h1>
 <div class="admin-selection-box">
     <a asp-controller="Admin" asp-action="ItemManagement" class="selection-border">
