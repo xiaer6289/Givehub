@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Givehub.Migrations
 {
     [DbContext(typeof(DB))]
-    [Migration("20251217150052_InitialCreate")]
+    [Migration("20251219075819_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
