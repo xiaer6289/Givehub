@@ -1,4 +1,4 @@
-﻿@model Givehub.Models.ItemDonation
+﻿@model Givehub.Models.ItemDonationViewModel;
 
 <body class="item-page">
     <div class="item-container">
@@ -19,26 +19,40 @@
             </div>
         </div>
 
+        <div class="page-actions">
+            <a asp-controller="Home"
+               asp-action="Donation"
+               class="btn-return">
+                ← Return
+            </a>
+        </div>
+
         <form asp-controller="Items" class="donation-entry-form" id="donation-wrapper" method="post" asp-action="Items">
+            <input type="hidden" asp-for="DoneeId" />
             <div class="donation-header">Donate Items :</div>
+            @for (int i = 0; i < Model.Donation.Items.Count; i++)
+            {
             <div class="donation-entry">
                 <div class="donation-form">
                     <label for="ItemName">Choose an item: </label>
-                    <select name="Items[0].ItemName" class="item-name-input">
-                        <option value="rice">Rice</option>
-                        <option value="clothes">Clothes</option>
-                        <option value="shoes">Shoes</option>
+                    <select name="Donation.Items[@i].ItemName" class="item-name-input">
+                        @foreach (var item in Model.AvailableItems)
+                        {
+                                <option value="@item" selected="@(item == Model.Donation.Items[i].ItemName)">@item</option>
+                        }
                     </select>
-                    <label for="Quantity" class="quantity">Quantity: </label>
-                    <input name="Items[0].Quantity" class="item-qty-input" type="number" min="1" />
+                    <label for="Quantity" class="quantity" value="1">Quantity: </label>
+                        <input name="Donation.Items[@i].Quantity" class="item-qty-input" type="number" min="1" value="@Model.Donation.Items[i].Quantity" required />
                 </div>
                 <div class="remove-donation-button">
                     <span class="material-symbols-sharp">delete</span>
                 </div>
+                
             </div>
+            }
             <div class="delivery-date">
                 <label type="date">Select delivery date:</label>
-                <input type="datetime-local" asp-for="DeliveryDate">
+                <input type="datetime-local" asp-for="Donation.DeliveryDate" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" required />
             </div>
             <div class="button-section">
                 <button class="add-more-button" id="add-more-button">

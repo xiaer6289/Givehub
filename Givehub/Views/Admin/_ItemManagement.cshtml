@@ -2,6 +2,13 @@
 
 
 <h1 class="item-management">Donation Items Management</h1>
+<div class="page-actions">
+    <a asp-controller="Admin"
+       asp-action="AdminHomePage"
+       class="btn-return">
+        ← Return
+    </a>
+</div>
 <p>@(Model?.Count() ?? 0) record(s)</p>
 
 <link rel="stylesheet" href="app.css">
@@ -48,7 +55,7 @@
                             <form asp-action="UpdateStatus" method="post" class="status-form">
                                 <input type="hidden" name="id" value="@donation.Id" />
                                 <select name="status" class="action-select">
-                                    <option value="Pending" selected="@(donation.Status == "Pending")">Pending</option>
+                                  <option value="Pending" selected="@(donation.Status == "Pending")">Pending</option>
                                     <option value="Completed" selected="@(donation.Status == "Completed")">Completed</option>
                                     <option value="Not Received" selected="@(donation.Status == "Not Received")">Not Received</option>
                                 </select>
@@ -83,8 +90,17 @@
             // Get the selected status
             const selectedStatus = form.querySelector('select[name="status"]').value;
 
+            if (selectedStatus === "Pending") {
+            alert("You cannot update the status to Pending.");
+            return; 
+        }
+
             // Only apply fade-out if status is NOT Pending
             if (selectedStatus !== "Pending") {
+
+                 const confirmUpdate = confirm(`Are you sure you want to update the status to "${selectedStatus}"?`);
+                 if (!confirmUpdate) return;
+
                 const donationId = form.querySelector('input[name="id"]').value;
                 document.querySelectorAll(`.donation-${donationId}`)
                     .forEach(row => row.classList.add('fade-out'));

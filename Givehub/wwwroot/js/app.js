@@ -114,8 +114,8 @@ document.querySelector(".add-more-button").addEventListener("click", function (e
     const select = newForm.querySelector(".item-name-input");
     const qty = newForm.querySelector(".item-qty-input");
 
-    select.name = `Items[${index}].ItemName`;
-    qty.name = `Items[${index}].Quantity`;
+    select.name = `Donation.Items[${index}].ItemName`;
+    qty.name = `Donation.Items[${index}].Quantity`;
 
     // Insert the new form before the button section**
     const dateSection = document.querySelector(".delivery-date");
@@ -132,8 +132,8 @@ document.addEventListener("click", function (e) {
 
         const rows = document.querySelectorAll(".donation-entry");
         rows.forEach((r, i) => {
-            r.querySelector(".item-name-input").name = `Items[${i}].ItemName`;
-            r.querySelector(".item-qty-input").name = `Items[${i}].Quantity`;
+            r.querySelector(".item-name-input").name = `Donation.Items[${i}].ItemName`;
+            r.querySelector(".item-qty-input").name = `Donation.Items[${i}].Quantity`;
 
         });
     }

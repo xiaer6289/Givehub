@@ -1986,3 +1986,181 @@ input[type="number"]::-webkit-inner-spin-button {
         transition: linear;
     }
 }
+
+/*------------------Item summary page-------------------- */
+.summary-body {
+    font-family: Arial, sans-serif;
+    background-color: #d9e2ef;
+    padding: 40px;
+}
+
+.summary-container h2 {
+    margin-bottom: 10px;
+}
+
+.summary-container {
+    background: rgba(255, 253, 253, 0.955);
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-left:26rem;
+}
+
+    .summary-container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .summary-container th, td {
+        padding: 12px;
+        border-bottom: 1px solid #0c0c0c;
+        text-align: left;
+    }
+
+    .summary-container th {
+        background-color: hsl(180, 3%, 81%);
+    }
+
+    .summary-container td {
+        background-color: rgb(235, 236, 236)
+    }
+
+    
+
+    .summary-container .button-group {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .summary-container button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .summary-container .confirm-btn {
+        background-color: #28a745;
+        width: 265px;
+        color: white;
+    }
+
+    .summary-container .cancel-btn {
+        background-color: #dc3545;
+        color: white;
+        margin-top:0px;
+        width:260px;
+    }
+    
+    .summary-container .button:hover {
+        opacity: 0.9;
+    }
+
+.notification {
+    padding: 10px 15px;
+    margin-top: 25px;
+    border-radius: 10px;
+    font-weight: 300;
+    color: rgb(85, 19, 228);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    border: 2px solid;
+    border-color: blue;
+    background-color: rgb(249, 226, 248);
+}
+
+/*----------------------------------Item summary page--------------------*/
+
+.page-actions {
+    margin-bottom: 15px;
+}
+
+.btn-return {
+    margin-bottom:5px;
+    padding: 8px 14px;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: 2px solid black;
+}
+
+    .btn-return:hover {
+        background-color: blueviolet
+    }
+/*-------------------- Success Page -------------------- */
+
+.success-container {
+    background: rgba(255, 253, 253, 0.96);
+    padding: 40px 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    max-width: 400px;
+    width: 90%;
+    margin: 100px auto; /* centers the container */
+    outline: 2px solid red; /* for visibility */
+}
+
+.success-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.success-title {
+    color: #28a745;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.success-submessage {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.success-btn-home,
+.success-btn-report {
+    display: inline-block;
+    padding: 12px 25px;
+    margin: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.success-btn-home {
+    background-color: #007bff;
+    width:195px;
+    color: white;
+}
+
+    .success-btn-home:hover {
+        background-color: #0056b3;
+    }
+
+.success-btn-report {
+    background-color: #28a745;
+    color: white;
+}
+
+    .success-btn-report:hover {
+        background-color: #1e7e34;
+    }
+
+/*--------------------- Success Page End -------------------- */

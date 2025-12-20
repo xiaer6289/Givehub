@@ -49,6 +49,13 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult UpdateStatus(int id,string status)
     {
+
+        if (status == "Pending")
+        {
+            TempData["AlertMessage"] = "Cannot update the status to Pending.";
+            return RedirectToAction("ItemManagement");
+        }
+
         var donation = _db.Donations.FirstOrDefault(d => d.Id == id);
 
         if(donation !=null)
