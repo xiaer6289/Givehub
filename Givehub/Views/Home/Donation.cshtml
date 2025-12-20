@@ -5,7 +5,7 @@
 <div class="page-search">
     
 
-    <form method="get" asp-action="Donation" class="search">
+    <form method="get" asp-action="Donation" class="search" id="searchForm">
 
         <input class="search-input-box"
                id="searchBox"
@@ -13,7 +13,7 @@
                placeholder="Search by name or location"
                value="@ViewBag.Search" />
 
-        <select name="category" class="search-category">
+        <select name="category" class="search-category" id="categorySelect">
             <option value="" selected="@(string.IsNullOrEmpty(ViewBag.Category))">
                 All Categories
             </option>
@@ -118,6 +118,25 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        let searchTimeout;
+
+        document.getElementById('searchBox').addEventListener('input', function () {
+            clearTimeout(searchTimeout);
+
+            searchTimeout = setTimeout(() => {
+                document.getElementById('searchForm').submit();
+            }, 500);
+        });
+
+        document.getElementById('categorySelect').addEventListener('change', function () {
+            document.getElementById('searchBox').value = ''; 
+            document.getElementById('searchForm').submit();
+        });
+
+    });
+
     function clearSearch() {
         document.getElementById('searchBox').value = '';
         window.location.href = '@Url.Action("Donation", "Home")';
