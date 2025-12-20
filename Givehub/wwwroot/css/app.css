@@ -2194,3 +2194,75 @@ input[type="number"]::-webkit-inner-spin-button {
         color: #333;
         margin-top: 6px;
     }
+
+.search-bar {
+    margin: 15px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 8px 12px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-search,
+.btn-clear {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-search {
+    background-color: #2c7be5;
+    color: white;
+}
+
+.btn-clear {
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    line-height: 32px;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.paging {
+    margin-top: 20px;
+    text-align: center;
+    z-index: 10;
+    position: relative;
+}
+
+    .paging a {
+        margin: 0 5px;
+        padding: 5px 10px;
+        text-decoration: none;
+        background-color: #d3cdcd;
+        color: #333;
+        border-radius: 3px;
+    }
+
+        .paging a:hover {
+            background-color: #aeaaaa;
+        }
+
+
+    .paging .current-page {
+        margin: 0 5px;
+        padding: 5px 10px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        border-radius: 3px;
+    }
+

@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<ItemManagementVM>
 
+@if (ViewBag.EmptySearchMessage != null)
+{
+    <div class="alert-warning">
+        @ViewBag.EmptySearchMessage
+    </div>
+}
 
 <h1 class="item-management">Donation Items Management</h1>
 <div class="page-actions">
@@ -12,6 +18,23 @@
 <p>@(Model?.Count() ?? 0) record(s)</p>
 
 <link rel="stylesheet" href="app.css">
+<form asp-action="ItemManagement" method="get" class="search-bar">
+    <input type="text"
+           name="search"
+           placeholder="Search by ID, donor, donee, item, or status"
+           value="@ViewBag.Search"
+           class="search-input" />
+
+    <button type="submit" class="btn-search">Search</button>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Search))
+    {
+        <a asp-action="ItemManagement" class="btn-clear">Clear</a>
+    }
+</form>
+
+
+
 <table class="donation-history-table">
 	<thead>
 	<tr>
@@ -79,6 +102,39 @@
                 }
             </tbody>
 </table>
+
+@if (ViewBag.TotalPages > 1)
+{
+    <div class="paging">
+        <a asp-action="ItemManagement"
+           asp-route-page="@(ViewBag.CurrentPage > 1 ? ViewBag.CurrentPage - 1 : 1)"
+           asp-route-search="@ViewBag.Search">
+            Previous
+        </a>
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            if (i == ViewBag.CurrentPage)
+            {
+                <span class="current-page">@i</span>
+            }
+            else
+            {
+                <a asp-action="ItemManagement"
+                   asp-route-page="@i"
+                   asp-route-search="@ViewBag.Search">@i</a>
+            }
+        }
+
+        <a asp-action="ItemManagement"
+           asp-route-page="@(ViewBag.CurrentPage<ViewBag.TotalPages? ViewBag.CurrentPage + 1 : ViewBag.TotalPages)"
+           asp-route-search="@ViewBag.Search">
+            Next
+        </a>
+    </div>
+
+}
+
 <script >
         document.addEventListener('DOMContentLoaded', function () {
         document.body.addEventListener('submit', function(e) {

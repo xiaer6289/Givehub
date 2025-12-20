@@ -42,7 +42,7 @@
                         }
                     </select>
                     <label for="Quantity" class="quantity" value="1">Quantity: </label>
-                        <input name="Donation.Items[@i].Quantity" class="item-qty-input" type="number" min="1" value="@Model.Donation.Items[i].Quantity" required />
+                        <input name="Donation.Items[@i].Quantity" class="item-qty-input" type="number" min="1" max="50" value="@Model.Donation.Items[i].Quantity" required />
                 </div>
                 <div class="remove-donation-button">
                     <span class="material-symbols-sharp">delete</span>

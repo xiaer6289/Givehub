@@ -20,31 +20,57 @@ public class AdminController : Controller
         _db = db;
     }
 
-    public async Task<IActionResult> ItemManagement()
+    public async Task<IActionResult> ItemManagement(string? search, int page = 1)
     {
-        var donations = await _db.Donations
-            .Include(d => d.Donors)  //navigate to related table 
-            .Include(d => d.Donees)  //navigate to related table 
-            .Where(d => d.Status == "Pending")
+        int pageSize = 5;
 
+        var donations = await _db.Donations
+            .Include(d => d.Donors)
+            .Include(d => d.Donees)
+            .Where(d => d.Status == "Pending")
             .ToListAsync();
 
-        var vm = donations.Select(d => new ItemManagementVM
+        // Apply search if needed
+        if (!string.IsNullOrWhiteSpace(search))
         {
-            Id = d.Id,
-            DonorName = d.Donors?.Name ?? "-", //check if the donee is null,if yes return "-"
-            DoneeName = d.Donees?.Name ?? "-", //check if the donee is null,if yes return "-"
-            Date = d.Date,
-            Status = d.Status,
-            Items = d.Items?.Select(i => new ItemDetails
-            {
-                ItemName = i.Key,
-                Quantity = i.Value
-            }).ToList() ?? new List<ItemDetails>()
-        }).ToList();
+            search = search.Trim().ToLower();
+            donations = donations.Where(d =>
+                d.Id.ToString().Contains(search) ||
+                (d.Donors != null && d.Donors.Name.ToLower().Contains(search)) ||
+                (d.Donees != null && d.Donees.Name.ToLower().Contains(search)) ||
+                (d.Items != null && d.Items.Keys.Any(i => i.ToLower().Contains(search))) ||
+                d.Status.ToLower().Contains(search)
+            ).ToList();
+        }
 
-        return View(vm);
+        ViewBag.Search = search;
+
+        int totalRecords = donations.Count; // important: use filtered count
+        ViewBag.TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+        ViewBag.CurrentPage = page;
+
+        var pagedDonations = donations
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(d => new ItemManagementVM
+            {
+                Id = d.Id,
+                DonorName = d.Donors?.Name ?? "-",
+                DoneeName = d.Donees?.Name ?? "-",
+                Date = d.Date,
+                Status = d.Status,
+                Items = d.Items?.Select(i => new ItemDetails
+                {
+                    ItemName = i.Key,
+                    Quantity = i.Value
+                }).ToList() ?? new List<ItemDetails>()
+            }).ToList();
+
+        return View(pagedDonations);
     }
+
+
+
 
     [HttpPost]
     public IActionResult UpdateStatus(int id,string status)
