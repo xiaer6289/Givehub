@@ -2177,3 +2177,20 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
 /*--------------------- Success Page End -------------------- */
+
+.no-result {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+    background: #f9f9f9;
+    border-radius: 12px;
+}
+
+    .no-result span {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-top: 6px;
+    }
