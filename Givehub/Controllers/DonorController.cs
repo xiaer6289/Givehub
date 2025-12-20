@@ -42,7 +42,7 @@ public class DonorController : Controller
         }
         catch (NotLoggedInException)
         {
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Error", "Donor");
         }
 
     }
@@ -74,8 +74,13 @@ public class DonorController : Controller
         }
         catch (NotLoggedInException)
         {
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Error", "Donor");
         }
 
+    }
+
+    public IActionResult Error()
+    {
+        return View();
     }
 }

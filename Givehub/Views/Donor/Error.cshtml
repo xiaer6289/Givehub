@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = "_EmptyLayout";
+}
+
+<div class="error-container">
+    <h1>Oops you have not donated anything yet.</h1>
+    <h3>We are unable to generate a report for you</h3>
+    <span class="material-symbols-sharp" style="color:red; font-size: 120px; padding:10px; overflow:hidden;">error</span>
+    <span>Click <a asp-controller="Home" asp-action="Index">here</a> to return back</span>
+</div>
