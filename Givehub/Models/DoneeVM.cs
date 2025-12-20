@@ -18,7 +18,7 @@ namespace Givehub.Models.ViewModels
         [Required(ErrorMessage = "Please select a Category.")]
         public string? Category { get; set; }
 
-        [Required(ErrorMessage = "Please enter a Address.")]
+        [Required(ErrorMessage = "Please enter an Address.")]
         public string? Address { get; set; }
 
         [Required(ErrorMessage = "Please enter at least one Requirement.")]
