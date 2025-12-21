@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Givehub.Models.Donor>
+
+@{
+    ViewBag.Title = "All Donors";
+    Layout = "_Layout"; // adjust according to your project
+}
+
+<div class="admin-donor-page">
+    <h1 class="page-title">All Donors</h1>
+
+    <table class="donor-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone No</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                int index = 1;
+                foreach (var donor in Model)
+                {
+                    <tr>
+                        <td>@index</td>
+                        <td>@donor.Name</td>
+                        <td>@donor.Email</td>
+                        <td>@donor.PhoneNo</td>
+                        <td>
+                            <a asp-controller="Admin" asp-action="DonationHistory" asp-route-donorId="@donor.Id" class="btn btn-action">
+                                View Donation History
+                            </a>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="no-record">No donors found</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="back-container">
+        <a asp-controller="Admin" asp-action="ManageDonor" class="btn btn-back">← Go Back</a>
+    </div>
+</div>

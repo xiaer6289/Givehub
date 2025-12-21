@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Givehub.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -92,4 +93,61 @@ public class AdminController : Controller
 
         return RedirectToAction("ItemManagement", "Admin");
     }
+
+    public IActionResult ManageDonor()
+    {
+        return View();
+    }
+
+    public IActionResult ViewDonor()
+    {
+        var donors = _db.Donors
+                        .Include(d => d.Donations) 
+                        .ToList();
+
+        return View(donors);
+    }
+
+
+
+    public IActionResult DonationHistory(int donorId, string search)
+    {
+        var donor = _db.Donors.FirstOrDefault(d => d.Id == donorId);
+        if (donor == null) return NotFound();
+
+        
+        var donations = _db.Donations
+            .Include(d => d.Donees)
+            .Where(d => d.DonorId == donorId && d.Status == "Completed")
+            .AsEnumerable(); 
+
+        
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            search = search.Trim();
+
+            donations = donations.Where(d =>
+                (d.Donees != null && d.Donees.Name.ToLower().Contains(search)) ||
+                (d.Method == "Item"
+                    && d.Items != null
+                    && d.Items.Any(i => i.Key.Contains(search)))
+            );
+        }
+
+        var vm = new ReportVM
+        {
+            DonorName = donor.Name,
+            DonorEmail = donor.Email,
+            Donations = donations
+                .OrderByDescending(d => d.Date)
+                .ToList()
+        };
+
+        ViewBag.SearchQuery = search;
+        ViewBag.DonorId = donorId;
+
+        return View(vm);
+    }
+
+
 }

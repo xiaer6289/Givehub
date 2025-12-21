@@ -1,0 +1,85 @@
+﻿@model Givehub.Models.ReportVM
+
+@{
+    ViewBag.Title = "Donation History";
+    Layout = "_Layout";
+}
+
+<div class="donation-history-page2">
+    <h1>@Model.DonorName's Donation History</h1>
+    <p><strong>Email:</strong> @Model.DonorEmail</p>
+
+
+    <form method="get" class="search-form">
+        <input type="hidden" name="donorId" value="@ViewBag.DonorId" />
+
+        <input type="text"
+               name="search"
+               placeholder="Search by Donee or Item"
+               value="@ViewBag.SearchQuery"
+               class="search-input" />
+
+        <button type="submit" class="btn btn-search">Search</button>
+
+        <a asp-action="DonationHistory"
+           asp-route-donorId="@ViewBag.DonorId"
+           class="btn btn-clear">
+            Clear
+        </a>
+    </form>
+
+
+    <div class="back-container">
+        <a asp-controller="Admin" asp-action="ViewDonor" class="btn btn-back">← Go Back</a>
+    </div>
+    <table class="donation-history-table2">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Donee</th>
+                <th>Donation Type</th>
+                <th>Details</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Donations != null && Model.Donations.Any())
+            {
+                int index = 1;
+                foreach (var donation in Model.Donations)
+                {
+                    <tr>
+                        <td>@index</td>
+                        <td>@donation.Donees?.Name</td>
+                        <td>@donation.Method</td>
+                        <td>
+                            @if (donation.Method == "Item" && donation.Items != null)
+                            {
+                                foreach (var item in donation.Items)
+                                {
+                                    <div>@item.Key: @item.Value</div>
+                                }
+                            }
+                            else if (donation.Method == "Money")
+                            {
+                                <div>RM @donation.Amount</div>
+                            }
+                        </td>
+                        <td>@donation.Date.ToString("yyyy-MM-dd")</td>
+                        <td>@donation.Status</td>
+                    </tr>
+                    index++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="no-record">No donations found</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    
+</div>

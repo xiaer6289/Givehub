@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Givehub.Helpers;
+using System.Text.Json;
+
 
 namespace Givehub.Controllers;
 
@@ -28,9 +30,11 @@ public class DonorController : Controller
 
 
             var donation = db.Donations.Include(d => d.Donees)
-                .Where(d => d.DonorId == donorId && d.Amount != null)
+                .Where(d => d.DonorId == donorId && d.Amount != null && d.Amount>0)
                 .OrderByDescending(d => d.Date)
                 .ToList();
+
+         
 
 
             var vm = new ReportVM
@@ -61,9 +65,10 @@ public class DonorController : Controller
 
             var donation = db.Donations
                 .Include(d => d.Donees)
-                .Where(d => d.DonorId == donorId && d.ItemsJson != null)
+                .Where(d => d.DonorId == donorId && d.ItemsJson != null && d.Status == "Completed")
                 .OrderByDescending(d => d.Date)
                 .ToList();
+
 
             var vm = new ReportVM
             {

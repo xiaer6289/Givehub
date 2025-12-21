@@ -2225,7 +2225,6 @@ input[type="number"]::-webkit-inner-spin-button {
     background-color: #6c757d;
     color: white;
     text-decoration: none;
-    line-height: 32px;
 }
 
 .alert-warning {
@@ -2266,3 +2265,240 @@ input[type="number"]::-webkit-inner-spin-button {
         border-radius: 3px;
     }
 
+.admin-selection-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+}
+
+    .admin-selection-page .page-title {
+        margin-bottom: 40px;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .admin-selection-page .selection-container {
+        display: flex;
+        gap: 50px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
+
+    .admin-selection-page .selection-card {
+        background-color: lightgrey;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        width: 250px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .admin-selection-page .selection-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .admin-selection-page .selection-card h2 {
+            margin-bottom: 10px;
+        }
+
+        .admin-selection-page .selection-card p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+    .admin-selection-page .btn-primary {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.2s;
+    }
+
+        .admin-selection-page .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .admin-selection-page .back-container {
+        margin-top: 20px;
+    }
+
+    .admin-selection-page .btn-back {
+        display: inline-block;
+        background-color: #6c757d;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.2s;
+    }
+
+        .admin-selection-page .btn-back:hover {
+            background-color: #495057;
+        }
+
+
+.admin-donor-page {
+    padding: 20px;
+}
+
+    .admin-donor-page .page-title {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .admin-donor-page .donor-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .admin-donor-page .donor-table th,
+        .admin-donor-page .donor-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .admin-donor-page .donor-table th {
+            background-color: #f4f4f4;
+        }
+
+    .admin-donor-page .btn-action {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .admin-donor-page .btn-action:hover {
+            background-color: #0056b3;
+        }
+
+    .admin-donor-page .back-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .admin-donor-page .btn-back {
+        display: inline-block;
+        background-color: #6c757d;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .admin-donor-page .btn-back:hover {
+            background-color: #495057;
+        }
+
+    .admin-donor-page .no-record {
+        text-align: center;
+        color: #888;
+    }
+
+
+.donation-history-page2 {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.donation-history-page2 h1 {
+    margin-bottom: 10px;
+}
+
+.donation-history-page2 p {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.search-form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+..search-form search-input {
+    padding: 5px;
+    width: 250px;
+}
+
+.search-form .btn-search, .btn-clear {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-form .btn-search {
+    background-color: #007bff;
+    color: white;
+}
+
+    .btn-search:hover {
+        background-color: #0056b3;
+    }
+
+.search-form .btn-clear {
+    background-color: #6c757d;
+    color: white;
+}
+
+    .btn-clear:hover {
+        background-color: #495057;
+    }
+
+.donation-history-table2 {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+    .donation-history-table2 th,
+    .donation-history-table2 td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .donation-history-table2 th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+.search-form.btn-back {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+    .btn-back:hover {
+        background-color: #495057;
+    }
+
+.no-record {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+}

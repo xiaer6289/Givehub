@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "_Layout"; // Use your main layout
+}
+
+<div class="admin-selection-page">
+    <h1 class="page-title">Admin Actions</h1>
+
+    <div class="selection-container">
+        <div class="selection-card">
+            <h2>Update Item Status</h2>
+            <p>Update the status of donated items</p>
+            <a asp-controller="Admin" asp-action="ItemManagement" class="btn btn-primary">Go</a>
+        </div>
+
+        <div class="selection-card">
+            <h2>View Donee</h2>
+            <p>View donee details and requirements</p>
+            <a asp-controller="Admin" asp-action="ViewDonor" class="btn btn-primary">Go</a>
+        </div>
+    </div>
+
+    <div class="back-container">
+        <a asp-controller="Admin" asp-action="AdminHomePage" class="btn btn-back">← Go Back</a>
+    </div>
+</div>
