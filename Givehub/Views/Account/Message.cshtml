@@ -12,8 +12,3 @@
 {
     <div>@TempData["Success"]</div>
 }
-
-<p>Admin ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
-<p>Donor ID: @(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "None")</p>
-<p>Role: @(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "None")</p>
-<p>Password Reset Done: @(User.FindFirst("PasswordResetDone")?.Value ?? "false")</p>

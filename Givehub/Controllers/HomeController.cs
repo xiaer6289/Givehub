@@ -48,11 +48,10 @@ public class HomeController : Controller
 
         using (var client = new SmtpClient("sandbox.smtp.mailtrap.io", 2525))
         {
-            client.Credentials = new NetworkCredential("", "");
+            client.Credentials = new NetworkCredential("dd4e1422eddfcd", "e30e080db30291");
             client.EnableSsl = true;
             client.Send(message);
-        }
-        ;
+        };
 
         TempData["Success"] = "Your Request has been sent successfully!";
         return RedirectToAction("Contact");

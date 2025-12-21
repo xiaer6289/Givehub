@@ -32,6 +32,21 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Account/NoPermission";
         options.ExpireTimeSpan = TimeSpan.FromHours(1);
         options.SlidingExpiration = true;
+
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = context =>
+            {
+                var returnUrl = context.Request.Path + context.Request.QueryString;
+
+                var loginUrl =
+                    "/Account/Login?message=pleaseLogin&ReturnUrl=" +
+                    Uri.EscapeDataString(returnUrl);
+
+                context.Response.Redirect(loginUrl);
+                return Task.CompletedTask;
+            }
+        };
     });
 
 var app = builder.Build();

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Generators;
+using Stripe;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,6 +25,7 @@ namespace Givehub.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 
@@ -34,8 +36,13 @@ namespace Givehub.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string message)
         {
+            if (message == "pleaseLogin")
+            {
+                ViewBag.NeedLoginMessage = "Please login first before access this page";
+            }
+
             return View();
         }
 

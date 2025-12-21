@@ -1,9 +1,10 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using Givehub.Models;
+using Givehub.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text.Json;
-using Givehub.Models;
-using Givehub.Models.ViewModels;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Givehub.Controllers
 {
@@ -17,6 +18,7 @@ namespace Givehub.Controllers
             _db = db;
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Items(ItemDonationViewModel model)
         {
@@ -42,7 +44,8 @@ namespace Givehub.Controllers
 
             return RedirectToAction("Summary");
         }
-            
+
+        [Authorize]
         public IActionResult Summary()
         {
             if (TempData["Donation"] == null  || TempData["DoneeId"] == null)
@@ -81,7 +84,7 @@ namespace Givehub.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Confirm()
 
@@ -131,7 +134,7 @@ namespace Givehub.Controllers
             TempData.Remove("Donation"); // clear temporary data
             return RedirectToAction("Success", "Items");
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Cancel()
         {
@@ -140,6 +143,7 @@ namespace Givehub.Controllers
             return RedirectToAction("Items", new { doneeId });
         }
 
+        [Authorize]
         public IActionResult Items(int doneeId)
         {
             var donee = _db.Donees.FirstOrDefault(d => d.Id == doneeId);

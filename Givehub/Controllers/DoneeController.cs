@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Givehub.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class DoneeController : Controller
     {
         private readonly DB _context;
@@ -20,11 +19,13 @@ namespace Givehub.Controllers
             _helper = helper;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateDonee()
         {
             return View(new DoneeVM());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateDonee(DoneeVM vm)
@@ -77,6 +78,7 @@ namespace Givehub.Controllers
             return Json(true);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult DoneeHomePage(string search, string category, int page = 1)
         {
             int pageSize = 8;
@@ -113,7 +115,7 @@ namespace Givehub.Controllers
             return View(donees);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult EditDonee(int id)
         {
             var donee = _context.Donees.Find(id);
@@ -135,7 +137,7 @@ namespace Givehub.Controllers
             return View(vm);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> EditDonee(DoneeVM vm)
         {
@@ -172,7 +174,7 @@ namespace Givehub.Controllers
 
 
 
-        [AllowAnonymous]
+        [Authorize]
         public IActionResult ViewDonee(int id, string mode)
         {
             var donee = _context.Donees.Find(id);
@@ -205,7 +207,7 @@ namespace Givehub.Controllers
             return View("ViewDonee.User", vm);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteDonee(int id)
