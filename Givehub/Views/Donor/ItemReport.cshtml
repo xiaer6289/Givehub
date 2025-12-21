@@ -37,9 +37,9 @@
             {
                 var item = Model.Donations[i];
                 <tr>
-                    <td>@(i + 1)</td>
-                    <td>@item.Donees?.Name</td>
-                    <td>
+                    <td style="border:none;">@(i + 1)</td>
+                    <td style="border:none;">@item.Donees?.Name</td>
+                    <td style="border:none;">
                         @if (item.Items != null)
                         {
                             foreach (var entry in item.Items)
@@ -52,7 +52,7 @@
                             }
                         }
                     </td>
-                    <td>
+                    <td style="border:none;">
                         @if (item.Items != null)
                         {
                             foreach (var entry in item.Items)

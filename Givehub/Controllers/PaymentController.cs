@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Givehub.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Stripe;
@@ -13,24 +15,48 @@ public class PaymentController : Controller
 {
     private readonly StripeSettings _stripeSettings;
     private readonly DB _db;
-    //private readonly Helper _helper;
+    private readonly Helpers.Helper _helper;
 
-    public PaymentController(IOptions<StripeSettings> stripeSettings, DB db)
+    public PaymentController(IOptions<StripeSettings> stripeSettings, DB db, Helpers.Helper helper)
     {
         _stripeSettings = stripeSettings.Value;
         _db = db;
+        _helper = helper;
     }
 
-    public IActionResult Payment()
+    public IActionResult Payment(int doneeId)
     {
+        var donorId = _helper.GetLoggedDonorId();
+        if (donorId == 0)
+        {
+            TempData["Error"] = "Please log in as a donor first.";
+            return RedirectToAction("Login", "Account");
+        }
+
+        var donee = _db.Donees.Find(doneeId);
+        if (donee == null)
+        {
+            return NotFound();
+        }
+
+        ViewBag.DoneeName = donee.Name;
+        ViewBag.DonorId = donorId;
+        ViewBag.DoneeId = doneeId;
+
         return View();
     }
 
-    public IActionResult CreateCheckoutSession(string amount)
+    [HttpPost]
+    public IActionResult CreateCheckoutSession(string amount, int donorId, int doneeId)
     {
         var currency = "myr";
-        var successUrl = "http://localhost:7198/Payment/Success";
+        var successUrl =
+            $"https://localhost:7198/Payment/Success" +
+            $"?sessionId={{CHECKOUT_SESSION_ID}}" +
+            $"&donorId={donorId}" +
+            $"&doneeId={doneeId}";
         var cancelUrl = "http://localhost:7198/Payment/Cancel";
+
         StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
 
         var options = new SessionCreateOptions
@@ -50,11 +76,9 @@ public class PaymentController : Controller
                             Description = "Thank you for your donation!"
                         }
                     },
-                Quantity = 1
+                    Quantity = 1
                 }
             },
-
-        
             Mode = "payment",
             SuccessUrl = successUrl,
             CancelUrl = cancelUrl
@@ -65,34 +89,50 @@ public class PaymentController : Controller
         return Redirect(session.Url);
     }
 
-    public async Task<IActionResult> success(string sessionId, int donorId, int doneeId)
+    [HttpGet]
+    public async Task<IActionResult> Success(string sessionId, int donorId, int doneeId)
     {
-        var service = new SessionService();
-        var session = await service.GetAsync(sessionId);
-
-        var donor = await _db.Donors.FindAsync(donorId);
-        var donee = await _db.Donees.FindAsync(doneeId);
-        
-        if (donor == null || donee == null)
+        Console.WriteLine("Success action HIT");
+        try
         {
-            return View("Index", "Home");
+            StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
+
+            var service = new SessionService();
+            var session = await service.GetAsync(sessionId);
+
+            var donor = await _db.Donors.FindAsync(donorId);
+            var donee = await _db.Donees.FindAsync(doneeId);
+
+            if (donor == null || donee == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var donation = new Donation
+            {
+                Method = "Stripe",
+                Amount = session.AmountTotal / 100m,
+                Date = DateTime.Now,
+                StripeTransactionId = session.PaymentIntentId,
+                Status = "Completed",
+                DonorId = donor.Id,
+                DoneeId = donee.Id,
+                Donors = donor,
+                Donees = donee
+            };
+
+            _db.Donations.Add(donation);
+            await _db.SaveChangesAsync();
+
+            // Return Success view, not Index view!
+            return View();
         }
-
-        var donation = new Donation
+        catch (Exception ex)
         {
-            Method = "Stripe",
-            Amount = session.AmountTotal / 100m,
-            Date = DateTime.Now,
-            StripeTransactionId = session.PaymentIntentId,
-            DonorId = donor.Id,
-            DoneeId = donee.Id,
-            Donors = donor,
-            Donees = donee
-        };
-
-        _db.Donations.Add(donation);
-        await _db.SaveChangesAsync();
-        return View("Index");
+            // Log the error
+            Console.WriteLine("Error in Success: " + ex.Message);
+            return RedirectToAction("Index", "Home");
+        }
     }
 
     public IActionResult cancel()

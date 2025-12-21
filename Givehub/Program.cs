@@ -12,7 +12,7 @@ builder.Services.AddScoped<Givehub.Helpers.Helper>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DB>();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddSession();
+builder.Services.AddDistributedMemoryCache();
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
 builder.Services.AddSession(options =>
 {
@@ -52,8 +52,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseRouting();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapDefaultControllerRoute();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.Run();

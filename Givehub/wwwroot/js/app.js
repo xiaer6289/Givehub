@@ -16,12 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    if (amountInput.value <= 0 || amountInput.value === '') {
+    if (amountInput.value < 10 || amountInput.value === '') {
         checkoutBtn.disabled = true;
     }
 
     amountInput.addEventListener('input', function () {
-        if (this.value <= 0 || this.value === '') {
+        if (this.value < 10 || this.value === '') {
             checkoutBtn.disabled = true;
         } else {
             checkoutBtn.disabled = false;

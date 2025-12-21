@@ -1,3 +1,16 @@
 ﻿@{
-    ViewBag.Title = "Donation Successful";
+    ViewBag.Title = "Thank You!";
+    Layout = "_EmptyLayout";
 }
+
+<div class="container" style="text-align: center; padding: 50px;">
+    <h1 style="color: green;">✓ Donation Successful!</h1>
+    <p>Thank you for your generous donation.</p>
+    <p>Your payment has been processed successfully.</p>
+
+    <div style="margin-top: 30px; overflow: hidden;">
+        <a asp-controller="Home" asp-action="Index">
+            Return to Home
+        </a>
+    </div>
+</div>

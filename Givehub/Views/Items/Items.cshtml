@@ -52,7 +52,7 @@
             }
             <div class="delivery-date">
                 <label type="date">Select delivery date:</label>
-                <input type="datetime-local" asp-for="Donation.DeliveryDate" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" required />
+                <input type="datetime-local" asp-for="Donation.DeliveryDate" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" required value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
             </div>
             <div class="button-section">
                 <button class="add-more-button" id="add-more-button">

@@ -38,11 +38,11 @@
             @for (int i = 0; i < Model.Donations.Count; i++)
             {
                 var donation = Model.Donations[i];
-                <tr>
-                    <td>@(i + 1)</td>
-                    <td>@donation.Donees?.Name</td>
-                    <td>@donation.Date.ToString("yyyy-MM-dd")</td>
-                    <td>@donation.Amount?.ToString("F2")</td>
+                <tr style="border: none;">
+                    <td style="border: none;">@(i + 1)</td>
+                    <td style="border: none;">@donation.Donees?.Name</td>
+                    <td style="border: none;">@donation.Date.ToString("yyyy-MM-dd")</td>
+                    <td style="border: none;">@donation.Amount?.ToString("F2")</td>
                 </tr>
             }
             @{
@@ -50,7 +50,7 @@
             }
 
             <tr>
-                <td colspan="3" style="text-align: right;">Total Amount:</td>
+                <td colspan="3" style="text-align: right; border: none;">Total Amount:</td>
                 <td>@totalAmount.ToString("F2")</td>
             </tr>
         </tbody>

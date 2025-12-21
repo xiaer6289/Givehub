@@ -4,6 +4,8 @@
 }
 
 <form class="payment-container" asp-controller="Payment" asp-action="CreateCheckoutSession">
+    <input type="hidden" name="donorId" value="@ViewBag.DonorId" />
+    <input type="hidden" name="doneeId" value="@ViewBag.DoneeId" />
     <div class="payment-header">
         Make a Donation
     </div>
@@ -12,7 +14,7 @@
     </div>
     <div class="payment-input">
         <span class="currency-symbol">RM</span>
-        <input type="number" placeholder="0" class="amount-input" autofocus min="1" name="amount" value="" id="amountInput"required />
+        <input type="number" placeholder="0" class="amount-input" autofocus min="10" name="amount" value="" id="amountInput"required />
     </div>
     <div class="payment-btn-grp">
         <a asp-controller="Home" asp-action="Index" class="cancel-payment-btn">Cancel</a>
