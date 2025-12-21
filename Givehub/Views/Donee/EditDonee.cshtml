@@ -34,10 +34,11 @@
         </div>
 
         <div class="input-wrapper">
-            <label for="requirement">Requirements: </label>
-            <input type="text"id="requirement"name="Requirements"class="donee-input"
-            value="@string.Join(", ", Model.Requirements ?? new List<string>())"placeholder="Rice 10kg,Panadol 3 boxes,Trash bags (L) – 2 rolls" />
-            <span asp-validation-for="Requirements" class="text-danger"></span>
+            <label for="requirement">Requirements:</label>
+            <input asp-for="RequirementsInput"
+                   class="donee-input"
+                   placeholder="Rice 10kg, Panadol 3 boxes, Trash bags (L) – 2 rolls" />
+            <span asp-validation-for="RequirementsInput" class="text-danger"></span>
         </div>
 
         <div class="input-wrapper">

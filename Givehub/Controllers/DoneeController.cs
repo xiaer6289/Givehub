@@ -33,17 +33,34 @@ namespace Givehub.Controllers
             if (!ModelState.IsValid)
                 return View(vm);
 
+            if (vm.ImageFile == null || vm.ImageFile.Length == 0)
+            {
+                ModelState.AddModelError("ImageFile", "Please upload an image.");
+                return View(vm);
+            }
+
+            var requirements = vm.RequirementsInput?
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(r => r.Trim())
+                .Where(r => !string.IsNullOrWhiteSpace(r))
+                .ToList();
+
+            if (requirements == null || !requirements.Any())
+            {
+                ModelState.AddModelError("RequirementsInput", "Please enter at least one requirement.");
+                return View(vm);
+            }
+
             var donee = new Donee
             {
                 Name = vm.Name,
                 Category = vm.Category,
                 Address = vm.Address,
-                Requirements = vm.Requirements != null ? string.Join(",", vm.Requirements) : null,
+                Requirements = string.Join(", ", requirements),
                 Description = vm.Description,
                 Date = DateTime.Now,
                 AdminId = 1
             };
-
             if (vm.ImageFile != null && vm.ImageFile.Length > 0)
             {
                 string error = _helper.ValidatePhoto(vm.ImageFile);
@@ -64,13 +81,14 @@ namespace Givehub.Controllers
         }
 
         [AcceptVerbs("Get", "Post")]
-        public IActionResult CheckNameExists(string name, int id)
+        public IActionResult CheckNameExists(string name, int? id)
         {
             if (string.IsNullOrWhiteSpace(name))
                 return Json(true);
 
-            var exists = _context.Donees
-                .Any(d => d.Name.ToLower() == name.ToLower() && d.Id != id);
+            var exists = _context.Donees.Any(d =>
+        d.Name.ToLower() == name.ToLower()
+        && d.Id != (id ?? 0));
 
             if (exists)
                 return Json($"The name '{name}' already exists in our system.");
@@ -127,10 +145,7 @@ namespace Givehub.Controllers
                 Name = donee.Name,
                 Category = donee.Category,
                 Address = donee.Address,
-                Requirements = string.IsNullOrEmpty(donee.Requirements)
-                       ? new List<string>()
-                       : donee.Requirements.Split(',').Select(r => r.Trim()).ToList(),
-                Description = donee.Description,
+                RequirementsInput = donee.Requirements,
                 Image = donee.Image
             };
 
@@ -141,6 +156,21 @@ namespace Givehub.Controllers
         [HttpPost]
         public async Task<IActionResult> EditDonee(DoneeVM vm)
         {
+            if (!ModelState.IsValid)
+        return View(vm);
+
+    var requirements = vm.RequirementsInput?
+        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+        .Select(r => r.Trim())
+        .Where(r => !string.IsNullOrWhiteSpace(r))
+        .ToList();
+
+    if (requirements == null || !requirements.Any())
+    {
+        ModelState.AddModelError("RequirementsInput", "Please enter at least one requirement.");
+        return View(vm);
+    }
+
             var existing = await _context.Donees.FindAsync(vm.Id);
 
             if (existing == null)
@@ -149,7 +179,7 @@ namespace Givehub.Controllers
             existing.Name = vm.Name;
             existing.Category = vm.Category;
             existing.Address = vm.Address;
-            existing.Requirements = string.Join(", ", vm.Requirements ?? new List<string>());
+            existing.Requirements = string.Join(", ", requirements);
             existing.Description = vm.Description;
 
 
@@ -195,15 +225,12 @@ namespace Givehub.Controllers
                 Date = donee.Date
             };
 
-            // 🔥 FORCE user view when coming from Home
             if (mode == "user")
                 return View("ViewDonee.User", vm);
 
-            // Admin pages
             if (User.IsInRole("Admin"))
                 return View("ViewDonee.Admin", vm);
 
-            // Default
             return View("ViewDonee.User", vm);
         }
 
